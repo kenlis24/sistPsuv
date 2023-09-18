@@ -165,10 +165,12 @@
       if(jsonDataCNE.tipo=='OBJETADO')
       {
         alert(jsonDataCNE.mensaje+"\nDebe Cargar los datos de la persona");
+        document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
       } 
       if(jsonDataCNE.tipo=='NO INSCRITO')
       {
         alert(jsonDataCNE.mensaje+"\nDebe Cargar los datos de la persona");
+        document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
       } 
       if(jsonDataCNE.tipo=='INSCRITO')
       {
