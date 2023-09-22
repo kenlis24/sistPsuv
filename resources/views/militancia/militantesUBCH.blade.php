@@ -47,7 +47,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Eventos</label>
-                <select class="form-control" name="mil_eve_id">
+                <select class="form-control" name="mil_eve_id" id="mil_eve_id">
                   <option value="">Selecciona el evento</option>
                   @foreach ($reuniones as $item)
                     <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
@@ -57,10 +57,15 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="form-group">
                 <label>Fecha</label>
-                <input type="date" class="form-control" name="mil_fecha">
+                <input type="date" class="form-control" name="mil_fecha" id="mil_fecha">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <button type="button" class="btn btn-primary btn-round"  name="consultar" id="consultar" background: none;" onclick="consultarLista()">Consultar lista</button>
               </div>
             </div>
           </div>   
@@ -134,17 +139,66 @@
               <button type="submit" class="btn btn-primary btn-round">Guardar</button>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="">
+                  <table class="table table-striped table-bordered nowrap" style="width:100%">
+                    <thead class=" text-primary">
+                      <th>
+                        Nac
+                      </th>
+                      <th>
+                        Cedula
+                      </th>
+                      <th>
+                        Nombres
+                      </th>
+                      <th>
+                        Apellidos
+                      </th>
+                      <th>
+                        Telefono
+                      </th>
+                    </thead>
+                    <tbody id="tableLista">
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>   
+                            </tr>
+                        
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
         </form>
       </div>
     </div>
 </div>
 </div>
+
 </div>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
 
 <script>
-  const $select = document.querySelector("#_municipios");
-  loadParroquias($select);
+  const $selectOption = document.querySelector("#_municipios");   
+  const $select = document.getElementById("_municipios").value;  
+  if($select>1)
+  {
+    loadParroquias($selectOption);
+  } 
 
   function consultarced(i)
   {
@@ -160,6 +214,35 @@
       })
   }
 
+  function consultarLista()
+  {
+    var fecha = document.getElementById("mil_fecha").value;
+    var evento = document.getElementById("mil_eve_id").value;
+    var ubch = document.getElementById("ubchSelect").value;
+    
+    fetch(`tableMilitancia/${ubch}/${fecha}/${evento}/militanciaUBCH`)
+      .then( function (response) { 
+        return response.json();
+      })
+      .then(function(jsonDataLista){
+        buildDataLista(jsonDataLista);
+      })
+  }
+
+  function buildDataLista(jsonDataLista)
+    { 
+      console.log(jsonDataLista);
+      jsonDataLista.forEach(function (lista) {   
+        $('#tableLista').append(
+        `<tr> 
+          <td> `+lista.mil_nac+` </td>  
+          <td> `+lista.mil_cedula+` </td>  
+          <td> `+lista.mil_nombres+` </td>    
+          <td> `+lista.mil_apellidos+` </td>   
+          <td> `+lista.mil_telefono+` </td>      
+         </tr>`);
+      });
+    }
   function buildDataCNE(jsonDataCNE,i)
     {    
       if(jsonDataCNE.tipo=='OBJETADO')
@@ -198,6 +281,7 @@
   function loadParroquias(selectMunicipios)
   {
     let municipioId = selectMunicipios.value;
+    
     fetch(`municipios/${municipioId}/parroquias`)
       .then( function (response) { 
         return response.json();
@@ -210,9 +294,10 @@
 
     function buildParroquiasSelect(jsonParroquias)
     {
-      let parroquiasSelect = document.getElementById('parSelect');
+      let parroquiasSelect = document.getElementById('parSelect');      
       clearSelectParroquias(parroquiasSelect);
       clearSelectUBCH(ubchSelect);
+      
       jsonParroquias.forEach(function (parr) {
         let optionTag = document.createElement('option');
         optionTag.value = parr.id;

@@ -3,6 +3,7 @@
 use App\Models\agrupaciones;
 use App\Models\municipios;
 use App\Models\parroquias;
+use App\Models\militancias;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,7 +56,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/storereu', 'ReunionesController@store')->name('reuniones.store');
         Route::get('/militantUBC', 'MilitanciaController@index')->name('militancia.militantesUBH');
         Route::post('/storemilitantUBC', 'MilitanciaController@store')->name('militancia.store');
-        
+
+        Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/militanciaUBCH', function ($tipo,$fecha,$evento) {
+
+            return $militancias = Militancias::join("eventos", "eventos.id", "=", "militancias.mil_eve_id")
+            ->join("agrupaciones", "agrupaciones.id", "=", "militancias.mil_id")
+            ->select("militancias.id","militancias.mil_nac","militancias.mil_cedula","militancias.mil_nombres","militancias.mil_apellidos","militancias.mil_telefono","agrupaciones.agr_nombre","eventos.eve_nombre")
+            ->where('militancias.mil_fecha', '=', $fecha)
+            ->where('militancias.mil_id', '=', $tipo)
+            ->where('militancias.mil_eve_id', '=', $evento)
+            ->get();  
+        });
         Route::get('/municipios/{id}/parroquias', function ($id) {
 
             $id=$id-1;
@@ -121,7 +132,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                     }   
             else {
             $cn = explode('-', substr(trim($info[1]), 0, -6));
-            $result = str_replace(array("DE LA", "DE LOS", "DE", "Estado"), '', trim($info[2]));
+            $result = str_replace(array("Estado"), '', trim($info[2]));
             //$result = preg_replace('([^A-Za-z0-9 ])', ' ', trim($result));
             $result = str_replace(array("  "), ' ', $result);
             $municipioPer = str_replace(array("\n", "\t", "Parroquia"), '',trim($info[4]));

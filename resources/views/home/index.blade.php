@@ -57,6 +57,7 @@
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6">
+      <a href="{{ route('militancia.militantesUBH') }}">
       <div class="card card-stats">
         <div class="card-body ">
           <div class="row">
@@ -66,10 +67,12 @@
               </div>
             </div>
             <div class="col-7 col-md-8">
-              <div class="numbers">
-                <p class="card-category">UBCH</p>
-                <p class="card-title"><p>
-              </div>
+              
+                <div class="numbers" >
+                  <p class="card-category">Cargar Asisencia UBCH</p>
+                  <p class="card-title"><p>
+                </div>
+             
             </div>
           </div>
         </div>
@@ -77,10 +80,11 @@
           <hr>
           <div class="stats">
             <i class="fa fa-refresh"></i>
-            
+            Asistentes UBCH.
           </div>
         </div>
       </div>
+    </a>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">

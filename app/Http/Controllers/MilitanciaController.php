@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\reuniones;
 use App\Models\municipios;
 use App\Models\militancias;
+use Illuminate\Support\Facades\DB;
 
 class MilitanciaController extends Controller
 {
@@ -61,7 +62,23 @@ class MilitanciaController extends Controller
             $input['mil_id'] = $ubch;
             $input['mil_usua_crea'] = $request->mil_usua_crea[$key];
             $input['mil_eve_id'] = $eve;
-            Militancias::create($input);
+            $existencia = DB::table('militancias')
+            ->select('id')
+            ->where('mil_nac', '=', $input['mil_nac'])
+            ->where('mil_cedula', '=', $input['mil_cedula'])
+            ->where('mil_fecha', '=', $input['mil_fecha'])
+            ->where('mil_id', '=', $input['mil_id'])
+            ->where('mil_eve_id', '=', $input['mil_eve_id'])
+            ->get();            
+            if(count($existencia) >= 1) 
+            {
+                $exist = 'si';
+            }
+            else
+            {
+                Militancias::create($input);
+            }
+            
         }
         return redirect('/militantUBC');
     }
@@ -110,6 +127,4 @@ class MilitanciaController extends Controller
     {
         //
     }
-
-    
 }
