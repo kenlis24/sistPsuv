@@ -25,6 +25,15 @@ class MilitanciaController extends Controller
         return view('militancia.militantesUBCH', compact('municipios'), compact('reuniones'));
     }
 
+    public function index2()
+    {
+        $municipios = municipios::all();  
+        $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
+        ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
+        ->where("reuniones.reu_tipo","4")   
+        ->get();     
+        return view('militancia.militantesComunidades', compact('municipios'), compact('reuniones'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -44,8 +53,9 @@ class MilitanciaController extends Controller
     public function store(Request $request)
     {
         $fecha = $request->mil_fecha;
-        $ubch = $request->mil_id;
+        $tipo = $request->mil_id;        
         $eve = $request->mil_eve_id;
+        $tipoPag = $request->mil_tipo_nivel;
 
         foreach ($request->inputsCed as $key => $value)
         {
@@ -59,7 +69,8 @@ class MilitanciaController extends Controller
             $input['mil_centro'] = $request->mil_centro_usua[$key];
             $input['mil_tipo_reg'] = $request->mil_tipo_reg[$key];
             $input['mil_fecha'] = $fecha;
-            $input['mil_id'] = $ubch;
+            $input['mil_id'] = $tipo;
+            $input['mil_tipo_nivel'] = $tipoPag;
             $input['mil_usua_crea'] = $request->mil_usua_crea[$key];
             $input['mil_eve_id'] = $eve;
             $existencia = DB::table('militancias')
@@ -69,6 +80,7 @@ class MilitanciaController extends Controller
             ->where('mil_fecha', '=', $input['mil_fecha'])
             ->where('mil_id', '=', $input['mil_id'])
             ->where('mil_eve_id', '=', $input['mil_eve_id'])
+            ->where('mil_tipo_nivel', '=', $input['mil_tipo_nivel'])
             ->get();            
             if(count($existencia) >= 1) 
             {
@@ -80,7 +92,15 @@ class MilitanciaController extends Controller
             }
             
         }
-        return redirect('/militantUBC');
+        if($tipoPag=='ubch')
+        {
+            return redirect('/militantUBC');
+        }   
+        if($tipoPag=='comunidades')
+        {
+            return redirect('/militantComun');
+        }  
+        
     }
 
     /**

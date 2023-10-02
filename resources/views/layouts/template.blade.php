@@ -100,12 +100,12 @@ Coded by www.creative-tim.com
               <p>Asistencia UBCH</p>
             </a>
           </li>
-          <!--<li class="active-pro">
-            <a href="./upgrade.html">
-              <i class="nc-icon nc-spaceship"></i>
-              <p>Upgrade to PRO</p>
+          <li>
+            <a href="{{ route('militancia.militantesComunidades') }}">
+              <i class="nc-icon nc-paper"></i>
+              <p>Asistencia Comunidades</p>
             </a>
-          </li> -->
+          </li>
         </ul>
       </div>
     </div>

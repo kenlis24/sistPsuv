@@ -9,7 +9,7 @@ class militancias extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['mil_nac','mil_cedula', 'mil_nombres', 'mil_apellidos', 'mil_telefono', 'mil_municipio','mil_parroquia','mil_centro','mil_tipo_reg','mil_fecha', 'mil_id', 'mil_usua_crea', 'mil_eve_id'];
+    protected $fillable = ['mil_nac','mil_cedula', 'mil_nombres', 'mil_apellidos', 'mil_telefono', 'mil_municipio','mil_parroquia','mil_centro','mil_tipo_reg','mil_fecha', 'mil_id', 'mil_tipo_nivel','mil_usua_crea', 'mil_eve_id'];
 
     
     public function evento()

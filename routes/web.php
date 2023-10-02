@@ -4,6 +4,7 @@ use App\Models\agrupaciones;
 use App\Models\municipios;
 use App\Models\parroquias;
 use App\Models\militancias;
+use App\Models\comunidades;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Home Routes
      */
-    //Route::get('/', 'HomeController@index')->name('home.index');
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    /*Route::get('/login', function () {
+        return view('auth.login');
+    });*/
 
     Route::group(['middleware' => ['guest']], function() {
         /**
@@ -56,6 +62,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/storereu', 'ReunionesController@store')->name('reuniones.store');
         Route::get('/militantUBC', 'MilitanciaController@index')->name('militancia.militantesUBH');
         Route::post('/storemilitantUBC', 'MilitanciaController@store')->name('militancia.store');
+        Route::get('/militantComun', 'MilitanciaController@index2')->name('militancia.militantesComunidades');
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/militanciaUBCH', function ($tipo,$fecha,$evento) {
 
@@ -80,6 +87,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             $id=$id;
             $parroquias = parroquias::find($id);
             return agrupaciones::where('agr_par_id',$parroquias->id)
+            ->get();
+        });
+
+        Route::get('/ubch/{id}/comunidades', function ($id) {
+
+            $id=$id;
+            $ubch = agrupaciones::find($id);
+            return comunidades::where('com_agr_id',$ubch->id)
             ->get();
         });
 

@@ -6,7 +6,7 @@
 <div class="col-md-12">
     <div class="card card-user">
       <div class="card-header">
-        <h5 class="card-title">Cargar Asistencia de UBCH</h5>
+        <h5 class="card-title">Cargar Asistencia de Comunidades</h5>
       </div>
       <div class="card-body">
         <form method="post" action="{{ route('militancia.store') }}">
@@ -18,7 +18,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Municipios del estado Táchira</label>
-                <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="ubch"/>
+                <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="comunidades"/>
                 <select class="form-control" name="municipios_id" id="_municipios" onchange="loadParroquias(this)" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }}>
                   <option value="">Selecciona el municipio</option>
                   @foreach ($municipios as $item)
@@ -40,16 +40,16 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>UBCH del estado Táchira</label>
-                <select class="form-control" name="mil_id" id="ubchSelect">  
+                <select class="form-control" id="ubchSelect" onchange="loadComunidades(this)">  
                   <option value="">Selecciona la UBCH</option>       
                 </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label>Eventos</label>
-                <select class="form-control" name="mil_eve_id" id="mil_eve_id">
-                  <option value="">Selecciona el evento</option>
+                <label>Comunidades</label>
+                <select class="form-control" name="mil_id" id="comunSelect">
+                  <option value="">Selecciona la comunidad</option>
                   @foreach ($reuniones as $item)
                     <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
                   @endforeach
@@ -60,16 +60,29 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Fecha</label>
-                <input type="date" class="form-control" name="mil_fecha" id="mil_fecha">
+                <label>Eventos</label>
+                <select class="form-control" name="mil_eve_id" id="mil_eve_id">
+                  <option value="">Selecciona la Evento</option>
+                  @foreach ($reuniones as $item)
+                    <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
+                  @endforeach
+                </select>
               </div>
             </div>
             <div class="col-md-6">
-              <div class="form-group">
-                <button type="button" class="btn btn-primary btn-round background: none;"  name="consultar" id="consultar"  onclick="consultarLista()">Consultar lista</button>
-              </div>
+                <div class="form-group">
+                    <label>Fecha</label>
+                    <input type="date" class="form-control" name="mil_fecha" id="mil_fecha">
+                </div>
             </div>
           </div>   
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <button type="button" class="btn btn-primary btn-round background: none;"  name="consultar" id="consultar" onclick="consultarLista()">Consultar lista</button>
+              </div>
+            </div>
+          </div> 
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -100,7 +113,7 @@
                   <tbody>
                     <tr>
                       <td>
-                        <select class="form-control" name="inputsNac[0]" id="inputsNac[0]">                          
+                        <select class="form-control" name="inputsNac[0]" id="inputsNac[0]">
                           <option value="V">V</option>   
                           <option value="E">E</option>       
                         </select>
@@ -117,7 +130,7 @@
                         <input type="hidden" name="mil_parr_usua[0]" id="mil_parr_usua[0]"/>     
                         <input type="hidden" name="mil_centro_usua[0]" id="mil_centro_usua[0]"/> 
                         <input type="hidden" name="mil_tipo_reg[0]" id="mil_tipo_reg[0]"/>  
-                        <input type="hidden" name="mil_usua_crea[0]" id="mil_usua_crea[0]" value="{{ $usu }}"/>         
+                        <input type="hidden" name="mil_usua_crea[0]" id="mil_usua_crea[0]" value="{{ $usu }}"/>          
                       </td>                      
                       <td>
                         <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Apellidos" name="inputsApellido[0]" id="inputsApellido[0]">
@@ -297,6 +310,7 @@
       let parroquiasSelect = document.getElementById('parSelect');      
       clearSelectParroquias(parroquiasSelect);
       clearSelectUBCH(ubchSelect);
+      clearSelectComunindades(comunSelect);
       
       jsonParroquias.forEach(function (parr) {
         let optionTag = document.createElement('option');
@@ -326,10 +340,36 @@
       })
     }
 
+    function loadComunidades(selectUBCH)
+  {
+    let ubchaId = selectUBCH.value;
+    fetch(`ubch/${ubchaId}/comunidades`)
+      .then( function (response) { 
+        return response.json();
+      })
+
+      .then(function(jsonData){
+        buildComunidadesSelect(jsonData);
+      })
+    }
+
+    function buildComunidadesSelect(jsonComun)
+    {
+      let ComunSelect = document.getElementById('comunSelect');
+      clearSelectComunindades(comunSelect);
+      jsonComun.forEach(function (comun) {
+        let optionTag = document.createElement('option');
+        optionTag.value = comun.id;
+        optionTag.innerHTML = comun.com_nombre;
+        comunSelect.append(optionTag);
+      });
+    }
+
     function buildUBCHSelect(jsonUBCH)
     {
       let UBCHSelect = document.getElementById('ubchSelect');
       clearSelectUBCH(ubchSelect);
+      clearSelectComunindades(comunSelect);
       jsonUBCH.forEach(function (ubch) {
         let optionTag = document.createElement('option');
         optionTag.value = ubch.id;
@@ -345,6 +385,12 @@
       }
     }  
 
+    function clearSelectComunindades(select)
+    {
+      while(select.options.length > 1){
+        select.remove(1);
+      }
+    }  
     
     var i = 0;
     $('#add').click(function(){
@@ -369,7 +415,7 @@
                         <input type="hidden" name="mil_parr_usua[`+i+`]" id="mil_parr_usua[`+i+`]"/>     
                         <input type="hidden" name="mil_centro_usua[`+i+`]" id="mil_centro_usua[`+i+`]"/> 
                         <input type="hidden" name="mil_tipo_reg[`+i+`]" id="mil_tipo_reg[`+i+`]"/>  
-                        <input type="hidden" name="mil_usua_crea[`+i+`]" id="mil_usua_crea[`+i+`]" value="{{ $usu }}"/>        
+                        <input type="hidden" name="mil_usua_crea[`+i+`]" id="mil_usua_crea[`+i+`]" value="{{ $usu }}"/>          
                       </td>
                       <td>
                         <input type="text" class="form-control" placeholder="Apellidos" name="inputsApellido[`+i+`]" id="inputsApellido[`+i+`]">
