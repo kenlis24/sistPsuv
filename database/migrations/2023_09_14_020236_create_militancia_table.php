@@ -27,6 +27,7 @@ return new class extends Migration
             $table->date('mil_fecha');
             $table->unsignedBigInteger('mil_id');
             $table->string('mil_tipo_nivel', 100);
+            $table->string('mil_lugar', 500);
             $table->string('mil_usua_crea', 100);
             $table->unsignedBigInteger('mil_eve_id');
             $table->foreign('mil_eve_id')

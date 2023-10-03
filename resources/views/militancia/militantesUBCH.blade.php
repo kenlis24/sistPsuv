@@ -66,10 +66,18 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <button type="button" class="btn btn-primary btn-round background: none;"  name="consultar" id="consultar"  onclick="consultarLista()">Consultar lista</button>
+                <label>Lugar</label>
+                <textarea cols="50" rows="2" class="form-control" name="mil_lugar" placeholder="Lugar" required></textarea>
               </div>
             </div>
           </div>   
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <button type="button" class="btn btn-primary btn-round background: none;"  name="consultar" id="consultar"  onclick="consultarLista()">Consultar lista</button>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">

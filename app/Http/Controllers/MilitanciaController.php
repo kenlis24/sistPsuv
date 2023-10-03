@@ -56,6 +56,7 @@ class MilitanciaController extends Controller
         $tipo = $request->mil_id;        
         $eve = $request->mil_eve_id;
         $tipoPag = $request->mil_tipo_nivel;
+        $Lugar = $request->mil_lugar;
 
         foreach ($request->inputsCed as $key => $value)
         {
@@ -71,6 +72,7 @@ class MilitanciaController extends Controller
             $input['mil_fecha'] = $fecha;
             $input['mil_id'] = $tipo;
             $input['mil_tipo_nivel'] = $tipoPag;
+            $input['mil_lugar'] = $Lugar;
             $input['mil_usua_crea'] = $request->mil_usua_crea[$key];
             $input['mil_eve_id'] = $eve;
             $existencia = DB::table('militancias')
