@@ -242,10 +242,11 @@
     
     fetch(`tableMilitancia/${comun}/${fecha}/${evento}/${pag}/militanciaUBCH`)
       .then( function (response) { 
-        return response.json();
+        return response.json();       
+        //console.log('Value : ' + response.json());
       })
       .then(function(jsonDataLista){
-        buildDataLista(jsonDataLista);
+        buildDataLista(jsonDataLista);        
       })
   }
 
@@ -263,6 +264,7 @@
          </tr>`);
       });
     }
+
   function buildDataCNE(jsonDataCNE,i)
     {    
       if(jsonDataCNE.tipo=='OBJETADO')

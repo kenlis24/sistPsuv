@@ -81,7 +81,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             {
                 return $militancias = Militancias::join("eventos", "eventos.id", "=", "militancias.mil_eve_id")
                 ->join("comunidades", "comunidades.id", "=", "militancias.mil_id")
-                ->select("militancias.id","militancias.mil_nac","militancias.mil_cedula","militancias.mil_nombres","militancias.mil_apellidos","militancias.mil_telefono","agrupaciones.agr_nombre","eventos.eve_nombre")
+                ->select("militancias.id","militancias.mil_nac","militancias.mil_cedula","militancias.mil_nombres","militancias.mil_apellidos","militancias.mil_telefono","comunidades.com_nombre","eventos.eve_nombre")
                 ->where('militancias.mil_fecha', '=', $fecha)
                 ->where('militancias.mil_id', '=', $tipo)
                 ->where('militancias.mil_eve_id', '=', $evento)
@@ -92,7 +92,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         
         Route::get('/municipios/{id}/parroquias', function ($id) {
 
-            $id=$id-1;
             $municipios = municipios::find($id);
             return parroquias::where('par_mun_id',$municipios->id)
             ->get();
