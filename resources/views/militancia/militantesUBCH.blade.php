@@ -232,15 +232,15 @@
     fetch(`tableMilitancia/${ubch}/${fecha}/${evento}/${pag}/militanciaUBCH`)
       .then( function (response) { 
         return response.json();
+
       })
       .then(function(jsonDataLista){
         buildDataLista(jsonDataLista);
       })
   }
 
-  function buildDataLista(jsonDataLista)
-    { 
-      console.log(jsonDataLista);
+  function buildDataLista(jsonDataLista)    { 
+      
       jsonDataLista.forEach(function (lista) {   
         $('#tableLista').append(
         `<tr> 
