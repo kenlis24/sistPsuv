@@ -64,7 +64,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/storemilitantUBC', 'MilitanciaController@store')->name('militancia.store');
         Route::get('/militantComun', 'MilitanciaController@index2')->name('militancia.militantesComunidades');
 
-        Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento) {
+        Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
 
             return $militancias = Militancias::join("eventos", "eventos.id", "=", "militancias.mil_eve_id")
             ->join("agrupaciones", "agrupaciones.id", "=", "militancias.mil_id")
