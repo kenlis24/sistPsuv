@@ -227,8 +227,9 @@
     var fecha = document.getElementById("mil_fecha").value;
     var evento = document.getElementById("mil_eve_id").value;
     var ubch = document.getElementById("ubchSelect").value;
+    var pag = 'ubch';
     
-    fetch(`tableMilitancia/${ubch}/${fecha}/${evento}/militanciaUBCH`)
+    fetch(`tableMilitancia/${ubch}/${fecha}/${evento}/${pag}/militanciaUBCH`)
       .then( function (response) { 
         return response.json();
       })
@@ -255,12 +256,12 @@
     {    
       if(jsonDataCNE.tipo=='OBJETADO')
       {
-        alert(jsonDataCNE.mensaje+"\nDebe Cargar los datos de la persona");
+        alert("\nDebe Cargar los datos de la persona");
         document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
       } 
       if(jsonDataCNE.tipo=='NO INSCRITO')
       {
-        alert(jsonDataCNE.mensaje+"\nDebe Cargar los datos de la persona");
+        alert("\nDebe Cargar los datos de la persona");
         document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
       } 
       if(jsonDataCNE.tipo=='INSCRITO')
