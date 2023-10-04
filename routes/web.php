@@ -66,15 +66,30 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
 
-            return $militancias = Militancias::join("eventos", "eventos.id", "=", "militancias.mil_eve_id")
-            ->join("agrupaciones", "agrupaciones.id", "=", "militancias.mil_id")
-            ->select("militancias.id","militancias.mil_nac","militancias.mil_cedula","militancias.mil_nombres","militancias.mil_apellidos","militancias.mil_telefono","agrupaciones.agr_nombre","eventos.eve_nombre")
-            ->where('militancias.mil_fecha', '=', $fecha)
-            ->where('militancias.mil_id', '=', $tipo)
-            ->where('militancias.mil_eve_id', '=', $evento)
-            ->where('militancias.mil_tipo_nivel', '=', $pag)
-            ->get();  
+            if($pag=='ubch')
+            {
+                return $militancias = Militancias::join("eventos", "eventos.id", "=", "militancias.mil_eve_id")
+                ->join("agrupaciones", "agrupaciones.id", "=", "militancias.mil_id")
+                ->select("militancias.id","militancias.mil_nac","militancias.mil_cedula","militancias.mil_nombres","militancias.mil_apellidos","militancias.mil_telefono","agrupaciones.agr_nombre","eventos.eve_nombre")
+                ->where('militancias.mil_fecha', '=', $fecha)
+                ->where('militancias.mil_id', '=', $tipo)
+                ->where('militancias.mil_eve_id', '=', $evento)
+                ->where('militancias.mil_tipo_nivel', '=', $pag)
+                ->get();  
+            }
+            if($pag=='comunidades')
+            {
+                return $militancias = Militancias::join("eventos", "eventos.id", "=", "militancias.mil_eve_id")
+                ->join("comunidades", "comunidades.id", "=", "militancias.mil_id")
+                ->select("militancias.id","militancias.mil_nac","militancias.mil_cedula","militancias.mil_nombres","militancias.mil_apellidos","militancias.mil_telefono","agrupaciones.agr_nombre","eventos.eve_nombre")
+                ->where('militancias.mil_fecha', '=', $fecha)
+                ->where('militancias.mil_id', '=', $tipo)
+                ->where('militancias.mil_eve_id', '=', $evento)
+                ->where('militancias.mil_tipo_nivel', '=', $pag)
+                ->get();  
+            }
         });
+        
         Route::get('/municipios/{id}/parroquias', function ($id) {
 
             $id=$id-1;
