@@ -34,6 +34,27 @@ class MilitanciaController extends Controller
         ->get();     
         return view('militancia.militantesComunidades', compact('municipios'), compact('reuniones'));
     }
+
+    public function index3()
+    {
+        $municipios = municipios::all();  
+        $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
+        ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
+        ->where("reuniones.reu_tipo","1")   
+        ->get();     
+        return view('militancia.militantesMunicipios', compact('municipios'), compact('reuniones'));
+    }
+
+    public function index4()
+    {
+        $municipios = municipios::all();  
+        $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
+        ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
+        ->where("reuniones.reu_tipo","2")   
+        ->get();     
+        return view('militancia.militantesParroquias', compact('municipios'), compact('reuniones'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -102,6 +123,14 @@ class MilitanciaController extends Controller
         {
             return redirect('/militantComun');
         }  
+        if($tipoPag=='municipios')
+        {
+            return redirect('/militantMunip');
+        } 
+        if($tipoPag=='parroquias')
+        {
+            return redirect('/militantParr');
+        } 
         
     }
 

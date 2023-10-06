@@ -6,7 +6,7 @@
 <div class="col-md-12">
     <div class="card card-user">
       <div class="card-header">
-        <h5 class="card-title">Cargar Asistencia de Comunidades</h5>
+        <h5 class="card-title">Cargar Asistencia de Municipios</h5>
       </div>
       <div class="card-body">
         <form method="post" action="{{ route('militancia.store') }}">
@@ -15,47 +15,18 @@
               $usu = auth()->user()->username;
             @endphp
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="form-group">
                 <label>Municipios del estado Táchira</label>
-                <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="comunidades"/>
-                <select class="form-control" name="municipios_id" id="_municipios" onchange="loadParroquias(this)" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }}>
+                <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="municipios"/>
+                <select class="form-control" name="mil_id" id="munSelect" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }}>
                   <option value="">Selecciona el municipio</option>
                   @foreach ($municipios as $item)
                     <option value="{{ $item->id }}" {{ $item->id == auth()->user()->usu_mun_id  ? 'selected' : '' }}>{{ $item->mun_nombre }}</option>
                   @endforeach
                 </select>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Parroquias del estado Táchira</label>
-                <select class="form-control" name="parroquias_id" id="parSelect" onchange="loadUBCH(this)">  
-                  <option value="">Selecciona la parroquia</option>       
-                </select>
-              </div>
             </div>            
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>UBCH del estado Táchira</label>
-                <select class="form-control" id="ubchSelect" onchange="loadComunidades(this)">  
-                  <option value="">Selecciona la UBCH</option>       
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Comunidades</label>
-                <select class="form-control" name="mil_id" id="comunSelect">
-                  <option value="">Selecciona la comunidad</option>
-                  @foreach ($reuniones as $item)
-                    <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -237,8 +208,8 @@
   {
     var fecha = document.getElementById("mil_fecha").value;
     var evento = document.getElementById("mil_eve_id").value;
-    var comun = document.getElementById("comunSelect").value;
-    var pag = 'comunidades';
+    var comun = document.getElementById("munSelect").value;
+    var pag = 'municipios';
     
     fetch(`tableMilitancia/${comun}/${fecha}/${evento}/${pag}/militanciaUBCH`)
       .then( function (response) { 

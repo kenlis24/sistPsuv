@@ -6,7 +6,7 @@
 <div class="col-md-12">
     <div class="card card-user">
       <div class="card-header">
-        <h5 class="card-title">Cargar Asistencia de Comunidades</h5>
+        <h5 class="card-title">Cargar Asistencia de Parroquias</h5>
       </div>
       <div class="card-body">
         <form method="post" action="{{ route('militancia.store') }}">
@@ -18,7 +18,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Municipios del estado Táchira</label>
-                <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="comunidades"/>
+                <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="parroquias"/>
                 <select class="form-control" name="municipios_id" id="_municipios" onchange="loadParroquias(this)" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }}>
                   <option value="">Selecciona el municipio</option>
                   @foreach ($municipios as $item)
@@ -30,32 +30,11 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Parroquias del estado Táchira</label>
-                <select class="form-control" name="parroquias_id" id="parSelect" onchange="loadUBCH(this)">  
+                <select class="form-control" name="mil_id" id="parSelect">  
                   <option value="">Selecciona la parroquia</option>       
                 </select>
               </div>
             </div>            
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>UBCH del estado Táchira</label>
-                <select class="form-control" id="ubchSelect" onchange="loadComunidades(this)">  
-                  <option value="">Selecciona la UBCH</option>       
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Comunidades</label>
-                <select class="form-control" name="mil_id" id="comunSelect">
-                  <option value="">Selecciona la comunidad</option>
-                  @foreach ($reuniones as $item)
-                    <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -237,10 +216,10 @@
   {
     var fecha = document.getElementById("mil_fecha").value;
     var evento = document.getElementById("mil_eve_id").value;
-    var comun = document.getElementById("comunSelect").value;
-    var pag = 'comunidades';
+    var parr = document.getElementById("parSelect").value;
+    var pag = 'parroquias';
     
-    fetch(`tableMilitancia/${comun}/${fecha}/${evento}/${pag}/militanciaUBCH`)
+    fetch(`tableMilitancia/${parr}/${fecha}/${evento}/${pag}/militanciaUBCH`)
       .then( function (response) { 
         return response.json();       
         //console.log('Value : ' + response.json());
@@ -318,8 +297,6 @@
     {
       let parroquiasSelect = document.getElementById('parSelect');      
       clearSelectParroquias(parroquiasSelect);
-      clearSelectUBCH(ubchSelect);
-      clearSelectComunindades(comunSelect);
       
       jsonParroquias.forEach(function (parr) {
         let optionTag = document.createElement('option');
@@ -336,70 +313,7 @@
       }
     }  
 
-    function loadUBCH(selectParroquias)
-  {
-    let parroquiaId = selectParroquias.value;
-    fetch(`parroquias/${parroquiaId}/agrupaciones`)
-      .then( function (response) { 
-        return response.json();
-      })
 
-      .then(function(jsonData){
-        buildUBCHSelect(jsonData);
-      })
-    }
-
-    function loadComunidades(selectUBCH)
-  {
-    let ubchaId = selectUBCH.value;
-    fetch(`ubch/${ubchaId}/comunidades`)
-      .then( function (response) { 
-        return response.json();
-      })
-
-      .then(function(jsonData){
-        buildComunidadesSelect(jsonData);
-      })
-    }
-
-    function buildComunidadesSelect(jsonComun)
-    {
-      let ComunSelect = document.getElementById('comunSelect');
-      clearSelectComunindades(comunSelect);
-      jsonComun.forEach(function (comun) {
-        let optionTag = document.createElement('option');
-        optionTag.value = comun.id;
-        optionTag.innerHTML = comun.com_nombre;
-        comunSelect.append(optionTag);
-      });
-    }
-
-    function buildUBCHSelect(jsonUBCH)
-    {
-      let UBCHSelect = document.getElementById('ubchSelect');
-      clearSelectUBCH(ubchSelect);
-      clearSelectComunindades(comunSelect);
-      jsonUBCH.forEach(function (ubch) {
-        let optionTag = document.createElement('option');
-        optionTag.value = ubch.id;
-        optionTag.innerHTML = ubch.agr_nombre;
-        ubchSelect.append(optionTag);
-      });
-    }
-
-    function clearSelectUBCH(select)
-    {
-      while(select.options.length > 1){
-        select.remove(1);
-      }
-    }  
-
-    function clearSelectComunindades(select)
-    {
-      while(select.options.length > 1){
-        select.remove(1);
-      }
-    }  
     
     var i = 0;
     $('#add').click(function(){

@@ -95,6 +95,18 @@ Coded by www.creative-tim.com
           </li>
           @endif
           <li>
+            <a href="{{ route('militancia.militantesMunicipios') }}">
+              <i class="nc-icon nc-paper"></i>
+              <p>Asistencia Municipios</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('militancia.militantesParroquias') }}">
+              <i class="nc-icon nc-paper"></i>
+              <p>Asistencia Parroquias</p>
+            </a>
+          </li>
+          <li>
             <a href="{{ route('militancia.militantesUBH') }}">
               <i class="nc-icon nc-paper"></i>
               <p>Asistencia UBCH</p>
