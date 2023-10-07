@@ -26,7 +26,7 @@
                   @endforeach
                 </select>
               </div>
-            </div>            
+            </div>           
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -183,8 +183,8 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
 
 <script>
-  const $selectOption = document.querySelector("#_municipios");   
-  const $select = document.getElementById("_municipios").value;  
+  const $selectOption = document.querySelector("#munSelect");   
+  const $select = document.getElementById("munSelect").value;  
   if($select>1)
   {
     loadParroquias($selectOption);
@@ -208,10 +208,10 @@
   {
     var fecha = document.getElementById("mil_fecha").value;
     var evento = document.getElementById("mil_eve_id").value;
-    var comun = document.getElementById("munSelect").value;
+    var mun = document.getElementById("munSelect").value;
     var pag = 'municipios';
     
-    fetch(`tableMilitancia/${comun}/${fecha}/${evento}/${pag}/militanciaUBCH`)
+    fetch(`tableMilitancia/${mun}/${fecha}/${evento}/${pag}/militanciaUBCH`)
       .then( function (response) { 
         return response.json();       
         //console.log('Value : ' + response.json());
@@ -289,8 +289,6 @@
     {
       let parroquiasSelect = document.getElementById('parSelect');      
       clearSelectParroquias(parroquiasSelect);
-      clearSelectUBCH(ubchSelect);
-      clearSelectComunindades(comunSelect);
       
       jsonParroquias.forEach(function (parr) {
         let optionTag = document.createElement('option');
@@ -307,70 +305,7 @@
       }
     }  
 
-    function loadUBCH(selectParroquias)
-  {
-    let parroquiaId = selectParroquias.value;
-    fetch(`parroquias/${parroquiaId}/agrupaciones`)
-      .then( function (response) { 
-        return response.json();
-      })
 
-      .then(function(jsonData){
-        buildUBCHSelect(jsonData);
-      })
-    }
-
-    function loadComunidades(selectUBCH)
-  {
-    let ubchaId = selectUBCH.value;
-    fetch(`ubch/${ubchaId}/comunidades`)
-      .then( function (response) { 
-        return response.json();
-      })
-
-      .then(function(jsonData){
-        buildComunidadesSelect(jsonData);
-      })
-    }
-
-    function buildComunidadesSelect(jsonComun)
-    {
-      let ComunSelect = document.getElementById('comunSelect');
-      clearSelectComunindades(comunSelect);
-      jsonComun.forEach(function (comun) {
-        let optionTag = document.createElement('option');
-        optionTag.value = comun.id;
-        optionTag.innerHTML = comun.com_nombre;
-        comunSelect.append(optionTag);
-      });
-    }
-
-    function buildUBCHSelect(jsonUBCH)
-    {
-      let UBCHSelect = document.getElementById('ubchSelect');
-      clearSelectUBCH(ubchSelect);
-      clearSelectComunindades(comunSelect);
-      jsonUBCH.forEach(function (ubch) {
-        let optionTag = document.createElement('option');
-        optionTag.value = ubch.id;
-        optionTag.innerHTML = ubch.agr_nombre;
-        ubchSelect.append(optionTag);
-      });
-    }
-
-    function clearSelectUBCH(select)
-    {
-      while(select.options.length > 1){
-        select.remove(1);
-      }
-    }  
-
-    function clearSelectComunindades(select)
-    {
-      while(select.options.length > 1){
-        select.remove(1);
-      }
-    }  
     
     var i = 0;
     $('#add').click(function(){

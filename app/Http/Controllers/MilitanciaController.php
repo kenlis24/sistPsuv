@@ -78,7 +78,7 @@ class MilitanciaController extends Controller
         $eve = $request->mil_eve_id;
         $tipoPag = $request->mil_tipo_nivel;
         $Lugar = $request->mil_lugar;
-
+        
         foreach ($request->inputsCed as $key => $value)
         {
             $input['mil_nac'] = $request->inputsNac[$key];
@@ -89,7 +89,14 @@ class MilitanciaController extends Controller
             $input['mil_municipio'] = $request->mil_mun_usua[$key];
             $input['mil_parroquia'] = $request->mil_parr_usua[$key];
             $input['mil_centro'] = $request->mil_centro_usua[$key];
-            $input['mil_tipo_reg'] = $request->mil_tipo_reg[$key];
+            if($request->mil_tipo_reg[$key]=='')
+            {
+                $input['mil_tipo_reg'] = 'Registro Manual';
+            }
+            else
+            {
+                $input['mil_tipo_reg'] = $request->mil_tipo_reg[$key];
+            }            
             $input['mil_fecha'] = $fecha;
             $input['mil_id'] = $tipo;
             $input['mil_tipo_nivel'] = $tipoPag;
