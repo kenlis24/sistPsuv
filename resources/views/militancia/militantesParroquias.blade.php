@@ -30,7 +30,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Parroquias del estado Táchira</label>
-                <select class="form-control" name="mil_id" id="parSelect">  
+                <select class="form-control" name="mil_id" id="parSelect" required>  
                   <option value="">Selecciona la parroquia</option>       
                 </select>
               </div>
@@ -40,7 +40,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Eventos</label>
-                <select class="form-control" name="mil_eve_id" id="mil_eve_id">
+                <select class="form-control" name="mil_eve_id" id="mil_eve_id" required>
                   <option value="">Selecciona la Evento</option>
                   @foreach ($reuniones as $item)
                     <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
@@ -51,7 +51,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Fecha</label>
-                    <input type="date" class="form-control" name="mil_fecha" id="mil_fecha">
+                    <input type="date" class="form-control" name="mil_fecha" id="mil_fecha" required>
                 </div>
             </div>
           </div>   
@@ -59,7 +59,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Lugar</label>
-                <textarea cols="50" rows="2" class="form-control" name="mil_lugar" placeholder="Lugar" required></textarea>
+                <textarea cols="50" rows="2" class="form-control" name="mil_lugar" placeholder="Lugar" required></textarea required>
               </div>
             </div>
             <div class="col-md-6">
@@ -104,13 +104,13 @@
                         </select>
                       </td>
                       <td>
-                        <input type="text" class="form-control" placeholder="Cedula" name="inputsCed[0]" id="inputsCed[0]">
+                        <input type="text" class="form-control" placeholder="Cedula" name="inputsCed[0]" id="inputsCed[0]" required>
                       </td>
                       <td>  
                         <button type="button" class="nc-icon nc-zoom-split" style="border: none; background: none;" onclick="consultarced(0)"></button>
                       </td>
                       <td>
-                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Nombres" name="inputsNombre[0]" id="inputsNombre[0]">   
+                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Nombres" name="inputsNombre[0]" id="inputsNombre[0]" required>   
                         <input type="hidden" name="mil_mun_usua[0]" id="mil_mun_usua[0]"/>    
                         <input type="hidden" name="mil_parr_usua[0]" id="mil_parr_usua[0]"/>     
                         <input type="hidden" name="mil_centro_usua[0]" id="mil_centro_usua[0]"/> 
@@ -118,10 +118,10 @@
                         <input type="hidden" name="mil_usua_crea[0]" id="mil_usua_crea[0]" value="{{ $usu }}"/>          
                       </td>                      
                       <td>
-                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Apellidos" name="inputsApellido[0]" id="inputsApellido[0]">
+                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Apellidos" name="inputsApellido[0]" id="inputsApellido[0]" required>
                       </td> 
                       <td>
-                        <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[0]">
+                        <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[0]" required>
                       </td> 
                       <td>
                         <button type="button" class="nc-icon nc-simple-add" style="border: none; background: none;" name="add" id="add"></button>
@@ -327,13 +327,13 @@
                         </select>
                       </td>
                       <td>
-                        <input type="text" class="form-control" placeholder="Cedula"  name="inputsCed[`+i+`]" id="inputsCed[`+i+`]">
+                        <input type="text" class="form-control" placeholder="Cedula"  name="inputsCed[`+i+`]" id="inputsCed[`+i+`]" required>
                       </td>
                       <td>                        
                         <button type="button" class="nc-icon nc-zoom-split" style="border: none; background: none;" onclick="consultarced(`+i+`)"></button>
                       </td>
                       <td>
-                        <input type="text" class="form-control" placeholder="Nombres" name="inputsNombre[`+i+`]" id="inputsNombre[`+i+`]">
+                        <input type="text" class="form-control" placeholder="Nombres" name="inputsNombre[`+i+`]" id="inputsNombre[`+i+`]" required>
                         <input type="hidden" name="mil_mun_usua[`+i+`]" id="mil_mun_usua[`+i+`]"/>    
                         <input type="hidden" name="mil_parr_usua[`+i+`]" id="mil_parr_usua[`+i+`]"/>     
                         <input type="hidden" name="mil_centro_usua[`+i+`]" id="mil_centro_usua[`+i+`]"/> 
@@ -341,10 +341,10 @@
                         <input type="hidden" name="mil_usua_crea[`+i+`]" id="mil_usua_crea[`+i+`]" value="{{ $usu }}"/>          
                       </td>
                       <td>
-                        <input type="text" class="form-control" placeholder="Apellidos" name="inputsApellido[`+i+`]" id="inputsApellido[`+i+`]">
+                        <input type="text" class="form-control" placeholder="Apellidos" name="inputsApellido[`+i+`]" id="inputsApellido[`+i+`]" required>
                       </td> 
                       <td>
-                        <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[`+i+`]">
+                        <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[`+i+`]" required>
                       </td>
                       <td>
                         <button type="button" class="nc-icon nc-simple-remove remove-table-row" style="border: none; background: none;" name="add" id="add"></button>

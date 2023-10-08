@@ -19,12 +19,13 @@
               <div class="form-group">
                 <label>Municipios del estado Táchira</label>
                 <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="municipios"/>
-                <select class="form-control" name="mil_id" id="munSelect" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }}>
+                <select class="form-control" name="mil_id" id="mil_id" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }} required>
                   <option value="">Selecciona el municipio</option>
                   @foreach ($municipios as $item)
                     <option value="{{ $item->id }}" {{ $item->id == auth()->user()->usu_mun_id  ? 'selected' : '' }}>{{ $item->mun_nombre }}</option>
                   @endforeach
                 </select>
+                
               </div>
             </div>           
           </div>
@@ -32,18 +33,20 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Eventos</label>
-                <select class="form-control" name="mil_eve_id" id="mil_eve_id">
+                <select class="form-control" name="mil_eve_id" id="mil_eve_id" required>
                   <option value="">Selecciona la Evento</option>
                   @foreach ($reuniones as $item)
-                    <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
+                    <option value="{{ $item->id }}" {{ old('mil_eve_id') == $item->id ? 'selected' : '' }}>{{ $item->eve_nombre }}</option>
                   @endforeach
                 </select>
+                
               </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Fecha</label>
-                    <input type="date" class="form-control" name="mil_fecha" id="mil_fecha">
+                    <input type="date" class="form-control" name="mil_fecha" id="mil_fecha" value="{{ old('mil_fecha') }}" required>
+                    
                 </div>
             </div>
           </div>   
@@ -51,7 +54,8 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Lugar</label>
-                <textarea cols="50" rows="2" class="form-control" name="mil_lugar" placeholder="Lugar" required></textarea>
+                <textarea cols="50" rows="2" class="form-control" name="mil_lugar" placeholder="Lugar" required>{{ old('mil_lugar') }}</textarea>
+                
               </div>
             </div>
             <div class="col-md-6">
@@ -96,13 +100,13 @@
                         </select>
                       </td>
                       <td>
-                        <input type="text" class="form-control" placeholder="Cedula" name="inputsCed[0]" id="inputsCed[0]">
+                        <input type="text" class="form-control" placeholder="Cedula" name="inputsCed[0]" id="inputsCed[0]" required>
                       </td>
                       <td>  
                         <button type="button" class="nc-icon nc-zoom-split" style="border: none; background: none;" onclick="consultarced(0)"></button>
                       </td>
                       <td>
-                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Nombres" name="inputsNombre[0]" id="inputsNombre[0]">   
+                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Nombres" name="inputsNombre[0]" id="inputsNombre[0]" required>   
                         <input type="hidden" name="mil_mun_usua[0]" id="mil_mun_usua[0]"/>    
                         <input type="hidden" name="mil_parr_usua[0]" id="mil_parr_usua[0]"/>     
                         <input type="hidden" name="mil_centro_usua[0]" id="mil_centro_usua[0]"/> 
@@ -110,10 +114,10 @@
                         <input type="hidden" name="mil_usua_crea[0]" id="mil_usua_crea[0]" value="{{ $usu }}"/>          
                       </td>                      
                       <td>
-                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Apellidos" name="inputsApellido[0]" id="inputsApellido[0]">
+                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Apellidos" name="inputsApellido[0]" id="inputsApellido[0]" required>
                       </td> 
                       <td>
-                        <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[0]">
+                        <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[0]" required>
                       </td> 
                       <td>
                         <button type="button" class="nc-icon nc-simple-add" style="border: none; background: none;" name="add" id="add"></button>
@@ -183,12 +187,8 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
 
 <script>
-  const $selectOption = document.querySelector("#munSelect");   
-  const $select = document.getElementById("munSelect").value;  
-  if($select>1)
-  {
-    loadParroquias($selectOption);
-  } 
+  const $selectOption = document.querySelector("#mil_id");   
+  const $select = document.getElementById("mil_id").value;  
 
   function consultarced(i)
   {
@@ -208,7 +208,7 @@
   {
     var fecha = document.getElementById("mil_fecha").value;
     var evento = document.getElementById("mil_eve_id").value;
-    var mun = document.getElementById("munSelect").value;
+    var mun = document.getElementById("mil_id").value;
     var pag = 'municipios';
     
     fetch(`tableMilitancia/${mun}/${fecha}/${evento}/${pag}/militanciaUBCH`)
@@ -319,13 +319,13 @@
                         </select>
                       </td>
                       <td>
-                        <input type="text" class="form-control" placeholder="Cedula"  name="inputsCed[`+i+`]" id="inputsCed[`+i+`]">
+                        <input type="text" class="form-control" placeholder="Cedula"  name="inputsCed[`+i+`]" id="inputsCed[`+i+`]" required>
                       </td>
                       <td>                        
                         <button type="button" class="nc-icon nc-zoom-split" style="border: none; background: none;" onclick="consultarced(`+i+`)"></button>
                       </td>
                       <td>
-                        <input type="text" class="form-control" placeholder="Nombres" name="inputsNombre[`+i+`]" id="inputsNombre[`+i+`]">
+                        <input type="text" class="form-control" placeholder="Nombres" name="inputsNombre[`+i+`]" id="inputsNombre[`+i+`]" required>
                         <input type="hidden" name="mil_mun_usua[`+i+`]" id="mil_mun_usua[`+i+`]"/>    
                         <input type="hidden" name="mil_parr_usua[`+i+`]" id="mil_parr_usua[`+i+`]"/>     
                         <input type="hidden" name="mil_centro_usua[`+i+`]" id="mil_centro_usua[`+i+`]"/> 
@@ -333,10 +333,10 @@
                         <input type="hidden" name="mil_usua_crea[`+i+`]" id="mil_usua_crea[`+i+`]" value="{{ $usu }}"/>          
                       </td>
                       <td>
-                        <input type="text" class="form-control" placeholder="Apellidos" name="inputsApellido[`+i+`]" id="inputsApellido[`+i+`]">
+                        <input type="text" class="form-control" placeholder="Apellidos" name="inputsApellido[`+i+`]" id="inputsApellido[`+i+`]" required>
                       </td> 
                       <td>
-                        <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[`+i+`]">
+                        <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[`+i+`]" required>
                       </td>
                       <td>
                         <button type="button" class="nc-icon nc-simple-remove remove-table-row" style="border: none; background: none;" name="add" id="add"></button>

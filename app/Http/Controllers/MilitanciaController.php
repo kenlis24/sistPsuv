@@ -17,7 +17,7 @@ class MilitanciaController extends Controller
      */
     public function index()
     {
-        $municipios = municipios::all();  
+        $municipios = municipios::all(); 
         $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
         ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
         ->where("reuniones.reu_tipo","3")   
@@ -72,7 +72,8 @@ class MilitanciaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {       
+
         $fecha = $request->mil_fecha;
         $tipo = $request->mil_id;        
         $eve = $request->mil_eve_id;
