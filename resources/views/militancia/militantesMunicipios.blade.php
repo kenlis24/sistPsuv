@@ -19,6 +19,9 @@
               <div class="form-group">
                 <label>Municipios del estado Táchira</label>
                 <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="municipios"/>
+                @if(auth()->user()->username!='administrador')
+                   <input type="hidden" name="mil_id" id="mil_id" value="{{ auth()->user()->usu_mun_id }}"/>
+                @endif
                 <select class="form-control" name="mil_id" id="mil_id" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }} required>
                   <option value="">Selecciona el municipio</option>
                   @foreach ($municipios as $item)

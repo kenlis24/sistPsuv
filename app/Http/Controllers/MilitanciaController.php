@@ -75,7 +75,7 @@ class MilitanciaController extends Controller
     {       
 
         $fecha = $request->mil_fecha;
-        $tipo = $request->mil_id;        
+        $tipo = $request->get("mil_id");
         $eve = $request->mil_eve_id;
         $tipoPag = $request->mil_tipo_nivel;
         $Lugar = $request->mil_lugar;
