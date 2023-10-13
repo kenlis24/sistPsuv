@@ -39,13 +39,13 @@ Coded by www.creative-tim.com
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="" class="simple-text logo-mini">
           <div class="logo-image-small">
             <img src="../assets/img/logopsuv.jpeg">
           </div>
           <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="" class="simple-text logo-normal">
           Sistema Psuv
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
@@ -118,6 +118,12 @@ Coded by www.creative-tim.com
               <p>Asistencia Comunidades</p>
             </a>
           </li>
+          <li>
+          <a href="{{ route('militancia.militantesCalles') }}">
+            <i class="nc-icon nc-paper"></i>
+            <p>Asistencia Calles</p>
+          </a>
+        </li>
         </ul>
       </div>
     </div>

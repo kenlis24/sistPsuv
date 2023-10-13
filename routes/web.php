@@ -5,6 +5,7 @@ use App\Models\municipios;
 use App\Models\parroquias;
 use App\Models\militancias;
 use App\Models\comunidades;
+use App\Models\calles;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,6 +66,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/militantComun', 'MilitanciaController@index2')->name('militancia.militantesComunidades');
         Route::get('/militantMunip', 'MilitanciaController@index3')->name('militancia.militantesMunicipios');
         Route::get('/militantParr', 'MilitanciaController@index4')->name('militancia.militantesParroquias');
+        Route::get('/militantCalle', 'MilitanciaController@index5')->name('militancia.militantesCalles');
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
 
@@ -112,6 +114,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                 ->where('militancias.mil_tipo_nivel', '=', $pag)
                 ->get();  
             }
+            if($pag=='calles')
+            {
+                return $militancias = Militancias::join("eventos", "eventos.id", "=", "militancias.mil_eve_id")
+                ->join("calles", "calles.id", "=", "militancias.mil_id")
+                ->select("militancias.id","militancias.mil_nac","militancias.mil_cedula","militancias.mil_nombres","militancias.mil_apellidos","militancias.mil_telefono","calles.cal_nombre","eventos.eve_nombre")
+                ->where('militancias.mil_fecha', '=', $fecha)
+                ->where('militancias.mil_id', '=', $tipo)
+                ->where('militancias.mil_eve_id', '=', $evento)
+                ->where('militancias.mil_tipo_nivel', '=', $pag)
+                ->get();  
+            }
         });
         
         Route::get('/municipios/{id}/parroquias', function ($id) {
@@ -134,6 +147,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             $id=$id;
             $ubch = agrupaciones::find($id);
             return comunidades::where('com_agr_id',$ubch->id)
+            ->get();
+        });
+
+        Route::get('/comun/{id}/calles', function ($id) {
+
+            $id=$id;
+            $comuni = comunidades::find($id);
+            return calles::where('cal_com_id',$comuni->id)
             ->get();
         });
 

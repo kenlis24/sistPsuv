@@ -55,6 +55,16 @@ class MilitanciaController extends Controller
         return view('militancia.militantesParroquias', compact('municipios'), compact('reuniones'));
     }
 
+    public function index5()
+    {
+        $municipios = municipios::all();  
+        $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
+        ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
+        ->where("reuniones.reu_tipo","5")   
+        ->get();     
+        return view('militancia.militantesCalles', compact('municipios'), compact('reuniones'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -138,6 +148,10 @@ class MilitanciaController extends Controller
         if($tipoPag=='parroquias')
         {
             return redirect('/militantParr');
+        } 
+        if($tipoPag=='calles')
+        {
+            return redirect('/militantCalle');
         } 
         
     }
