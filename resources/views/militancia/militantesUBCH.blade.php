@@ -93,10 +93,7 @@
                       
                     </th>
                     <th>
-                      Nombres
-                    </th>
-                    <th>
-                      Apellidos
+                      Nombres y Apellidos
                     </th>
                     <th>
                       Telefono
@@ -121,14 +118,13 @@
                       </td>
                       <td>
                         <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Nombres" name="inputsNombre[0]" id="inputsNombre[0]" required>   
+                        <input type="hidden" name="mil_estado_usua[0]" id="mil_estado_usua[0]"/> 
                         <input type="hidden" name="mil_mun_usua[0]" id="mil_mun_usua[0]"/>    
                         <input type="hidden" name="mil_parr_usua[0]" id="mil_parr_usua[0]"/>     
                         <input type="hidden" name="mil_centro_usua[0]" id="mil_centro_usua[0]"/> 
                         <input type="hidden" name="mil_tipo_reg[0]" id="mil_tipo_reg[0]"/>  
-                        <input type="hidden" name="mil_usua_crea[0]" id="mil_usua_crea[0]" value="{{ $usu }}"/>         
-                      </td>                      
-                      <td>
-                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Apellidos" name="inputsApellido[0]" id="inputsApellido[0]" required>
+                        <input type="hidden" name="mil_usua_crea[0]" id="mil_usua_crea[0]" value="{{ $usu }}"/>       
+                        <input type="hidden" name="inputsApellido[0]" id="inputsApellido[0]" value=""/>   
                       </td> 
                       <td>
                         <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[0]" required>
@@ -161,10 +157,7 @@
                         Cedula
                       </th>
                       <th>
-                        Nombres
-                      </th>
-                      <th>
-                        Apellidos
+                        Nombres y Apellidos
                       </th>
                       <th>
                         Telefono
@@ -172,8 +165,6 @@
                     </thead>
                     <tbody id="tableLista">
                             <tr>
-                                <td>
-                                </td>
                                 <td>
                                 </td>
                                 <td>
@@ -212,7 +203,6 @@
   {
     var datosNac = document.getElementById("inputsNac["+i+"]").value;
     var datosCed = document.getElementById("inputsCed["+i+"]").value;
-    
     fetch(`personaconsul/${datosNac}/${datosCed}/datosCNE`)
       .then( function (response) { 
         return response.json();
@@ -241,13 +231,20 @@
 
   function buildDataLista(jsonDataLista)    { 
       
-      jsonDataLista.forEach(function (lista) {   
+      jsonDataLista.forEach(function (lista) {  
+        if(lista.mil_apellidos==null) 
+        {
+          nombre = lista.mil_nombres;
+        }
+        else
+        {
+          nombre = lista.mil_nombres+` `+lista.mil_apellidos;
+        }   
         $('#tableLista').append(
         `<tr> 
           <td> `+lista.mil_nac+` </td>  
           <td> `+lista.mil_cedula+` </td>  
-          <td> `+lista.mil_nombres+` </td>    
-          <td> `+lista.mil_apellidos+` </td>   
+          <td> `+nombre+` </td>    
           <td> `+lista.mil_telefono+` </td>      
          </tr>`);
       });
@@ -267,17 +264,19 @@
       if(jsonDataCNE.tipo=='INSCRITO')
       {
         let arrayNombres = jsonDataCNE.mensaje;
-            let total = arrayNombres.length;
+            let total = arrayNombres.length;          
             if (total <= 3) {
-              document.getElementById("inputsNombre["+i+"]").value = jsonDataCNE.mensaje[0];
-              document.getElementById("inputsApellido["+i+"]").value = jsonDataCNE.mensaje[1]+ " " +jsonDataCNE.mensaje[2];
+              alert('entro en el 1');
+              document.getElementById("inputsNombre["+i+"]").value = jsonDataCNE.mensaje[0]+ " " +jsonDataCNE.mensaje[1]+ " " +jsonDataCNE.mensaje[2];
+              document.getElementById("mil_estado_usua["+i+"]").value = jsonDataCNE.estado;
               document.getElementById("mil_mun_usua["+i+"]").value = jsonDataCNE.municipio;
               document.getElementById("mil_parr_usua["+i+"]").value = jsonDataCNE.parroquia;
               document.getElementById("mil_centro_usua["+i+"]").value = jsonDataCNE.centro;
               document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
             } else {
-              document.getElementById("inputsNombre["+i+"]").value = jsonDataCNE.mensaje[0]+ " " +jsonDataCNE.mensaje[1];
-              document.getElementById("inputsApellido["+i+"]").value = jsonDataCNE.mensaje[2]+ " " +jsonDataCNE.mensaje[3];
+              alert('entro en el 2');
+              document.getElementById("inputsNombre["+i+"]").value = jsonDataCNE.mensaje[0]+ " " +jsonDataCNE.mensaje[1]+ " " +jsonDataCNE.mensaje[2]+ " " +jsonDataCNE.mensaje[3];
+              document.getElementById("mil_estado_usua["+i+"]").value = jsonDataCNE.estado;
               document.getElementById("mil_mun_usua["+i+"]").value = jsonDataCNE.municipio;
               document.getElementById("mil_parr_usua["+i+"]").value = jsonDataCNE.parroquia;
               document.getElementById("mil_centro_usua["+i+"]").value = jsonDataCNE.centro;
@@ -374,14 +373,13 @@
                       </td>
                       <td>
                         <input type="text" class="form-control" placeholder="Nombres" name="inputsNombre[`+i+`]" id="inputsNombre[`+i+`]" required>
-                        <input type="hidden" name="mil_mun_usua[`+i+`]" id="mil_mun_usua[`+i+`]"/>    
+                        <input type="hidden" name="mil_estado_usua[`+i+`]" id="mil_estado_usua[`+i+`]"/>    
+                        <input type="hidden" name="mil_mun_usua[`+i+`]" id="mil_mun_usua[`+i+`]"/> 
                         <input type="hidden" name="mil_parr_usua[`+i+`]" id="mil_parr_usua[`+i+`]"/>     
                         <input type="hidden" name="mil_centro_usua[`+i+`]" id="mil_centro_usua[`+i+`]"/> 
                         <input type="hidden" name="mil_tipo_reg[`+i+`]" id="mil_tipo_reg[`+i+`]"/>  
-                        <input type="hidden" name="mil_usua_crea[`+i+`]" id="mil_usua_crea[`+i+`]" value="{{ $usu }}"/>        
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" placeholder="Apellidos" name="inputsApellido[`+i+`]" id="inputsApellido[`+i+`]" required>
+                        <input type="hidden" name="mil_usua_crea[`+i+`]" id="mil_usua_crea[`+i+`]" value="{{ $usu }}"/>     
+                        <input type="hidden" name="inputsApellido[`+i+`]" id="inputsApellido[`+i+`]" value=""/>    
                       </td> 
                       <td>
                         <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[`+i+`]" required>

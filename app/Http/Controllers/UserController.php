@@ -18,6 +18,7 @@ class UserController extends Controller
         //$users = User::all();
         $users = User::join("municipios", "municipios.id", "=", "users.usu_mun_id")
         ->select("users.id","users.name", "users.email", "users.username", "municipios.mun_nombre")
+        ->orderBy("users.name")
         ->get();
         return view('users.index')->with('users',$users);
         //return view('users.index');

@@ -19,7 +19,8 @@ class ReunionesController extends Controller
     public function index()
     {
         $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
-        ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre" )        
+        ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre" )  
+        ->orderBy("eventos.eve_nombre")      
         ->get();        
          return view('reuniones.index')->with('reuniones',$reuniones);
     }

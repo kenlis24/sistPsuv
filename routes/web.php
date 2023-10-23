@@ -131,6 +131,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
             $municipios = municipios::find($id);
             return parroquias::where('par_mun_id',$municipios->id)
+            ->orderBy("par_nombre")
             ->get();
         });
 
@@ -139,6 +140,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             $id=$id;
             $parroquias = parroquias::find($id);
             return agrupaciones::where('agr_par_id',$parroquias->id)
+            ->orderBy("agr_nombre")
             ->get();
         });
 
@@ -147,6 +149,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             $id=$id;
             $ubch = agrupaciones::find($id);
             return comunidades::where('com_agr_id',$ubch->id)
+            ->orderBy("com_nombre")
             ->get();
         });
 
@@ -155,6 +158,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             $id=$id;
             $comuni = comunidades::find($id);
             return calles::where('cal_com_id',$comuni->id)
+            ->orderBy("cal_nombre")
             ->get();
         });
 
@@ -210,6 +214,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             $result = str_replace(array("Estado"), '', trim($info[2]));
             //$result = preg_replace('([^A-Za-z0-9 ])', ' ', trim($result));
             $result = str_replace(array("  "), ' ', $result);
+            $estadoPer = str_replace(array("\n", "\t", "Municipio"), '',trim($info[3]));
             $municipioPer = str_replace(array("\n", "\t", "Parroquia"), '',trim($info[4]));
             $parroquiaPer = str_replace(array("\n", "\t","Centro"), '',trim($info[5]));
             $centroVotaPer = str_replace(array("\n", "\t","Dirección"), '',trim($info[6]));
@@ -229,6 +234,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                 [
                 'mensaje' => $persona,   
                 'tipo' => "INSCRITO", 
+                'estado' => $estadoPer,
                 'municipio' => $municipioPer,
                 'parroquia' => $parroquiaPer,
                 'centro' => $centroVotaPer,         
