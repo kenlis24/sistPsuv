@@ -266,7 +266,6 @@
         let arrayNombres = jsonDataCNE.mensaje;
             let total = arrayNombres.length;          
             if (total <= 3) {
-              alert('entro en el 1');
               document.getElementById("inputsNombre["+i+"]").value = jsonDataCNE.mensaje[0]+ " " +jsonDataCNE.mensaje[1]+ " " +jsonDataCNE.mensaje[2];
               document.getElementById("mil_estado_usua["+i+"]").value = jsonDataCNE.estado;
               document.getElementById("mil_mun_usua["+i+"]").value = jsonDataCNE.municipio;
@@ -274,7 +273,6 @@
               document.getElementById("mil_centro_usua["+i+"]").value = jsonDataCNE.centro;
               document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
             } else {
-              alert('entro en el 2');
               document.getElementById("inputsNombre["+i+"]").value = jsonDataCNE.mensaje[0]+ " " +jsonDataCNE.mensaje[1]+ " " +jsonDataCNE.mensaje[2]+ " " +jsonDataCNE.mensaje[3];
               document.getElementById("mil_estado_usua["+i+"]").value = jsonDataCNE.estado;
               document.getElementById("mil_mun_usua["+i+"]").value = jsonDataCNE.municipio;
