@@ -67,6 +67,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/militantMunip', 'MilitanciaController@index3')->name('militancia.militantesMunicipios');
         Route::get('/militantParr', 'MilitanciaController@index4')->name('militancia.militantesParroquias');
         Route::get('/militantCalle', 'MilitanciaController@index5')->name('militancia.militantesCalles');
+        Route::get('/consultaMilit', 'MilitanciaController@create')->name('militancia.consultaMilitantes');
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
 

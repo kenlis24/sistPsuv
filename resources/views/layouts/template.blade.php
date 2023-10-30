@@ -125,6 +125,14 @@ Coded by www.creative-tim.com
             <p>Asistencia Calles</p>
           </a>
         </li>
+        @if (auth()->user()->username=='administrador')
+        <li>
+          <a href="{{ route('militancia.consultaMilitantes') }}">
+            <i class="nc-icon nc-paper"></i>
+            <p>Consulta Militantes</p>
+          </a>
+        </li>
+        @endif
         </ul>
       </div>
     </div>

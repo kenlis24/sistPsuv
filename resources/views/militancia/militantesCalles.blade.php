@@ -403,6 +403,7 @@
     function buildCallesSelect(jsonCalles)
     {
       let CallesSelect = document.getElementById('comunSelect');
+      clearSelectCalles(calleSelect); 
       jsonCalles.forEach(function (calle) {
         let optionTag = document.createElement('option');
         optionTag.value = calle.id;
