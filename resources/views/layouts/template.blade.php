@@ -33,6 +33,59 @@ Coded by www.creative-tim.com
   <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <style>
+    ul.nav,
+      ul.nav * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      }
+      ul.nav {
+      margin: 10px auto;
+      padding: 0;
+      list-style: none;
+      width: 100%;
+      font-size: 18px;
+      }
+      ul.nav li {
+      list-style: none;
+      }
+      ul.nav li a {
+      display: block;
+      padding: 10px 10px 10px 20px;      
+      color: #eee;      
+      text-decoration: none;
+      box-sizing: border-box;
+      }
+      ul.nav li ul {
+      max-height: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      overflow: hidden;
+      transition: .3s all ease-in;
+      margin-left: 30px;
+      }
+      ul.nav li li a {
+      padding: 10px 10px 10px 40px;
+      background: rgba(255, 253, 253, 0.685);
+      color: #000;
+      font-size: 16px;
+      border: 0;
+      box-sizing: border-box;      
+      }
+      ul.nav li li:last-child a {
+      border-bottom: 0;
+      }
+      ul.nav li:target ul {
+      max-height: 300px;
+      transition: .3s all ease-in;
+      }
+      ul.nav li a:hover {
+      background: #f4f3ef;
+      color: #fff;
+      }
+</style>
 </head>
 
 <body class="">
@@ -60,79 +113,67 @@ Coded by www.creative-tim.com
               <i class="nc-icon nc-bank"></i>
               <p>Inicio</p>
             </a>
-          </li>
-          <!-- <li>
-            <a href="./icons.html">
-              <i class="nc-icon nc-diamond"></i>
-              <p>Icons</p>
+          </li>    
+          @if (auth()->user()->username=='administrador')      
+          <li id="opcion1">
+            <a href="#opcion1">
+              <i class="nc-icon nc-settings-gear-65"></i>
+              <p>Administración</p>
             </a>
-          </li>
-          <li>
-            <a href="./map.html">
-              <i class="nc-icon nc-pin-3"></i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li>
-            <a href="./notifications.html">
-              <i class="nc-icon nc-bell-55"></i>
-              <p>Notifications</p>
-            </a>
-          </li> -->
-          @if (auth()->user()->username=='administrador')
-          <li> 
-            <a href="{{ route('users.index') }}">
-              <i class="nc-icon nc-single-02"></i>
-              <p>Usuarios</p>
-            </a>
+            <ul>              
+              <li> 
+                <a href="{{ route('users.index') }}">                  
+                  <p>Usuarios</p>
+                </a>
+              </li>             
+              <li>
+                <a href="{{ route('reuniones.index') }}">
+                  <p>Eventos</p>
+                </a>
+              </li>              
+            </ul>
           </li>
           @endif
-          @if (auth()->user()->username=='administrador')
-           <li>
-            <a href="{{ route('reuniones.index') }}">
-              <i class="nc-icon nc-circle-10"></i>
-              <p>Eventos</p>
-            </a>
-          </li>
-          @endif
-          <li>
-            <a href="{{ route('militancia.militantesMunicipios') }}">
-              <i class="nc-icon nc-paper"></i>
-              <p>Asistencia Municipios</p>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('militancia.militantesParroquias') }}">
-              <i class="nc-icon nc-paper"></i>
-              <p>Asistencia Parroquias</p>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('militancia.militantesUBH') }}">
-              <i class="nc-icon nc-paper"></i>
-              <p>Asistencia UBCH</p>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('militancia.militantesComunidades') }}">
-              <i class="nc-icon nc-paper"></i>
-              <p>Asistencia Comunidades</p>
-            </a>
-          </li>
-          <li>
-          <a href="{{ route('militancia.militantesCalles') }}">
+          <li id="opcion2">
+            <a href="#opcion2">
             <i class="nc-icon nc-paper"></i>
-            <p>Asistencia Calles</p>
+            <p>Asistencia</p>
           </a>
-        </li>
-        @if (auth()->user()->username=='administrador')
+            <ul>
+              <li>
+                <a href="{{ route('militancia.militantesMunicipios') }}">                  
+                  <p>Municipios</p>
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('militancia.militantesParroquias') }}">
+                  <p>Parroquias</p>
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('militancia.militantesUBH') }}">
+                  <p>UBCH</p>
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('militancia.militantesComunidades') }}">
+                  <p>Comunidades</p>
+                </a>
+              </li>
+              <li>
+              <a href="{{ route('militancia.militantesCalles') }}">
+                <p>Calles</p>
+              </a>
+            </li>
+            @if (auth()->user()->username=='administrador')
         <li>
           <a href="{{ route('militancia.consultaMilitantes') }}">
-            <i class="nc-icon nc-paper"></i>
             <p>Consulta Militantes</p>
           </a>
         </li>
         @endif
+          </ul>
+        </li>        
         </ul>
       </div>
     </div>

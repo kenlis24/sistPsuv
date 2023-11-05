@@ -52,7 +52,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         /**
          * Logout Routes
          */
-        Route::get('/', 'HomeController@index')->name('home.index');        
+        Route::get('/', 'HomeController@index')->name('home.index');      
+        Route::get('/militancia', 'HomeController@militan')->name('home.militancia');    
         Route::get('/user', 'UserController@index')->name('users.index');
         Route::get('/create', 'UserController@create')->name('users.create');
         Route::post('/store', 'UserController@store')->name('users.store');
@@ -68,6 +69,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/militantParr', 'MilitanciaController@index4')->name('militancia.militantesParroquias');
         Route::get('/militantCalle', 'MilitanciaController@index5')->name('militancia.militantesCalles');
         Route::get('/consultaMilit', 'MilitanciaController@create')->name('militancia.consultaMilitantes');
+        Route::get('/estructuraMunicipio', 'EstructuraController@index')->name('estructura.estructuraMunicipios');
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
 
