@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('estructura', function (Blueprint $table) {
+        Schema::create('estructuras', function (Blueprint $table) {
 
             $table->id();
 
@@ -32,7 +32,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('cargos')
                 ->onDelete('cascade');
-
+            $table->unsignedBigInteger('est_nivel_id');
             $table->string('est_nivel', 100);
             $table->string('est_usuario_creo', 100);
             $table->string('est_municipio_usu', 200);
@@ -49,6 +49,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estructura');
+        Schema::dropIfExists('estructuras');
     }
 };

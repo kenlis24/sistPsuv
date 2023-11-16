@@ -173,6 +173,19 @@ Coded by www.creative-tim.com
         </li>
         @endif
           </ul>
+          <li id="opcion3">
+            <a href="#opcion3">
+            <i class="nc-icon nc-paper"></i>
+            <p>Estructura</p>
+          </a>
+            <ul>
+              <li>
+                <a href="{{ route('estructura.estructuraMunicipios') }}">                  
+                  <p>Municipios</p>
+                </a>
+              </li>
+            </li>        
+          </ul>
         </li>        
         </ul>
       </div>
