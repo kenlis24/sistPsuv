@@ -71,6 +71,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/consultaMilit', 'MilitanciaController@create')->name('militancia.consultaMilitantes');
         Route::get('/estructuraMunicipio', 'EstructuraController@index')->name('estructura.estructuraMunicipios');
         Route::post('/storeEstru', 'EstructuraController@store')->name('estructura.store');
+        Route::get('/estructuraParroquia', 'EstructuraController@index2')->name('estructura.estructuraParroquias');
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
 

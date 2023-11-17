@@ -47,6 +47,27 @@ class EstructuraController extends Controller
         return view('estructura.estructuraMunicipios',  compact('cargos'), compact('municipios'))->with('estructuras',$estructuras);
     }
 
+    public function index2()
+    {
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->orderBy("mun_nombre")
+        ->get();
+
+            $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
+            ->join("parroquias", "parroquias.id", "=", "estructuras.est_municipio_usu")
+            ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "parroquias.par_nombre")         
+            ->where("estructuras.est_nivel","parroquias") 
+            ->orderBy("cargos.car_cargo")
+            ->get();
+       
+        $cargos = cargos::select("cargos.id","cargos.car_cargo","cargos.car_nivel","cargos.car_cantidad")         
+        ->where("cargos.car_nivel","parroquia") 
+        ->orderBy("cargos.car_cargo")
+        ->get(); 
+
+        return view('estructura.estructuraParroquias',  compact('cargos'), compact('municipios'))->with('estructuras',$estructuras);
+    }
+
         /**
      * Store a newly created resource in storage.
      *
@@ -83,12 +104,27 @@ class EstructuraController extends Controller
         if($mensaje=="Guardar") 
         {
             Estructuras::create($input);
-            return redirect('/estructuraMunicipio');   
+            if($request->est_nivel=="municipios") 
+            {
+                return redirect('/estructuraMunicipio');   
+            }
+            if($request->est_nivel=="parroquias") 
+            {
+                return redirect('/estructuraParroquia');   
+            }
         }
         else
         {
-            return redirect('/estructuraMunicipio')
-            ->with("mensaje", $mensaje);     
+            if($request->est_nivel=="municipios") 
+            {
+                return redirect('/estructuraMunicipio')
+                ->with("mensaje", $mensaje);  
+            }
+            if($request->est_nivel=="parroquias") 
+            {
+                return redirect('/estructuraParroquia')
+                ->with("mensaje", $mensaje);  
+            }                 
         }
     }
 }

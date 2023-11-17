@@ -177,6 +177,11 @@ Coded by www.creative-tim.com
                   <p>Municipios</p>
                 </a>
               </li>
+              <li>
+                <a href="{{ route('estructura.estructuraParroquias') }}">                  
+                  <p>Parroquias</p>
+                </a>
+              </li>
             </li>        
           </ul>
         </li>        
