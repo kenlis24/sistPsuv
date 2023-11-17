@@ -24,6 +24,8 @@ class MilitanciaController extends Controller
         $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
         ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
         ->where("reuniones.reu_tipo","3")   
+        ->where("eventos.eve_estado","A")
+        ->where("reuniones.reu_estado","A")
         ->get();     
         return view('militancia.militantesUBCH', compact('municipios'), compact('reuniones'));
     }
@@ -37,6 +39,8 @@ class MilitanciaController extends Controller
         $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
         ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
         ->where("reuniones.reu_tipo","4")   
+        ->where("eventos.eve_estado","A")
+        ->where("reuniones.reu_estado","A")
         ->get();     
         return view('militancia.militantesComunidades', compact('municipios'), compact('reuniones'));
     }
@@ -49,7 +53,9 @@ class MilitanciaController extends Controller
 
         $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
         ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
-        ->where("reuniones.reu_tipo","1")   
+        ->where("reuniones.reu_tipo","1")           
+        ->where("eventos.eve_estado","A")
+        ->where("reuniones.reu_estado","A")
         ->get();     
         return view('militancia.militantesMunicipios', compact('municipios'), compact('reuniones'));
     }
@@ -63,6 +69,8 @@ class MilitanciaController extends Controller
         $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
         ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
         ->where("reuniones.reu_tipo","2")   
+        ->where("eventos.eve_estado","A")
+        ->where("reuniones.reu_estado","A")
         ->get();     
         return view('militancia.militantesParroquias', compact('municipios'), compact('reuniones'));
     }
@@ -76,6 +84,8 @@ class MilitanciaController extends Controller
         $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
         ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
         ->where("reuniones.reu_tipo","5")   
+        ->where("eventos.eve_estado","A")
+        ->where("reuniones.reu_estado","A")
         ->get();     
         return view('militancia.militantesCalles', compact('municipios'), compact('reuniones'));
     }

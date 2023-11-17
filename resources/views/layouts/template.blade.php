@@ -22,7 +22,7 @@ Coded by www.creative-tim.com
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Psuv Táchira
+    Táchira
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -91,19 +91,12 @@ Coded by www.creative-tim.com
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="../assets/img/logopsuv.jpeg">
-          </div>
-          <!-- <p>CT</p> -->
-        </a>
-        <a href="" class="simple-text logo-normal">
-          Sistema Psuv 
-          <br>Táchira
-          <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
+      <div class="logo">        
+        <a href="" class="simple-text logo-normal"> 
+           <div class="logo-image-big">
+            <strong>Tachirenses por el <br>Esequibo</strong>
+            <img src="../assets/img/logo.png" alt="" width="80" height="80">
+          </div> 
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -202,7 +195,7 @@ Coded by www.creative-tim.com
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">Psuv</a>
+            <a class="navbar-brand" href="javascript:;">Táchira</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>

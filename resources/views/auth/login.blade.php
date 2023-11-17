@@ -6,7 +6,7 @@
         <br>    
            
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-        <img class="mb-4" src="{!! url('assets/img/logopsuv.jpeg') !!}" alt="" width="72" height="57">
+        <img class="mb-4" src="{!! url('assets/img/logo.png') !!}" alt="" width="200" height="200">
         <br>
         <h1 class="navbar-brand">Inicio de sesión</h1>
 
