@@ -182,6 +182,11 @@ Coded by www.creative-tim.com
                   <p>Parroquias</p>
                 </a>
               </li>
+              <li>
+                <a href="{{ route('estructura.estructuraUBCH') }}">                  
+                  <p>UBCH</p>
+                </a>
+              </li>
             </li>        
           </ul>
         </li>        

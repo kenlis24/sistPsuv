@@ -6,7 +6,7 @@
 <div class="col-md-12">
     <div class="card card-user">
       <div class="card-header">
-        <h5 class="card-title">Cargar Estructura de Parroquias</h5>
+        <h5 class="card-title">Cargar Estructura de UBCH</h5>
       </div>
       <div class="card-body">
         <form method="post" action="{{ route('estructura.store') }}">
@@ -18,7 +18,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Municipios del estado Táchira</label>
-                <input type="hidden" name="est_nivel" id="est_nivel" value="parroquias"/>         
+                <input type="hidden" name="est_nivel" id="est_nivel" value="ubch"/>         
                 <input type="hidden" name="est_municipio_usu" id="est_municipio_usu" value="{{ auth()->user()->usu_mun_id }}"/>       
                   
                 <select class="form-control"  id="_municipios" onchange="loadParroquias(this)" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }} required>
@@ -33,14 +33,24 @@
             <div class="col-md-6">
                 <div class="form-group">
                   <label>Parroquias del estado Táchira</label>
-                  <select class="form-control" name="est_nivel_id" id="parSelect" required>  
+                  <select class="form-control" name="est_nivel_id" id="parSelect" onchange="loadUBCH(this)" required>  
                     <option value="">Selecciona la parroquia</option>       
                   </select>
                 </div>
-              </div>      
+              </div>     
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>UBCH del estado Táchira</label>
+                  <select class="form-control" name="est_car_id" id="ubchSelect" required>  
+                    <option value="">Selecciona la UBCH</option>       
+                  </select>
+                </div>
+              </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label>Estructura Municipios</label>
+                <label>Estructura UBCH</label>
                 <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="ubch"/>
                 <select class="form-control" name="est_car_id" id="est_car_id" required>
                   <option value="">Selecciona el cargo</option>
@@ -52,16 +62,8 @@
               </div>
             </div>         
           </div> 
-          <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                  <label>UBCH del estado Táchira</label>
-                  <select class="form-control" name="est_car_id" id="ubchSelect" required>  
-                    <option value="">Selecciona la UBCH</option>       
-                  </select>
-                </div>
-              </div>
-            <div class="col-md-6">
+          <div class="row">            
+            <div class="col-md-12">
               <div class="form-group">
                 <table class="table" id="table">
                   <thead class=" text-primary">
@@ -172,7 +174,7 @@
                                 </td>
                                 <td> {{ $item->car_cargo }}
                                 </td>   
-                                <td> {{ $item->par_nombre }}
+                                <td> {{ $item->agr_nombre }}
                                 </td> 
                             </tr>
                             @endforeach
@@ -199,6 +201,30 @@
   {
     loadParroquias($selectOption);
   } 
+  function loadUBCH(selectParroquias)
+  {
+    let parroquiaId = selectParroquias.value;
+    fetch(`parroquias/${parroquiaId}/agrupaciones`)
+      .then( function (response) { 
+        return response.json();
+      })
+
+      .then(function(jsonData){
+        buildUBCHSelect(jsonData);
+      })
+    }
+
+    function buildUBCHSelect(jsonUBCH)
+    {
+      let UBCHSelect = document.getElementById('ubchSelect');
+      clearSelectUBCH(ubchSelect);
+      jsonUBCH.forEach(function (ubch) {
+        let optionTag = document.createElement('option');
+        optionTag.value = ubch.id;
+        optionTag.innerHTML = ubch.agr_nombre;
+        ubchSelect.append(optionTag);
+      });
+    }
 
   function consultarced()
   {
@@ -268,7 +294,7 @@
     {
       let parroquiasSelect = document.getElementById('parSelect');      
       clearSelectParroquias(parroquiasSelect);
-      
+      clearSelectUBCH(ubchSelect);
       jsonParroquias.forEach(function (parr) {
         let optionTag = document.createElement('option');
         optionTag.value = parr.id;
@@ -283,6 +309,12 @@
         select.remove(1);
       }
     }  
+    function clearSelectUBCH(select)
+    {
+      while(select.options.length > 1){
+        select.remove(1);
+      }
+    } 
 
     
 </script>
