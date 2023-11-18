@@ -35,7 +35,6 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Estructura Municipios</label>
-                <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="municipios"/>
                 <select class="form-control" name="est_car_id" id="est_car_id" required>
                   <option value="">Selecciona el cargo</option>
                   @foreach ($cargos as $item)

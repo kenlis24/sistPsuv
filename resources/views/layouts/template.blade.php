@@ -192,6 +192,11 @@ Coded by www.creative-tim.com
                   <p>Comunidades</p>
                 </a>
               </li>
+              <li>
+                <a href="{{ route('estructura.estructuraCalles') }}">                  
+                  <p>Calles</p>
+                </a>
+              </li>
             </li>        
           </ul>
         </li>        

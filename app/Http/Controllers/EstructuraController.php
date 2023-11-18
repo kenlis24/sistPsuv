@@ -121,6 +121,29 @@ class EstructuraController extends Controller
         return view('estructura.estructuraComunidades',  compact('cargos'), compact('municipios'))->with('estructuras',$estructuras);
     }
 
+    public function index5()
+    {
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->orderBy("mun_nombre")
+        ->get();
+
+            $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
+            ->join("calles", "calles.id", "=", "estructuras.est_nivel_id")
+            ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "calles.cal_nombre")         
+            ->where("estructuras.est_nivel","calles") 
+            ->orderBy("cargos.car_cargo")
+            ->get();
+       
+        $cargos = cargos::select("cargos.id","cargos.car_cargo","cargos.car_nivel","cargos.car_cantidad")         
+        ->where("cargos.car_nivel","calle") 
+        ->where("cargos.car_estado","A")
+        ->orderBy("cargos.car_cargo")
+        ->get(); 
+
+        return view('estructura.estructuraCalles',  compact('cargos'), compact('municipios'))->with('estructuras',$estructuras);
+    }
+
+
         /**
      * Store a newly created resource in storage.
      *
@@ -173,6 +196,10 @@ class EstructuraController extends Controller
             {
                 return redirect('/estructuraComunidades');   
             }
+            if($request->est_nivel=="calles") 
+            {
+                return redirect('/estructuraCalles');   
+            }
         }
         else
         {
@@ -195,7 +222,12 @@ class EstructuraController extends Controller
             {
                 return redirect('/estructuraComunidades')
                 ->with("mensaje", $mensaje);  
-            }      
+            }   
+            if($request->est_nivel=="calles") 
+            {
+                return redirect('/estructuraCalles')
+                ->with("mensaje", $mensaje);  
+            }    
         }
     }
 }

@@ -50,9 +50,7 @@
                 <label>Comunidades</label>
                 <select class="form-control"  id="comunSelect" onchange="loadCalles(this)">
                   <option value="">Selecciona la comunidad</option>
-                  @foreach ($reuniones as $item)
-                    <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
-                  @endforeach
+                  
                 </select>
               </div>
             </div>
@@ -62,10 +60,7 @@
               <div class="form-group">
                 <label>Calles</label>
                 <select class="form-control" name="mil_id" id="calleSelect" required>
-                  <option value="">Selecciona la Calles</option>
-                  @foreach ($reuniones as $item)
-                    <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
-                  @endforeach
+                  
                 </select>
               </div>
             </div>
