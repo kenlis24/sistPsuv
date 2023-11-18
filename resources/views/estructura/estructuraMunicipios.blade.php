@@ -20,6 +20,9 @@
                 <label>Municipios del estado Táchira</label>
                 <input type="hidden" name="est_nivel" id="est_nivel" value="municipios"/>                
                    <input type="hidden" name="est_municipio_usu" id="est_municipio_usu" value="{{ auth()->user()->usu_mun_id }}"/>
+                @if(auth()->user()->username!='administrador')
+                   <input type="hidden" name="est_nivel_id" id="est_nivel_id" value="{{ auth()->user()->usu_mun_id }}"/>
+                @endif
                 <select class="form-control" name="est_nivel_id" id="est_nivel_id" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }} required>
                   <option value="">Selecciona el municipio</option>
                   @foreach ($municipios as $item)
@@ -138,6 +141,9 @@
                       <th>
                         Cargo
                       </th>
+                      <th>
+                        Parroquia
+                      </th>
                     </thead>
                     <tbody>
                       @foreach ($estructuras as $item)  
@@ -152,6 +158,8 @@
                                 </td>
                                 <td> {{ $item->car_cargo }}
                                 </td>   
+                                <td> {{ $item->mun_nombre }}
+                                </td> 
                             </tr>
                             @endforeach
                     </tbody>

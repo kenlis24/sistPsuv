@@ -18,9 +18,10 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Municipios del estado Táchira</label>
-                <input type="hidden" name="est_nivel" id="est_nivel" value="parroquias"/>                
-                   <input type="hidden" name="municipios_id" id="_municipios" value="{{ auth()->user()->usu_mun_id }}"/>
-                <select class="form-control" name="est_nivel_id" id="est_nivel_id" onchange="loadParroquias(this)" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }} required>
+                <input type="hidden" name="est_nivel" id="est_nivel" value="parroquias"/>         
+                <input type="hidden" name="est_municipio_usu" id="est_municipio_usu" value="{{ auth()->user()->usu_mun_id }}"/>       
+                  
+                <select class="form-control"  id="_municipios" onchange="loadParroquias(this)" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }} required>
                   <option value="">Selecciona el municipio</option>
                   @foreach ($municipios as $item)
                     <option value="{{ $item->id }}" {{ $item->id == auth()->user()->usu_mun_id  ? 'selected' : '' }}>{{ $item->mun_nombre }}</option>
@@ -32,7 +33,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                   <label>Parroquias del estado Táchira</label>
-                  <select class="form-control" name="est_municipio_usu" id="parSelect" required>  
+                  <select class="form-control" name="est_nivel_id" id="parSelect" required>  
                     <option value="">Selecciona la parroquia</option>       
                   </select>
                 </div>
@@ -186,11 +187,16 @@
 <script>
   const $selectOption = document.querySelector("#_municipios");   
   const $select = document.getElementById("_municipios").value;  
+  if($select>1)
+  {
+    loadParroquias($selectOption);
+  } 
 
   function consultarced()
   {
     var datosNac = document.getElementById("est_nac").value;
     var datosCed = document.getElementById("est_cedula").value;
+    
 
     fetch(`personaconsul/${datosNac}/${datosCed}/datosCNE`)
       .then( function (response) { 
