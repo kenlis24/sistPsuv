@@ -99,6 +99,27 @@ class EstructuraController extends Controller
 
         return view('estructura.estructuraUBCH',  compact('cargos'), compact('municipios'))->with('estructuras',$estructuras);
     }
+    public function index4()
+    {
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->orderBy("mun_nombre")
+        ->get();
+
+            $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
+            ->join("comunidades", "comunidades.id", "=", "estructuras.est_nivel_id")
+            ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "comunidades.com_nombre")         
+            ->where("estructuras.est_nivel","comunidades") 
+            ->orderBy("cargos.car_cargo")
+            ->get();
+       
+        $cargos = cargos::select("cargos.id","cargos.car_cargo","cargos.car_nivel","cargos.car_cantidad")         
+        ->where("cargos.car_nivel","comunidad") 
+        ->where("cargos.car_estado","A")
+        ->orderBy("cargos.car_cargo")
+        ->get(); 
+
+        return view('estructura.estructuraComunidades',  compact('cargos'), compact('municipios'))->with('estructuras',$estructuras);
+    }
 
         /**
      * Store a newly created resource in storage.
@@ -148,6 +169,10 @@ class EstructuraController extends Controller
             {
                 return redirect('/estructuraUBCH');   
             }
+            if($request->est_nivel=="comunidades") 
+            {
+                return redirect('/estructuraComunidades');   
+            }
         }
         else
         {
@@ -165,7 +190,12 @@ class EstructuraController extends Controller
             {
                 return redirect('/estructuraUBCH')
                 ->with("mensaje", $mensaje);  
-            }         
+            }     
+            if($request->est_nivel=="comunidades") 
+            {
+                return redirect('/estructuraComunidades')
+                ->with("mensaje", $mensaje);  
+            }      
         }
     }
 }

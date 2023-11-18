@@ -49,10 +49,7 @@
               <div class="form-group">
                 <label>Comunidades</label>
                 <select class="form-control" name="mil_id" id="comunSelect" required>
-                  <option value="">Selecciona la comunidad</option>
-                  @foreach ($reuniones as $item)
-                    <option value="{{ $item->id }}">{{ $item->eve_nombre }}</option>
-                  @endforeach
+                  <option value="">Selecciona la comunidad</option>                  
                 </select>
               </div>
             </div>
