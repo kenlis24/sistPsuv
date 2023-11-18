@@ -41,7 +41,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Estructura Municipios</label>
-                <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="parroquias"/>
+                <input type="hidden" name="mil_tipo_nivel" id="mil_tipo_nivel" value="ubch"/>
                 <select class="form-control" name="est_car_id" id="est_car_id" required>
                   <option value="">Selecciona el cargo</option>
                   @foreach ($cargos as $item)
@@ -53,7 +53,15 @@
             </div>         
           </div> 
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label>UBCH del estado Táchira</label>
+                  <select class="form-control" name="est_car_id" id="ubchSelect" required>  
+                    <option value="">Selecciona la UBCH</option>       
+                  </select>
+                </div>
+              </div>
+            <div class="col-md-6">
               <div class="form-group">
                 <table class="table" id="table">
                   <thead class=" text-primary">
@@ -148,7 +156,7 @@
                         Cargo
                       </th>
                       <th>
-                        Parroquia
+                        UBCH
                       </th>
                     </thead>
                     <tbody>
