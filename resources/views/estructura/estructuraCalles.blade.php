@@ -33,7 +33,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                   <label>Parroquias del estado Táchira</label>
-                  <select class="form-control" name="est_nivel_id" id="parSelect" onchange="loadUBCH(this)" required>  
+                  <select class="form-control"  id="parSelect" onchange="loadUBCH(this)" required>  
                     <option value="">Selecciona la parroquia</option>       
                   </select>
                 </div>
@@ -62,7 +62,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                   <label>Calles</label>
-                  <select class="form-control" name="est_car_id" id="calleSelect" required>
+                  <select class="form-control" name="est_nivel_id" id="calleSelect" required>
                     <option value="">Selecciona la Calles</option>
                     
                   </select>
