@@ -22,6 +22,8 @@ class EstructuraController extends Controller
         $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
         ->orderBy("mun_nombre")
         ->get();
+
+        $usu = auth()->user()->usu_mun_id;
        /* $buscar = auth()->user()->usu_mun_id;
 
         if($buscar=='1')
@@ -45,6 +47,7 @@ class EstructuraController extends Controller
         ->join("municipios", "municipios.id", "=", "estructuras.est_nivel_id")
         ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "municipios.mun_nombre")         
         ->where("estructuras.est_nivel","municipios") 
+        ->where("estructuras.est_municipio_usu",$usu) 
         ->orderBy("cargos.car_cargo")
         ->get();
         $cargos = cargos::select("cargos.id","cargos.car_cargo","cargos.car_nivel","cargos.car_cantidad")         
