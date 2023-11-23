@@ -65,10 +65,13 @@ class EstructuraController extends Controller
         ->orderBy("mun_nombre")
         ->get();
 
+        $usu = auth()->user()->usu_mun_id;
+
             $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
             ->join("parroquias", "parroquias.id", "=", "estructuras.est_nivel_id")
             ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "parroquias.par_nombre")         
             ->where("estructuras.est_nivel","parroquias") 
+            ->where("estructuras.est_municipio_usu",$usu) 
             ->orderBy("cargos.car_cargo")
             ->get();
        
@@ -86,11 +89,14 @@ class EstructuraController extends Controller
         $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
         ->orderBy("mun_nombre")
         ->get();
+        $usu = auth()->user()->usu_mun_id;
+
 
             $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
             ->join("agrupaciones", "agrupaciones.id", "=", "estructuras.est_nivel_id")
             ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "agrupaciones.agr_nombre")         
             ->where("estructuras.est_nivel","ubch") 
+            ->where("estructuras.est_municipio_usu",$usu) 
             ->orderBy("cargos.car_cargo")
             ->get();
        
@@ -108,10 +114,13 @@ class EstructuraController extends Controller
         ->orderBy("mun_nombre")
         ->get();
 
+        $usu = auth()->user()->usu_mun_id;
+
             $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
             ->join("comunidades", "comunidades.id", "=", "estructuras.est_nivel_id")
             ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "comunidades.com_nombre")         
             ->where("estructuras.est_nivel","comunidades") 
+            ->where("estructuras.est_municipio_usu",$usu) 
             ->orderBy("cargos.car_cargo")
             ->get();
        
@@ -130,10 +139,13 @@ class EstructuraController extends Controller
         ->orderBy("mun_nombre")
         ->get();
 
+        $usu = auth()->user()->usu_mun_id;
+        
             $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
             ->join("calles", "calles.id", "=", "estructuras.est_nivel_id")
             ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "calles.cal_nombre")         
             ->where("estructuras.est_nivel","calles") 
+            ->where("estructuras.est_municipio_usu",$usu) 
             ->orderBy("cargos.car_cargo")
             ->get();
        
