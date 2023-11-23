@@ -44,7 +44,7 @@ class EstructuraController extends Controller
         $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
         ->join("municipios", "municipios.id", "=", "estructuras.est_nivel_id")
         ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "municipios.mun_nombre")         
-        ->where("estructuras.est_nivel","parroquias") 
+        ->where("estructuras.est_nivel","municipios") 
         ->orderBy("cargos.car_cargo")
         ->get();
         $cargos = cargos::select("cargos.id","cargos.car_cargo","cargos.car_nivel","cargos.car_cantidad")         
