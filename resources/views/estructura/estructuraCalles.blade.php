@@ -288,7 +288,7 @@
 
     function buildCallesSelect(jsonCalles)
     {
-      let CallesSelect = document.getElementById('comunSelect');
+      let CallesSelect = document.getElementById('calleSelect');
       clearSelectCalles(calleSelect); 
       jsonCalles.forEach(function (calle) {
         let optionTag = document.createElement('option');

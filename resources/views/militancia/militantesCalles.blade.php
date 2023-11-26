@@ -60,6 +60,7 @@
               <div class="form-group">
                 <label>Calles</label>
                 <select class="form-control" name="mil_id" id="calleSelect" required>
+                  <option value="">Selecciona la Calles</option>
                   
                 </select>
               </div>
@@ -397,7 +398,7 @@
 
     function buildCallesSelect(jsonCalles)
     {
-      let CallesSelect = document.getElementById('comunSelect');
+      let CallesSelect = document.getElementById('calleSelect');
       clearSelectCalles(calleSelect); 
       jsonCalles.forEach(function (calle) {
         let optionTag = document.createElement('option');
