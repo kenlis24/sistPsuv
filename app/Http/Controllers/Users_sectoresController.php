@@ -19,7 +19,7 @@ class Users_sectoresController extends Controller
     public function index()
     {       
         $users_sectores = users_sectores::join("sectores", "sectores.id", "=", "users_sectores.usec_sec_id")
-        ->join("users", "users.id", "=", "Users_sectores.usec_use_id")
+        ->join("users", "users.id", "=", "users_sectores.usec_use_id")
         ->select("users.id","users.name", "sectores.sec_nombre", "sectores.sec_estado", "users_sectores.usec_estado")
         ->where("users_sectores.usec_estado","A")
         ->where("sectores.sec_estado","A")
