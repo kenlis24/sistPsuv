@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Users_sectores;
-use App\Models\User;
-use App\Models\Sectores;
+use App\Models\users_sectores;
+use App\Models\user;
+use App\Models\sectores;
 use Illuminate\Support\Facades\DB;
 
 class Users_sectoresController extends Controller
@@ -15,7 +15,7 @@ class Users_sectoresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index()
     {       
         $users_sectores = users_sectores::join("sectores", "sectores.id", "=", "users_sectores.usec_sec_id")
