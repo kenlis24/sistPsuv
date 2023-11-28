@@ -131,8 +131,6 @@ Coded by www.creative-tim.com
               </li>             
             </ul>
           </li>
-          @endif
-          @if ($mensaje!='Si') 
           <li id="opcion2">
             <a href="#opcion2">
             <i class="nc-icon nc-paper"></i>
@@ -169,11 +167,8 @@ Coded by www.creative-tim.com
               <a href="{{ route('militancia.consultaMilitantes') }}">
                 <p>Consulta Militantes</p>
               </a>
-            </li>
-            @endif       
+            </li>      
           </ul>
-          @endif
-          @if ($mensaje!='Si') 
           <li id="opcion3">
             <a href="#opcion3">
             <i class="nc-icon nc-paper"></i>
@@ -207,8 +202,7 @@ Coded by www.creative-tim.com
               </li>              
             </li>    
           </ul> 
-          @endif
-          @if ($mensaje=='Si') 
+          <!--
             <li id="opcion4">
               <a href="#opcion4">
               <i class="nc-icon nc-paper"></i>
@@ -224,7 +218,7 @@ Coded by www.creative-tim.com
             </ul>
           </li>    
           </ul>
-          @endif
+          -->
         </li>        
         </ul>
       </div>
