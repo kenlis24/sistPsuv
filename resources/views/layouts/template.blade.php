@@ -123,10 +123,16 @@ Coded by www.creative-tim.com
                 <a href="{{ route('reuniones.index') }}">
                   <p>Eventos</p>
                 </a>
-              </li>              
+              </li>  
+              <li>
+                <a href="{{ route('sectores.index') }}">
+                  <p>Asociar Sectores</p>
+                </a>
+              </li>             
             </ul>
           </li>
           @endif
+          @if ($mensaje!='Si') 
           <li id="opcion2">
             <a href="#opcion2">
             <i class="nc-icon nc-paper"></i>
@@ -159,13 +165,15 @@ Coded by www.creative-tim.com
               </a>
             </li>
             @if (auth()->user()->username=='administrador')
-        <li>
-          <a href="{{ route('militancia.consultaMilitantes') }}">
-            <p>Consulta Militantes</p>
-          </a>
-        </li>
-        @endif
+            <li>
+              <a href="{{ route('militancia.consultaMilitantes') }}">
+                <p>Consulta Militantes</p>
+              </a>
+            </li>
+            @endif       
           </ul>
+          @endif
+          @if ($mensaje!='Si') 
           <li id="opcion3">
             <a href="#opcion3">
             <i class="nc-icon nc-paper"></i>
@@ -196,9 +204,27 @@ Coded by www.creative-tim.com
                 <a href="{{ route('estructura.estructuraCalles') }}">                  
                   <p>Calles</p>
                 </a>
-              </li>
-            </li>        
+              </li>              
+            </li>    
+          </ul> 
+          @endif
+          @if ($mensaje=='Si') 
+            <li id="opcion4">
+              <a href="#opcion4">
+              <i class="nc-icon nc-paper"></i>
+              <p>Sectores</p>
+            </a>
+              <ul>
+                <li>
+                  <a href="{{ route('sectores.cargasectores') }}">                  
+                    <p>Carga</p>
+                  </a>
+                </li>
+              </li>        
+            </ul>
+          </li>    
           </ul>
+          @endif
         </li>        
         </ul>
       </div>

@@ -75,6 +75,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/estructuraUBCH', 'EstructuraController@index3')->name('estructura.estructuraUBCH');
         Route::get('/estructuraComunidades', 'EstructuraController@index4')->name('estructura.estructuraComunidades');
         Route::get('/estructuraCalles', 'EstructuraController@index5')->name('estructura.estructuraCalles');
+        Route::get('/asociarsector', 'Users_sectoresController@index')->name('sectores.index');
+        Route::get('/createasociarsector', 'Users_sectoresController@create')->name('sectores.create');
+        Route::post('/asociacionstore', 'Users_sectoresController@store')->name('sectores.store');
+        Route::get('/sectorespersonas', 'Sectores_personasController@index')->name('sectores.cargasectores');
+        Route::post('/cargasectorespersonas', 'Sectores_personasController@store')->name('sectores.storeCarga');
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
 
