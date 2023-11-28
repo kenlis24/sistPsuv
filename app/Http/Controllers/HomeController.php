@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function index() 
     {
         $mensaje = "No";
-        $userlogueado = auth()->user()->id;
+        /*$userlogueado = auth()->user()->id;
         $sector = DB::table('Users_sectores')
         ->select("Users_sectores.usec_use_id") 
         ->where("Users_sectores.usec_use_id",$userlogueado) 
@@ -23,7 +23,7 @@ class HomeController extends Controller
         }
         else{
             $mensaje = "No";
-        }
+        }*/
 
         return view('home.index',[ 'mensaje' => $mensaje ]);
     }
