@@ -15,12 +15,13 @@ class Users_sectoresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {       
-        $users_sectores = Users_sectores::join("sectores", "sectores.id", "=", "Users_sectores.usec_sec_id")
+        $users_sectores = users_sectores::join("sectores", "sectores.id", "=", "users_sectores.usec_sec_id")
         ->join("users", "users.id", "=", "Users_sectores.usec_use_id")
-        ->select("users.id","users.name", "sectores.sec_nombre", "sectores.sec_estado", "Users_sectores.usec_estado")
-        ->where("Users_sectores.usec_estado","A")
+        ->select("users.id","users.name", "sectores.sec_nombre", "sectores.sec_estado", "users_sectores.usec_estado")
+        ->where("users_sectores.usec_estado","A")
         ->where("sectores.sec_estado","A")
         ->orderBy("users.name")
         ->get();
@@ -56,13 +57,13 @@ class Users_sectoresController extends Controller
     {
         $input = $request->all();
         $mensaje = "Guardar";
-        $existenciaUser = DB::table('Users_sectores')
+        $existenciaUser = DB::table('users_sectores')
             ->select('id')
             ->where('usec_use_id', '=', $input['usec_use_id'])
             ->where('usec_estado', '=', "A")
             ->get(); 
 
-        $existenciaSector = DB::table('Users_sectores')
+        $existenciaSector = DB::table('users_sectores')
             ->select('id')
             ->where('usec_sec_id', '=', $input['usec_sec_id'])
             ->where('usec_estado', '=', "A")
