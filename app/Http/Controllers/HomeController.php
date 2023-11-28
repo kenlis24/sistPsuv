@@ -10,6 +10,7 @@ class HomeController extends Controller
 {
     public function index() 
     {
+        $mensaje = "No";
         $userlogueado = auth()->user()->id;
         $sector = DB::table('Users_sectores')
         ->select("Users_sectores.usec_use_id") 
