@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\municipios;
 use App\Models\sectores;
-use App\Models\Sectores_personas;
-use App\Models\Users_sectores;
+use App\Models\sectores_personas;
+use App\Models\users_sectores;
 use Illuminate\Support\Facades\DB;
 
 class Sectores_personasController extends Controller
@@ -25,17 +25,17 @@ class Sectores_personasController extends Controller
 
         $userlogueado = auth()->user()->id;
         
-        $sector = sectores::Join("users_sectores", "Users_sectores.id", "=", "sectores.id")
+        $sector = sectores::Join("users_sectores", "users_sectores.id", "=", "sectores.id")
         ->select("sectores.id","sectores.sec_nombre") 
-        ->where("Users_sectores.usec_use_id",$userlogueado) 
+        ->where("users_sectores.usec_use_id",$userlogueado) 
         ->orderBy("sec_nombre")
         ->get();
 
-        $sectoresPersonas = Sectores_personas::Join("sectores", "sectores.id", "=", "Sectores_personas.secp_sec_id")
-        ->Join("municipios", "municipios.id", "=", "Sectores_personas.secp_municipio_carga")
-        ->Join("users_sectores", "Users_sectores.id", "=", "Sectores_personas.secp_sec_id")
-        ->select("Sectores_personas.id","Sectores_personas.secp_nac","Sectores_personas.secp_cedula","Sectores_personas.secp_nombres","Sectores_personas.secp_telefono", "municipios.mun_nombre", "sectores.sec_nombre") 
-        ->where("Users_sectores.usec_use_id",$userlogueado) 
+        $sectoresPersonas = sectores_personas::Join("sectores", "sectores.id", "=", "sectores_personas.secp_sec_id")
+        ->Join("municipios", "municipios.id", "=", "sectores_personas.secp_municipio_carga")
+        ->Join("users_sectores", "users_sectores.id", "=", "sectores_personas.secp_sec_id")
+        ->select("sectores_personas.id","sectores_personas.secp_nac","sectores_personas.secp_cedula","sectores_personas.secp_nombres","sectores_personas.secp_telefono", "municipios.mun_nombre", "sectores.sec_nombre") 
+        ->where("users_sectores.usec_use_id",$userlogueado) 
         ->orderBy("municipios.mun_nombre")
         ->get();
 
@@ -51,7 +51,7 @@ class Sectores_personasController extends Controller
     public function store(Request $request)
     {       
         $mensaje = "Guardar";
-        $existenciaCedula = DB::table('Sectores_personas')
+        $existenciaCedula = DB::table('sectores_personas')
             ->select('id')
             ->where('secp_nac', '=', $request->secp_nac)
             ->where('secp_cedula', '=', $request->secp_cedula)
@@ -66,7 +66,7 @@ class Sectores_personasController extends Controller
         //$input['secp_tipo_reg'] = $request->secp_tipo_reg;
         if($mensaje=="Guardar") 
         {
-            Sectores_personas::create($input);
+            sectores_personas::create($input);
             return redirect('sectorespersonas');
         }
         else

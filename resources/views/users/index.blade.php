@@ -1,8 +1,9 @@
 @extends('layouts.template')
 
-@section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+@section('css')    
+    <link rel="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
+    <link rel="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css">
 @endsection
 
 @section('contenido')
@@ -15,8 +16,11 @@
                 <h4 class="card-title">Lista de Usuarios</h4>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-striped table-bordered nowrap" id="usuarios" style="width:100%">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-12">
+                <div class="data_table">
+                  <table class="table table-striped table-bordered" style="width:100%" id="usuarios">
                     <thead class=" text-primary">
                       <th>
                         Nombre
@@ -60,21 +64,45 @@
                 </div>
               </div>
             </div>
+          </div>
+              </div>
+            </div>
 
     </div>
+   
 
-
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
     <script>      
       $(document).ready(function () {
         new DataTable('#usuarios', {
-            responsive: true
+            responsive: true,
+            lengthChange: false,
+            buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
         });
-      });        
+
+        table.buttons().container()
+              .appendTo( '#usuarios_wrapper .col-md-6:eq(0)' );
+      });  
+      
+      /*$(document).ready(function() {
+          var table = $('#usuarios').DataTable( {
+              lengthChange: false,
+              buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+          } );
+      
+          table.buttons().container()
+              .appendTo( '#usuarios_wrapper .col-md-6:eq(0)' );
+      } );*/
     </script>
 
 

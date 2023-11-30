@@ -6,7 +6,9 @@ use App\Models\parroquias;
 use App\Models\militancias;
 use App\Models\comunidades;
 use App\Models\calles;
+use App\Models\estructuras;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +82,24 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/asociacionstore', 'Users_sectoresController@store')->name('sectores.store');
         Route::get('/sectorespersonas', 'Sectores_personasController@index')->name('sectores.cargasectores');
         Route::post('/cargasectorespersonas', 'Sectores_personasController@store')->name('sectores.storeCarga');
+        Route::get('/reporte', 'EstructuraController@reporte')->name('reportes.listadoCarga');
+
+        Route::get('/reporteLista/{id}/datosCargados', function ($id) {
+
+            $usu = auth()->user()->username;
+            return $centro = DB::select("select distinct est_nac as nac, est_cedula as cedula, 
+            est_nombres as nombres, est_telefono telefono
+            from estructuras 
+            where est_usuario_creo = '".$usu."' 
+            and est_centro = '".$id."' 
+            union
+            select distinct mil_nac as nac, mil_cedula as cedula, mil_nombres as nombres,
+            mil_telefono telefono
+            from militancias 
+            where mil_usua_crea = '".$usu."' 
+            and mil_centro = '".$id."'
+            order by 1");
+        });
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
 

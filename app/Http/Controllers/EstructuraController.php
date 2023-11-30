@@ -8,6 +8,7 @@ use App\Models\parroquias;
 use App\Models\agrupaciones;
 use App\Models\estructuras;
 use App\Models\cargos;
+use App\Models\militancias;
 use Illuminate\Support\Facades\DB;
 
 class EstructuraController extends Controller
@@ -245,4 +246,33 @@ class EstructuraController extends Controller
             }    
         }
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reporte()
+    {
+        $usu = auth()->user()->username;
+        $centro1 = estructuras::select("estructuras.est_centro as centro") 
+        ->distinct() 
+        ->where("estructuras.est_usuario_creo",$usu) 
+        ->whereNotNull("estructuras.est_usuario_creo")
+        ->get();
+
+        $centro2 = militancias::select("militancias.mil_centro as centro") 
+        ->distinct() 
+        ->where("militancias.mil_usua_crea",$usu) 
+        ->whereNotNull("militancias.mil_usua_crea")
+        ->get();
+
+        $centro = DB::select("select distinct est_centro as centro from estructuras where est_usuario_creo = '".$usu."' and est_centro is not null
+        union
+        select distinct mil_centro as centro from militancias where mil_usua_crea = '".$usu."' and mil_centro is not null
+        order by 1");
+
+        return view('reportes.listadoCarga',  compact('centro'));
+    }
+
 }

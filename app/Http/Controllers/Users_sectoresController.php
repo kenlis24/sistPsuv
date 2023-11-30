@@ -81,7 +81,7 @@ class Users_sectoresController extends Controller
 
         if($mensaje=="Guardar") 
         {
-            Users_sectores::create($input);
+            users_sectores::create($input);
             return redirect('/asociarsector');
         }
         else

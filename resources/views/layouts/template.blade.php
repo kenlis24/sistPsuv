@@ -164,13 +164,14 @@ Coded by www.creative-tim.com
               </a>
             </li>
             @if (auth()->user()->username=='administrador')
-        <li>
-          <a href="{{ route('militancia.consultaMilitantes') }}">
-            <p>Consulta Militantes</p>
-          </a>
-        </li>
-        @endif
+				<li>
+				  <a href="{{ route('militancia.consultaMilitantes') }}">
+					<p>Consulta Militantes</p>
+				  </a>
+				</li>
+			@endif
           </ul>
+		  </li>
           <li id="opcion3">
             <a href="#opcion3">
             <i class="nc-icon nc-paper"></i>
@@ -202,13 +203,22 @@ Coded by www.creative-tim.com
                   <p>Calles</p>
                 </a>
               </li>
-            </li>    
+			  </ul>
+            </li>  
+            <li id="opcion4">
+              <a href="#opcion4">
+              <i class="nc-icon nc-paper"></i>
+              <p>Reportes</p>
+              </a>
+              <ul>
+                <li>
+                  <a href="{{ route('reportes.listadoCarga') }}">                  
+                    <p>Listado</p>
+                  </a>
+                </li>
+              </ul>
+             </li>  
           </ul> 
-            
-          </li>    
-          </ul>
-        </li>        
-        </ul>
       </div>
     </div>
     <div class="main-panel">
