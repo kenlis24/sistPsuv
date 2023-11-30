@@ -205,6 +205,7 @@ Coded by www.creative-tim.com
               </li>
 			  </ul>
             </li>  
+            @if (auth()->user()->username=='administrador') 
             <li id="opcion4">
               <a href="#opcion4">
               <i class="nc-icon nc-paper"></i>
@@ -218,6 +219,7 @@ Coded by www.creative-tim.com
                 </li>
               </ul>
              </li>  
+             @endif
           </ul> 
       </div>
     </div>
