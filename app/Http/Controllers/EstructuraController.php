@@ -259,40 +259,58 @@ class EstructuraController extends Controller
         ->orderBy("mun_nombre")
         ->get();
 
-        $centro = DB::select("select distinct estD.est_nac as nac, estD.est_cedula as cedula, estD.est_nombres as nombres, 
-			estD.est_telefono telefono, estD.est_centro centro, 
-			(SELECT CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
-												FROM estructuras estU
-												WHERE estU.est_car_id='99'
-												and estU.est_nivel_id = estD.est_nivel_id
-                                                         and estU.est_usuario_creo = estD.est_usuario_creo
-                                                         LIMIT 1) JefeComunidad ,
-			(SELECT CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
-												FROM estructuras estU
-												WHERE estU.est_car_id='103'
-												and estU.est_nivel_id = estD.est_nivel_id
-                                                         and estU.est_usuario_creo = estD.est_usuario_creo
-                                                         LIMIT 1) JefeCalle
-            from estructuras estD
-            where estD.est_municipio = 'MP. SAN CRISTOBAL'
-			union
-			select distinct mili.mil_nac as nac, mili.mil_cedula as cedula, mili.mil_nombres as nombres,
-            mili.mil_telefono telefono, mili.mil_centro centro, 
-			(SELECT distinct CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
-												FROM estructuras estU
-												WHERE estU.est_car_id='99'
-                                                and estU.est_nivel_id = mil_id 
-												and estU.est_usuario_creo = mili.mil_usua_crea
-                                                LIMIT 1) JefeComunidad,
-			(SELECT distinct CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
-												FROM estructuras estU
-												WHERE estU.est_car_id='103'
-                                                and estU.est_nivel_id = mil_id 
-												and estU.est_usuario_creo = mili.mil_usua_crea
-                                                LIMIT 1) JefeCalle
-            from militancias mili
-            where mili.mil_municipio = 'MP. SAN CRISTOBAL'
-            order by 5, 2");
+        $centro = DB::select("select distinct estD.est_centro centro, estD.est_nac as nac, estD.est_cedula as cedula, estD.est_nombres as nombres, 
+        estD.est_telefono telefono,  (SELECT distinct comu.com_nombre 
+                                            FROM comunidades comu
+                                            WHERE estD.est_nivel_id = comu.id
+                                            and estD.est_nivel = 'comunidades'                                                       
+                                                     LIMIT 1) Comunidad ,
+        (SELECT distinct calle.cal_nombre 
+                                            FROM calles calle
+                                            WHERE estD.est_nivel_id = calle.id
+                                            and estD.est_nivel = 'calles'                                                       
+                                                     LIMIT 1) Calle ,
+        (SELECT CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
+                                            FROM estructuras estU
+                                            WHERE estU.est_car_id='99'
+                                            and estU.est_nivel_id = estD.est_nivel_id
+                                                     and estU.est_usuario_creo = estD.est_usuario_creo
+                                                     LIMIT 1) JefeComunidad ,
+        (SELECT CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
+                                            FROM estructuras estU
+                                            WHERE estU.est_car_id='103'
+                                            and estU.est_nivel_id = estD.est_nivel_id
+                                                     and estU.est_usuario_creo = estD.est_usuario_creo
+                                                     LIMIT 1) JefeCalle
+        from estructuras estD
+        where estD.est_municipio = 'MP. SAN CRISTOBAL'
+        union
+        select distinct mili.mil_centro centro, mili.mil_nac as nac, mili.mil_cedula as cedula, mili.mil_nombres as nombres,
+        mili.mil_telefono telefono,  (SELECT distinct comu.com_nombre 
+                                            FROM comunidades comu
+                                            WHERE mili.mil_id = comu.id
+                                            and mili.mil_tipo_nivel = 'comunidades'                                                       
+                                                     LIMIT 1) Comunidad ,
+        (SELECT distinct calle.cal_nombre 
+                                            FROM calles calle
+                                            WHERE mili.mil_id = calle.id
+                                            and mili.mil_tipo_nivel = 'calles'                                                           
+                                                     LIMIT 1) Calle ,
+        (SELECT distinct CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
+                                            FROM estructuras estU
+                                            WHERE estU.est_car_id='99'
+                                            and estU.est_nivel_id = mil_id 
+                                            and estU.est_usuario_creo = mili.mil_usua_crea
+                                            LIMIT 1) JefeComunidad,
+        (SELECT distinct CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
+                                            FROM estructuras estU
+                                            WHERE estU.est_car_id='103'
+                                            and estU.est_nivel_id = mil_id 
+                                            and estU.est_usuario_creo = mili.mil_usua_crea
+                                            LIMIT 1) JefeCalle
+        from militancias mili
+        where mili.mil_municipio = 'MP. SAN CRISTOBAL'
+        order by 1, 3");
 
         return view('reportes.listadoCarga',  compact('municipios'),  compact('centro'));
     }

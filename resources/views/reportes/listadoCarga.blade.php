@@ -46,6 +46,8 @@
                                   Telefono
                                 </th>      
                                 <th>Centro</th>
+                                <th>Comunidad</th>
+                                <th>Calle</th>
                                 <th>Jefe Comunidad</th>
                                 <th>Jefe Calle</th>
                             </tr>
@@ -67,6 +69,12 @@
                               </td>                               
                               <td>
                                 {{ $item->centro }}
+                            </td> 
+                            <td>
+                                {{ $item->Comunidad }}
+                            </td> 
+                            <td>
+                                {{ $item->Calle }}
                             </td> 
                             <td>
                                 {{ $item->JefeComunidad }}
