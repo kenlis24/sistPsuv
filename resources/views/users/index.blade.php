@@ -1,7 +1,6 @@
 @extends('layouts.template')
 
 @section('css')    
-    <link rel="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
     <link rel="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css">
 @endsection
@@ -71,7 +70,7 @@
     </div>
    
 
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+   
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
@@ -82,6 +81,8 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+    
     <script>      
       $(document).ready(function () {
         new DataTable('#usuarios', {

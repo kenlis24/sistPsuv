@@ -83,22 +83,44 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/sectorespersonas', 'Sectores_personasController@index')->name('sectores.cargasectores');
         Route::post('/cargasectorespersonas', 'Sectores_personasController@store')->name('sectores.storeCarga');
         Route::get('/reporte', 'EstructuraController@reporte')->name('reportes.listadoCarga');
+        Route::get('/reporteCalle', 'EstructuraController@reporteCalle')->name('reportes.listadoCargaCalle');
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
 
-            $usu = auth()->user()->username;
-            return $centro = DB::select("select distinct est_nac as nac, est_cedula as cedula, 
-            est_nombres as nombres, est_telefono telefono
-            from estructuras 
-            where est_usuario_creo = '".$usu."' 
-            and est_centro = '".$id."' 
-            union
-            select distinct mil_nac as nac, mil_cedula as cedula, mil_nombres as nombres,
-            mil_telefono telefono
-            from militancias 
-            where mil_usua_crea = '".$usu."' 
-            and mil_centro = '".$id."'
-            order by 1");
+            return $centro = DB::select("select distinct estD.est_nac as nac, estD.est_cedula as cedula, estD.est_nombres as nombres, 
+			estD.est_telefono telefono, estD.est_centro centro, 
+			(SELECT CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
+												FROM estructuras estU
+												WHERE estU.est_car_id='99'
+												and estU.est_nivel_id = estD.est_nivel_id
+                                                         and estU.est_usuario_creo = estD.est_usuario_creo
+                                                         LIMIT 1) JefeComunidad ,
+			(SELECT CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
+												FROM estructuras estU
+												WHERE estU.est_car_id='103'
+												and estU.est_nivel_id = estD.est_nivel_id
+                                                         and estU.est_usuario_creo = estD.est_usuario_creo
+                                                         LIMIT 1) JefeCalle
+            from estructuras estD
+            where estD.est_municipio = 'MP. SAN CRISTOBAL'
+			union
+			select distinct mili.mil_nac as nac, mili.mil_cedula as cedula, mili.mil_nombres as nombres,
+            mili.mil_telefono telefono, mili.mil_centro centro, 
+			(SELECT distinct CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
+												FROM estructuras estU
+												WHERE estU.est_car_id='99'
+                                                and estU.est_nivel_id = mil_id 
+												and estU.est_usuario_creo = mili.mil_usua_crea
+                                                LIMIT 1) JefeComunidad,
+			(SELECT distinct CONCAT(estU.est_nac,' ',estU.est_cedula,' ',estU.est_nombres,' ',estU.est_telefono) 
+												FROM estructuras estU
+												WHERE estU.est_car_id='103'
+                                                and estU.est_nivel_id = mil_id 
+												and estU.est_usuario_creo = mili.mil_usua_crea
+                                                LIMIT 1) JefeCalle
+            from militancias mili
+            where mili.mil_municipio = 'MP. SAN CRISTOBAL'
+            order by 5, 2");
         });
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
