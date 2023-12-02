@@ -53,6 +53,9 @@
                             @foreach ($centro as $item)   
                             <tr>
                                 <td>
+                                    {{ $item->centro }}
+                                </td> 
+                                <td>
                                     {{ $item->nac }}
                                 </td>
                                 <td>
@@ -63,10 +66,8 @@
                                 </td>   
                                 <td>
                                   {{ $item->telefono }}
-                              </td>                               
-                              <td>
-                                {{ $item->centro }}
-                            </td> 
+                              </td>                             
+                              
                             <td>
                                 {{ $item->JefeCalle }}
                             </td> 
