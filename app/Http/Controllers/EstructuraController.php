@@ -283,7 +283,7 @@ class EstructuraController extends Controller
                                                      and estU.est_usuario_creo = estD.est_usuario_creo
                                                      LIMIT 1) JefeCalle
         from estructuras estD
-        where estD.est_municipio = 'SAMUEL DARÍO MALDONADO'
+        where estD.est_municipio = 'MP. SEBORUCO'
         union
         select distinct mili.mil_centro centro, mili.mil_nac as nac, mili.mil_cedula as cedula, mili.mil_nombres as nombres,
         mili.mil_telefono telefono,  (SELECT distinct comu.com_nombre 
@@ -309,7 +309,7 @@ class EstructuraController extends Controller
                                             and estU.est_usuario_creo = mili.mil_usua_crea
                                             LIMIT 1) JefeCalle
         from militancias mili
-        where mili.mil_municipio = 'SAMUEL DARÍO MALDONADO'
+        where mili.mil_municipio = 'MP. SEBORUCO'
         order by 1, 3");
 
         return view('reportes.listadoCarga',  compact('municipios'),  compact('centro'));
@@ -331,7 +331,7 @@ class EstructuraController extends Controller
 												and estU.est_usuario_creo = mili.mil_usua_crea
                                                 LIMIT 1) JefeCalle
             from militancias mili
-            where mili.mil_municipio = 'SAMUEL DARÍO MALDONADO'
+            where mili.mil_municipio = 'MP. SEBORUCO'
             and mili.mil_tipo_nivel = 'calles'
             order by 5, 2");
 
