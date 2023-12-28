@@ -95,8 +95,8 @@ Coded by www.creative-tim.com
       <div class="logo">        
         <a href="" class="simple-text logo-normal"> 
            <div class="logo-image-big">
-            <strong>Tachirenses por el <br>Esequibo</strong>
-            <img src="../assets/img/logo.png" alt="" width="80" height="80">
+            <strong>Sistema</strong>
+            <img src="../assets/img/logopsuv2.jpg" alt="" width="120" height="80">
           </div> 
         </a>
       </div>
@@ -129,7 +129,7 @@ Coded by www.creative-tim.com
                 <a href="{{ route('sectores.index') }}">
                   <p>Asociar Sectores</p>
                 </a>
-              </li>             
+              </li>         
             </ul>
           </li>
           @endif
@@ -163,14 +163,7 @@ Coded by www.creative-tim.com
               <a href="{{ route('militancia.militantesCalles') }}">
                 <p>Calles</p>
               </a>
-            </li>
-            @if (auth()->user()->username=='administrador')
-				<li>
-				  <a href="{{ route('militancia.consultaMilitantes') }}">
-					<p>Consulta Militantes</p>
-				  </a>
-				</li>
-			@endif
+            </li>            
           </ul>
 		  </li>
           <li id="opcion3">
@@ -206,14 +199,14 @@ Coded by www.creative-tim.com
               </li>
 			  </ul>
             </li>  
-            @if (auth()->user()->username=='administrador') 
-            <li id="opcion4">
+          @if (auth()->user()->username=='administrador') 
+             <li id="opcion4">
               <a href="#opcion4">
               <i class="nc-icon nc-paper"></i>
               <p>Reportes</p>
               </a>
               <ul>
-                <li>
+               <!--  <li>
                   <a href="{{ route('reportes.listadoCarga') }}">                  
                     <p>Listado</p>
                   </a>
@@ -222,11 +215,30 @@ Coded by www.creative-tim.com
                   <a href="{{ route('reportes.listadoCargaCalle') }}">                  
                     <p>Listado Calle</p>
                   </a>
+                </li>-->                     
+              <li>
+                <a href="{{ route('reportes.consultaMilitantes') }}">
+                  <p>Consultar Militantes</p>
+                </a>
+              </li> 
+              </ul>
+             </li>  
+             @endif
+          @if (auth()->user()->username=='administrador') 
+            <li id="opcion5">
+              <a href="#opcion5">
+              <i class="nc-icon nc-paper"></i>
+              <p>Sectores</p>
+              </a>
+              <ul>
+                <li>
+                  <a href="{{ route('sectores.cargasectores') }}">                  
+                    <p>Carga de sectores</p>
+                  </a>
                 </li>
               </ul>
              </li>  
              @endif
-          </ul> 
       </div>
     </div>
     <div class="main-panel">

@@ -9,7 +9,7 @@
         <h5 class="card-title">Crear Asociación de Usuario a un Sector</h5>
       </div>
       <div class="card-body">
-        <form method="post" action="{{ route('sectores.storeasociacion') }}">
+        <form method="post" action="{{ route('sectores.store') }}">
             {!! csrf_field() !!}
           <div class="row">
             <div class="col-md-6">

@@ -10,22 +10,7 @@ class HomeController extends Controller
 {
     public function index() 
     {
-        $mensaje = "No";
-        $userlogueado = auth()->user()->id;
-        $sector = DB::table('users_sectores')
-        ->select("users_sectores.usec_use_id") 
-        ->where("users_sectores.usec_use_id",$userlogueado) 
-        ->get();
-
-        if (count($sector) >= 1) 
-        {
-            $mensaje = "Si";
-        }
-        else{
-            $mensaje = "No";
-        }
-
-        return view('home.index',[ 'mensaje' => $mensaje ]);
+        return view('home.index');
     }
 
     public function militan() 

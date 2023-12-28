@@ -70,7 +70,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/militantMunip', 'MilitanciaController@index3')->name('militancia.militantesMunicipios');
         Route::get('/militantParr', 'MilitanciaController@index4')->name('militancia.militantesParroquias');
         Route::get('/militantCalle', 'MilitanciaController@index5')->name('militancia.militantesCalles');
-        Route::get('/consultaMilit', 'MilitanciaController@create')->name('militancia.consultaMilitantes');
+        Route::get('/consultaMilit', 'MilitanciaController@create')->name('reportes.consultaMilitantes');
         Route::get('/estructuraMunicipio', 'EstructuraController@index')->name('estructura.estructuraMunicipios');
         Route::post('/storeEstru', 'EstructuraController@store')->name('estructura.store');
         Route::get('/estructuraParroquia', 'EstructuraController@index2')->name('estructura.estructuraParroquias');
@@ -122,6 +122,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             where mili.mil_municipio = 'MP. SAN CRISTOBAL'
             order by 5, 2");
         });
+
+        Route::get('/reporteMilitancia/{nac}/{ced}/datos', function ($nac, $ced) {
+
+            return $datos = DB::select("SELECT mil.mil_nac, mil.mil_cedula, mil.mil_nombres nombres,mil.mil_apellidos apellidos,
+            eve.eve_nombre evento, mil.mil_fecha fecha, mil.mil_id, mil.mil_tipo_nivel nivel, 'Asistencia' tipo
+            FROM militancias mil, eventos eve
+            WHERE mil.mil_cedula = '$ced'
+            and mil.mil_nac = '$nac'
+            and mil.mil_eve_id = eve.id");
+        });
+
 
         Route::get('/tableMilitancia/{ubch}/{fecha}/{evento}/{pag}/militanciaUBCH', function ($tipo,$fecha,$evento,$pag) {
 

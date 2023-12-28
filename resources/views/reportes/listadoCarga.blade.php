@@ -36,6 +36,7 @@
                     <table id="example" class="table table-striped table-bordered">
                         <thead class="table-dark">
                             <tr>
+                                <th>Calle</th>
                                 <th>Nac</th>
                                 <th>                                    Cedula
                                 </th>
@@ -46,8 +47,7 @@
                                   Telefono
                                 </th>      
                                 <th>Centro</th>
-                                <th>Comunidad</th>
-                                <th>Calle</th>
+                                <th>Comunidad</th>                                
                                 <th>Jefe Comunidad</th>
                                 <th>Jefe Calle</th>
                             </tr>
