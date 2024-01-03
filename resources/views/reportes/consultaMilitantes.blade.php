@@ -34,16 +34,20 @@
                 </div>
               </div>
             </div> 
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div id="NombrePer"></div>                  
+                </div>
+              </div>
+            </div> 
             <table class="table table-striped table-bordered nowrap" style="width:100%">
               <thead class=" text-primary">
-                <th>
-                  Nombres y Apellidos
-                </th>
                 <th>
                   Evento
                 </th>
                 <th>
-                  Fechha
+                  Fecha
                 </th>
                 <th>
                   Nivel
@@ -54,8 +58,6 @@
               </thead>
               <tbody id="tableLista">
                       <tr>
-                        <td>
-                        </td>
                           <td>
                           </td>
                           <td>
@@ -95,25 +97,40 @@
 
   function buildData(jsonData)
     { 
+      clearData();
       console.log(jsonData);
+      sw = 0;
       jsonData.forEach(function (lista) {   
         if(lista.apellidos==null) 
         {
           nombre = lista.nombres;
+          sw = sw + 1;
         }
         else
         {
           nombre = lista.nombres+` `+lista.apellidos;
+          sw = sw + 1;
+        }
+        if(sw==1)
+        {
+          $('#NombrePer').append(
+          `<div> <strong>Nombre: </strong>`+lista.nombres+`    
+          </div>`);
         }
         $('#tableLista').append(
         `<tr> 
-          <td> `+lista.nombres+` </td>
           <td> `+lista.evento+` </td>  
           <td> `+lista.fecha+` </td>  
           <td> `+lista.nivel+` </td>     
           <td> `+lista.tipo+` </td>      
          </tr>`);
       });
+    }
+
+    function clearData()
+    {
+      document.getElementById("NombrePer").innerHTML = ""; 
+      document.getElementById("tableLista").innerHTML = ""; 
     }
 </script>
 
