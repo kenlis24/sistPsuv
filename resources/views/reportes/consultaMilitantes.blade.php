@@ -44,10 +44,10 @@
             <table class="table table-striped table-bordered nowrap" style="width:100%">
               <thead class=" text-primary">
                 <th>
-                  Evento
+                  Evento / Cargo
                 </th>
                 <th>
-                  Fecha
+                  Fecha 
                 </th>
                 <th>
                   Nivel

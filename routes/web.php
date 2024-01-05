@@ -125,12 +125,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         Route::get('/reporteMilitancia/{nac}/{ced}/datos', function ($nac, $ced) {
 
-            return $datos = DB::select("SELECT mil.mil_nac, mil.mil_cedula, mil.mil_nombres nombres,mil.mil_apellidos apellidos,
+            return $datos = DB::select("SELECT mil.mil_nac nac, mil.mil_cedula cedula, mil.mil_nombres nombres,mil.mil_apellidos apellidos,
             eve.eve_nombre evento, mil.mil_fecha fecha, mil.mil_id, mil.mil_tipo_nivel nivel, 'Asistencia' tipo
             FROM militancias mil, eventos eve
             WHERE mil.mil_cedula = '$ced'
             and mil.mil_nac = '$nac'
-            and mil.mil_eve_id = eve.id");
+            and mil.mil_eve_id = eve.id
+            UNION
+            SELECT est.est_nac nac, est.est_cedula cedula, est.est_nombres nombres, '' apellidos,
+			car.car_cargo evento, '' fecha, est.est_nivel_id, est.est_nivel nivel, 'Estructura' tipo
+			FROM estructuras est, cargos car
+			WHERE est.est_nac = '$nac'
+			and est.est_cedula = '$ced'
+			and est.est_car_id = car.id");
         });
 
 
