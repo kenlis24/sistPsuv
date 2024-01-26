@@ -168,7 +168,7 @@ class EstructuraController extends Controller
      */
     public function store(Request $request)
     {      
-        $mensaje = "Guardar";
+        $mensaje = "Guardar";        
         $existenciaCargo = DB::table('estructuras')
             ->select('id')
             ->where('est_car_id', '=', $request->est_car_id)
@@ -336,5 +336,37 @@ class EstructuraController extends Controller
             order by 5, 2");
 
         return view('reportes.listadoCargaCalle',  compact('municipios'),  compact('centro'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id,$pag)
+    {
+        $var = Estructuras::find($id);
+        $var->delete();
+        if($pag=='calles')
+        {
+            return redirect('/estructuraCalles')->with('eliminar','ok');
+        }   
+        if($pag=='comunidades')
+        {
+            return redirect('/estructuraComunidades')->with('eliminar','ok');
+        } 
+        if($pag=='municipios')
+        {
+            return redirect('/estructuraMunicipio')->with('eliminar','ok');
+        } 
+        if($pag=='parroquias')
+        {
+            return redirect('/estructuraParroquia')->with('eliminar','ok');
+        } 
+        if($pag=='ubch')
+        {
+            return redirect('/estructuraUBCH')->with('eliminar','ok');
+        } 
     }
 }

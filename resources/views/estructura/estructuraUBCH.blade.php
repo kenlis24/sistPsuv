@@ -134,6 +134,7 @@
                   </div>
                 </div>
             @endif
+          </form>
           <div class="row">
             <div class="col-md-12">
             <div class="card">
@@ -175,6 +176,16 @@
                                 </td>   
                                 <td> {{ $item->agr_nombre }}
                                 </td> 
+                                <td class="text-right">   
+                                  
+                                  <form class="miFormulario" action="{{ route('estructura.destroy',['id' => $item->id,'pag' => 'ubch']) }}">
+                                    @method("DELETE")
+                                      @csrf
+                                    <!-- Otros campos del formulario anidado -->
+                                    
+                                    <button type="submit" id="botonmiFormulario" class="btn btn-danger btn-round">Eliminar</button>
+                                </form>
+                                </td>
                             </tr>
                             @endforeach
                     </tbody>
@@ -184,7 +195,7 @@
             </div>
           </div>
           </div>
-        </form>
+        
       </div>
     </div>
 </div>
@@ -322,3 +333,36 @@
 
 
 
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('eliminar') == 'ok')
+  <script>
+      Swal.fire({
+            title: "Eliminado",
+            text: "El registro se eliminó correctamente",
+            icon: "success"
+          });
+  </script>
+@endif
+<script type="text/javascript">
+  $('.miFormulario').submit(function (e) {
+    e.preventDefault();
+
+    Swal.fire({
+      title: "¿Estas seguro de Eliminar?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "¡Sí, estoy seguro!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.submit();
+        }
+      });
+
+    });
+</script> 
+@endsection

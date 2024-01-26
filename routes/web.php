@@ -73,6 +73,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/consultaMilit', 'MilitanciaController@create')->name('reportes.consultaMilitantes');
         Route::get('/estructuraMunicipio', 'EstructuraController@index')->name('estructura.estructuraMunicipios');
         Route::post('/storeEstru', 'EstructuraController@store')->name('estructura.store');
+        Route::get('/destroyEstru/{id}/{pag}', 'EstructuraController@destroy')->name('estructura.destroy');
         Route::get('/estructuraParroquia', 'EstructuraController@index2')->name('estructura.estructuraParroquias');
         Route::get('/estructuraUBCH', 'EstructuraController@index3')->name('estructura.estructuraUBCH');
         Route::get('/estructuraComunidades', 'EstructuraController@index4')->name('estructura.estructuraComunidades');

@@ -6,7 +6,7 @@
 <div class="col-md-12">
     <div class="card card-user">
       <div class="card-header">
-        <h5 class="card-title">Cargar Estructura de Parroquias</h5>
+        <h5 class="card-title">Crear Calle</h5>
       </div>
       <div class="card-body">
         <form method="post" action="{{ route('estructura.store') }}">
@@ -18,7 +18,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Municipios del estado Táchira</label>
-                <input type="hidden" name="est_nivel" id="est_nivel" value="parroquias"/>         
+                <input type="hidden" name="est_nivel" id="est_nivel" value="calles"/>         
                 <input type="hidden" name="est_municipio_usu" id="est_municipio_usu" value="{{ auth()->user()->usu_mun_id }}"/>       
                   
                 <select class="form-control"  id="_municipios" onchange="loadParroquias(this)" {{ auth()->user()->username!='administrador'  ? 'disabled' : '' }} required>
@@ -33,25 +33,55 @@
             <div class="col-md-6">
                 <div class="form-group">
                   <label>Parroquias del estado Táchira</label>
-                  <select class="form-control" name="est_nivel_id" id="parSelect" required>  
+                  <select class="form-control"  id="parSelect" onchange="loadUBCH(this)" required>  
                     <option value="">Selecciona la parroquia</option>       
                   </select>
                 </div>
-              </div>      
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Estructura Parroquias</label>
-                <select class="form-control" name="est_car_id" id="est_car_id" required>
-                  <option value="">Selecciona el cargo</option>
-                  @foreach ($cargos as $item)
-                    <option value="{{ $item->id }}">{{ $item->car_cargo }}</option>
-                  @endforeach
-                </select>
-                
+              </div>     
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>UBCH del estado Táchira</label>
+                  <select class="form-control" id="ubchSelect" onchange="loadComunidades(this)" required>  
+                    <option value="">Selecciona la UBCH</option>       
+                  </select>
+                </div>
               </div>
-            </div>         
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Comunidades</label>
+                  <select class="form-control" id="comunSelect" onchange="loadCalles(this)" required>
+                    <option value="">Selecciona la comunidad</option>                  
+                  </select>
+                </div>
+              </div>
+                    
           </div> 
           <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label>Calles</label>
+                  <select class="form-control" name="est_nivel_id" id="calleSelect" required>
+                    <option value="">Selecciona la Calles</option>
+                    
+                  </select>
+                </div>
+              </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Estructura Counidades</label>
+              <select class="form-control" name="est_car_id" id="est_car_id" required>
+                <option value="">Selecciona el cargo</option>
+                @foreach ($cargos as $item)
+                  <option value="{{ $item->id }}">{{ $item->car_cargo }}</option>
+                @endforeach
+              </select>
+              
+            </div>
+          </div>         
+        </div> 
+          <div class="row">            
             <div class="col-md-12">
               <div class="form-group">
                 <table class="table" id="table">
@@ -124,7 +154,6 @@
                   </div>
                 </div>
             @endif
-          </form>
           <div class="row">
             <div class="col-md-12">
             <div class="card">
@@ -148,10 +177,7 @@
                         Cargo
                       </th>
                       <th>
-                        Parroquia
-                      </th>
-                      <th>
-                        Acciones
+                        Calles
                       </th>
                     </thead>
                     <tbody>
@@ -167,18 +193,8 @@
                                 </td>
                                 <td> {{ $item->car_cargo }}
                                 </td>   
-                                <td> {{ $item->par_nombre }}
+                                <td> {{ $item->cal_nombre }}
                                 </td> 
-                                <td class="text-right">   
-                                  
-                                  <form class="miFormulario" action="{{ route('estructura.destroy',['id' => $item->id,'pag' => 'parroquias']) }}">
-                                    @method("DELETE")
-                                      @csrf
-                                    <!-- Otros campos del formulario anidado -->
-                                    
-                                    <button type="submit" id="botonmiFormulario" class="btn btn-danger btn-round">Eliminar</button>
-                                </form>
-                                </td>
                             </tr>
                             @endforeach
                     </tbody>
@@ -188,7 +204,7 @@
             </div>
           </div>
           </div>
-        
+        </form>
       </div>
     </div>
 </div>
@@ -204,6 +220,83 @@
   {
     loadParroquias($selectOption);
   } 
+  function loadUBCH(selectParroquias)
+  {
+    let parroquiaId = selectParroquias.value;
+    fetch(`parroquias/${parroquiaId}/agrupaciones`)
+      .then( function (response) { 
+        return response.json();
+      })
+
+      .then(function(jsonData){
+        buildUBCHSelect(jsonData);
+      })
+    }
+
+    function buildUBCHSelect(jsonUBCH)
+    {
+      let UBCHSelect = document.getElementById('ubchSelect');
+      clearSelectUBCH(ubchSelect);
+      clearSelectComunindades(comunSelect);
+      clearSelectCalles(calleSelect);  
+      jsonUBCH.forEach(function (ubch) {
+        let optionTag = document.createElement('option');
+        optionTag.value = ubch.id;
+        optionTag.innerHTML = ubch.agr_nombre;
+        ubchSelect.append(optionTag);
+      });
+    }
+
+    function loadComunidades(selectUBCH)
+  {
+    let ubchaId = selectUBCH.value;
+    fetch(`ubch/${ubchaId}/comunidades`)
+      .then( function (response) { 
+        return response.json();
+      })
+
+      .then(function(jsonData){
+        buildComunidadesSelect(jsonData);
+      })
+    }
+
+    function buildComunidadesSelect(jsonComun)
+    {
+      let ComunSelect = document.getElementById('comunSelect');
+      clearSelectComunindades(comunSelect);
+      clearSelectCalles(calleSelect);  
+      jsonComun.forEach(function (comun) {
+        let optionTag = document.createElement('option');
+        optionTag.value = comun.id;
+        optionTag.innerHTML = comun.com_nombre;
+        comunSelect.append(optionTag);
+      });
+    }
+
+    function loadCalles(comunSelect)
+  {
+    let comuniId = comunSelect.value;
+    fetch(`comun/${comuniId}/calles`)
+      .then( function (response) { 
+        return response.json();
+      })
+
+      .then(function(jsonData){
+        buildCallesSelect(jsonData);
+      })
+    }
+
+    function buildCallesSelect(jsonCalles)
+    {
+      let CallesSelect = document.getElementById('calleSelect');
+      clearSelectCalles(calleSelect); 
+      jsonCalles.forEach(function (calle) {
+        let optionTag = document.createElement('option');
+        optionTag.value = calle.id;
+        optionTag.innerHTML = calle.cal_nombre;
+        calleSelect.append(optionTag);
+      });
+    }
 
   function consultarced()
   {
@@ -273,7 +366,9 @@
     {
       let parroquiasSelect = document.getElementById('parSelect');      
       clearSelectParroquias(parroquiasSelect);
-      
+      clearSelectUBCH(ubchSelect);
+      clearSelectComunindades(comunSelect);
+      clearSelectCalles(calleSelect);  
       jsonParroquias.forEach(function (parr) {
         let optionTag = document.createElement('option');
         optionTag.value = parr.id;
@@ -288,44 +383,30 @@
         select.remove(1);
       }
     }  
+    function clearSelectUBCH(select)
+    {
+      while(select.options.length > 1){
+        select.remove(1);
+      }
+    } 
 
+    function clearSelectComunindades(select)
+    {
+      while(select.options.length > 1){
+        select.remove(1);
+      }
+    }  
+
+    function clearSelectCalles(select)
+    {
+      while(select.options.length > 1){
+        select.remove(1);
+      }
+    }  
     
 </script>
 
 @endsection
 
 
-@section('js')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if(session('eliminar') == 'ok')
-  <script>
-      Swal.fire({
-            title: "Eliminado",
-            text: "El registro se eliminó correctamente",
-            icon: "success"
-          });
-  </script>
-@endif
-<script type="text/javascript">
-  $('.miFormulario').submit(function (e) {
-    e.preventDefault();
-
-    Swal.fire({
-      title: "¿Estas seguro de Eliminar?",
-      text: "¡No podrás revertir esto!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "¡Sí, estoy seguro!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.submit();
-        }
-      });
-
-    });
-</script> 
-@endsection
 
