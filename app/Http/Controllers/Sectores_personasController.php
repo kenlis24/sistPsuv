@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\municipios;
 use App\Models\sectores;
+use App\Models\calles;
 use App\Models\sectores_personas;
 use App\Models\users_sectores;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +41,15 @@ class Sectores_personasController extends Controller
         ->get();
 
         return view('sectores.cargasectores',compact('municipios'),compact('sector'))->with('sectoresPersonas',$sectoresPersonas);
+    }
+
+    public function index2()
+    {       
+        $calles = calles::select("calles.id","calles.cal_nombre" ) 
+        ->orderBy("calles.cal_nombre")
+        ->get();       
+
+        return view('poblacion.cargaPoblacion',compact('calles'));
     }
 
      /**

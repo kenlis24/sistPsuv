@@ -6,7 +6,7 @@
 <div class="col-md-12">
     <div class="card card-user">
       <div class="card-header">
-        <h5 class="card-title">Registro de Militancia por Sectores</h5>
+        <h5 class="card-title">Registro de Población en el Territorio</h5>
       </div>
       <div class="card-body">
         <form method="post" action="{{ route('sectores.storeCarga') }}">
@@ -17,11 +17,11 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Municipios del estado Táchira</label>             
+                <label>Calles</label>             
                 <select class="form-control" name="secp_municipio_carga" id="secp_municipio_carga" required>
-                  <option value="">Selecciona el municipio</option>
-                  @foreach ($municipios as $item)
-                    <option value="{{ $item->id }}">{{ $item->mun_nombre }}</option>
+                  <option value="">Selecciona la calle</option>
+                  @foreach ($calles as $item)
+                    <option value="{{ $item->id }}">{{ $item->cal_nombre }}</option>
                   @endforeach
                 </select>
                 
@@ -29,28 +29,15 @@
             </div>       
             <div class="col-md-6">
               <div class="form-group">
-                <label>Sector</label>
-                <select class="form-control" name="secp_sec_id" id="secp_sec_id" required>
-                  @foreach ($sector as $item)
-                    <option value="{{ $item->id }}">{{ $item->sec_nombre }}</option>
-                  @endforeach
-                </select>
-                
-              </div>
-            </div>         
-          </div> 
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
                 <label>Cargo</label>             
                 <select class="form-control" name="secp_municipio_carga" id="secp_municipio_carga" required>
                   <option value="">Selecciona el Cargo</option>                  
-                  <option value="">Equipo Coordinador</option>   
+                  <option value="">Jefe de Familia</option>   
                   <option value="">Integrante</option>              
                 </select>
                 
               </div>
-            </div>           
+            </div>         
           </div> 
           <div class="row">
             <div class="col-md-12">
@@ -146,22 +133,7 @@
                       </th>
                     </thead>
                     <tbody>
-                      @foreach ($sectoresPersonas as $item)  
-                            <tr>
-                                <td> {{ $item->secp_nac }}
-                                </td>
-                                <td> {{ $item->secp_cedula }}
-                                </td>
-                                <td> {{ $item->secp_nombres }}
-                                </td>
-                                <td> {{ $item->secp_telefono }}
-                                </td>
-                                <td> {{ $item->sec_nombre }}
-                                </td>   
-                                <td> {{ $item->mun_nombre }}
-                                </td> 
-                            </tr>
-                            @endforeach
+                      
                     </tbody>
                   </table>
                 </div>

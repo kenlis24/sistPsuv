@@ -239,6 +239,21 @@ Coded by www.creative-tim.com
               </ul>
              </li>  
              @endif
+             @if (auth()->user()->username=='administrador') 
+            <li id="opcion6">
+              <a href="#opcion6">
+              <i class="nc-icon nc-paper"></i>
+              <p>Población</p>
+              </a>
+              <ul>
+                <li>
+                  <a href="{{ route('poblacion.cargaPoblacion') }}">                  
+                    <p>Carga de población</p>
+                  </a>
+                </li>
+              </ul>
+             </li>  
+             @endif
       </div>
     </div>
     <div class="main-panel">
