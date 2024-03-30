@@ -254,6 +254,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             //var_dump($info);
             $sw = sizeof($info);
             //echo 'aqui '.$sw;
+            $entro='0';
+            if($posicion_coincidencia = strpos($info[1], 'no se encuentra inscrita'))
+                        {
+                            return response()->json(
+                            [
+                            'mensaje' => "Esta cédula de identidad no se encuentra inscrito en el Registro Electoral",
+                            'tipo' => "NO INSCRITO",
+                            ],
+                            422                         
+                            );
+                            $entro='1';
+                        }
             if ($sw != 8) {
                 if($posicion_coincidencia = strpos($info[1], 'objeción'))
                     {
@@ -264,15 +276,20 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                             ],
                             200
                             );
+                            $entro='1';
                     } 
                     else{
-                        return response()->json(
-                        [
-                        'mensaje' => "Esta cédula de identidad no se encuentra inscrito en el Registro Electoral",
-                        'tipo' => "NO INSCRITO",
-                        ],
-                        422
-                    );
+                        if($posicion_coincidencia = strpos($info[1], 'no se encuentra inscrito'))
+                        {
+                            return response()->json(
+                            [
+                            'mensaje' => "Esta cédula de identidad no se encuentra inscrito en el Registro Electoral",
+                            'tipo' => "NO INSCRITO",
+                            ],
+                            422                         
+                            );
+                            $entro='1';
+                        }
                 } 
             } else if($posicion_coincidencia = strpos($info[1], 'objeción'))
                     {
@@ -283,8 +300,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                             ],
                             200
                             );
+                            $entro='1';
                     }   
-            else {
+            else {                
             $cn = explode('-', substr(trim($info[1]), 0, -6));
             $result = str_replace(array("Estado"), '', trim($info[2]));
             //$result = preg_replace('([^A-Za-z0-9 ])', ' ', trim($result));
@@ -304,6 +322,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                 ],
                 422
                 );
+                $entro='1';
             }
             return response()->json(
                 [
@@ -316,7 +335,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                 ],
                 200
             );
+            $entro='1';
             }
+            if($entro=='0')
+                        {
+                            return response()->json(
+                            [
+                            'mensaje' => "Esta cédula de identidad no se encuentra inscrito en el Registro Electoral",
+                            'tipo' => "NO INSCRITO",
+                            ],
+                            422                         
+                            );
+                            $entro='1';
+                        }
         });
 
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');

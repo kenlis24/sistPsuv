@@ -120,7 +120,7 @@ class MilitanciaController extends Controller
             $input['mil_nac'] = $request->inputsNac[$key];
             $input['mil_cedula'] = $request->inputsCed[$key];
             $input['mil_nombres'] = $request->inputsNombre[$key];
-            $input['mil_apellidos'] = $request->inputsApellido[$key];
+            $input['mil_apellidos'] = '';
             $input['mil_telefono'] = $request->inputsTelefono[$key];
             $input['mil_estado'] = $request->mil_estado_usua[$key];
             $input['mil_municipio'] = $request->mil_mun_usua[$key];
