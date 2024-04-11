@@ -199,9 +199,32 @@ Coded by www.creative-tim.com
               </li>
 			  </ul>
             </li>  
-          @if (auth()->user()->username=='administrador') 
-             <li id="opcion4">
+            <li id="opcion4">
               <a href="#opcion4">
+              <i class="nc-icon nc-paper"></i>
+              <p>Estructura JPSUV</p>
+            </a>
+              <ul>
+                <li>
+                  <a href="{{ route('jpsuvEstructura.jpsuvEstructuraMunicipios') }}">                  
+                    <p>Municipios</p>
+                  </a>
+                </li>      
+                <li>
+                  <a href="{{ route('jpsuvEstructura.jpsuvEstructuraUBCH') }}">                  
+                    <p>UBCH</p>
+                  </a>
+                </li>     
+                <li>
+                  <a href="{{ route('jpsuvEstructura.jpsuvEstructuraComunidades') }}">                  
+                    <p>Comunidades</p>
+                  </a>
+                </li>       
+              </ul>
+            </li> 
+          @if (auth()->user()->username=='administrador') 
+             <li id="opcion5">
+              <a href="#opcion5">
               <i class="nc-icon nc-paper"></i>
               <p>Reportes</p>
               </a>

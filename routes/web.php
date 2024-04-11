@@ -86,6 +86,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/cargasectorespersonas', 'Sectores_personasController@store')->name('sectores.storeCarga');
         Route::get('/reporte', 'EstructuraController@reporte')->name('reportes.listadoCarga');
         Route::get('/reporteCalle', 'EstructuraController@reporteCalle')->name('reportes.listadoCargaCalle');
+        Route::get('/jpsuvEstructuraMunicipios', 'Jpsuv_estructuraController@index')->name('jpsuvEstructura.jpsuvEstructuraMunicipios');
+        Route::post('/storeJpsuvEstru', 'Jpsuv_estructuraController@store')->name('jpsuvEstructura.store');
+        Route::get('/destroyEstruJpsuv/{id}/{pag}', 'Jpsuv_estructuraController@destroy')->name('jpsuvEstructura.destroy');
+        Route::get('/jpsuvEstructuraUBCH', 'Jpsuv_estructuraController@index3')->name('jpsuvEstructura.jpsuvEstructuraUBCH');
+        Route::get('/jpsuvEstructuraComunidades', 'Jpsuv_estructuraController@index4')->name('jpsuvEstructura.jpsuvEstructuraComunidades');
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
 
