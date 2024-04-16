@@ -91,6 +91,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/destroyEstruJpsuv/{id}/{pag}', 'Jpsuv_estructuraController@destroy')->name('jpsuvEstructura.destroy');
         Route::get('/jpsuvEstructuraUBCH', 'Jpsuv_estructuraController@index3')->name('jpsuvEstructura.jpsuvEstructuraUBCH');
         Route::get('/jpsuvEstructuraComunidades', 'Jpsuv_estructuraController@index4')->name('jpsuvEstructura.jpsuvEstructuraComunidades');
+        Route::get('/jpsuvEstructuraParroquia', 'Jpsuv_estructuraController@index2')->name('jpsuvEstructura.jpsuvEstructuraParroquias');
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
 

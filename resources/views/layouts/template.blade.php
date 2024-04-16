@@ -209,7 +209,12 @@ Coded by www.creative-tim.com
                   <a href="{{ route('jpsuvEstructura.jpsuvEstructuraMunicipios') }}">                  
                     <p>Municipios</p>
                   </a>
-                </li>      
+                </li>    
+                <li>
+                  <a href="{{ route('jpsuvEstructura.jpsuvEstructuraParroquias') }}">                  
+                    <p>Parroquias</p>
+                  </a>
+                </li>   
                 <li>
                   <a href="{{ route('jpsuvEstructura.jpsuvEstructuraUBCH') }}">                  
                     <p>UBCH</p>

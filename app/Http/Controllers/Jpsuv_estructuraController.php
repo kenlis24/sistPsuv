@@ -44,6 +44,31 @@ class Jpsuv_estructuraController extends Controller
         return view('jpsuvEstructura.jpsuvEstructuraMunicipios',  compact('jpsuv_cargos'), compact('municipios'))->with('jpsuv_estructuras',$jpsuv_estructuras);
     }
 
+    public function index2()
+    {
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->orderBy("mun_nombre")
+        ->get();
+
+        $usu = auth()->user()->usu_mun_id;
+
+            $jpsuv_estructuras = jpsuv_estructuras::join("jpsuv_cargos", "jpsuv_cargos.id", "=", "jpsuv_estructuras.estj_car_id")
+            ->join("parroquias", "parroquias.id", "=", "jpsuv_estructuras.estj_nivel_id")
+            ->select("jpsuv_estructuras.id","jpsuv_estructuras.estj_nac","jpsuv_estructuras.estj_cedula","jpsuv_estructuras.estj_nombres","jpsuv_estructuras.estj_telefono","jpsuv_cargos.carj_cargo", "parroquias.par_nombre")         
+            ->where("jpsuv_estructuras.estj_nivel","parroquias") 
+            ->where("jpsuv_estructuras.estj_municipio_usu",$usu) 
+            ->orderBy("jpsuv_cargos.carj_cargo")
+            ->get();
+       
+        $jpsuv_cargos = jpsuv_cargos::select("jpsuv_cargos.id","jpsuv_cargos.carj_cargo","jpsuv_cargos.carj_nivel","jpsuv_cargos.carj_cantidad")         
+        ->where("jpsuv_cargos.carj_nivel","parroquia") 
+        ->where("jpsuv_cargos.carj_estado","A")
+        ->orderBy("jpsuv_cargos.carj_cargo")
+        ->get(); 
+
+        return view('jpsuvEstructura.jpsuvEstructuraParroquias',  compact('jpsuv_cargos'), compact('municipios'))->with('jpsuv_estructuras',$jpsuv_estructuras);
+    }
+
     public function index3()
     {
         $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
@@ -143,6 +168,10 @@ class Jpsuv_estructuraController extends Controller
             {
                 return redirect('/jpsuvEstructuraComunidades');   
             }
+            if($request->estj_nivel=="parroquias") 
+            {
+                return redirect('/jpsuvEstructuraParroquia');   
+            }
             
         }
         else
@@ -162,6 +191,11 @@ class Jpsuv_estructuraController extends Controller
                 return redirect('/jpsuvEstructuraComunidades')
                 ->with("mensaje", $mensaje);  
             } 
+            if($request->estj_nivel=="parroquias") 
+            {
+                return redirect('/jpsuvEstructuraParroquia')
+                ->with("mensaje", $mensaje);  
+            }   
         }
     }
 
@@ -180,7 +214,11 @@ class Jpsuv_estructuraController extends Controller
         if($pag=='comunidades')
         {
             return redirect('/jpsuvEstructuraComunidades')->with('eliminar','ok');
-        }     
+        }    
+        if($pag=='parroquias')
+        {
+            return redirect('/jpsuvEstructuraParroquia')->with('eliminar','ok');
+        }  
     }
    
 }
