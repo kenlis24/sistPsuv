@@ -260,6 +260,120 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             //var_dump($info);
             $sw = sizeof($info);
             //echo 'aqui '.$sw;
+            //var_dump($sw);
+            $entro='0';
+            if($posicion_coincidencia = strpos($info[15], 'no se encuentra inscrita'))
+                        {
+                            return response()->json(
+                            [
+                            'mensaje' => "Esta cédula de identidad no se encuentra inscrito en el Registro Electoral",
+                            'tipo' => "NO INSCRITO",
+                            ],
+                            422                         
+                            );
+                            $entro='1';
+                        }
+            if ($sw != 22) {
+                if($posicion_coincidencia = strpos($info[15], 'objeción'))
+                    {
+                        return response()->json(
+                            [
+                                'mensaje' => "Esta cédula de identidad presenta una objeción - OBJETADO",
+                                'tipo' => "OBJETADO",
+                            ],
+                            200
+                            );
+                            $entro='1';
+                    } 
+                    else{
+                        if($posicion_coincidencia = strpos($info[15], 'no se encuentra inscrito'))
+                        {
+                            return response()->json(
+                            [
+                            'mensaje' => "Esta cédula de identidad no se encuentra inscrito en el Registro Electoral",
+                            'tipo' => "NO INSCRITO",
+                            ],
+                            422                         
+                            );
+                            $entro='1';
+                        }
+                } 
+            } else if($posicion_coincidencia = strpos($info[16], 'objeción'))
+                    {
+                        return response()->json(
+                            [
+                                'mensaje' => "Esta cédula de identidad presenta una objeción - OBJETADO",
+                                'tipo' => "OBJETADO",
+                            ],
+                            200
+                            );
+                            $entro='1';
+                    }   
+            else {                
+            $cn = explode('-', substr(trim($info[15]), 0, -6));
+            $result = str_replace(array("Estado"), '', trim($info[16]));
+            //$result = preg_replace('([^A-Za-z0-9 ])', ' ', trim($result));
+            $result = str_replace(array("  "), ' ', $result);
+            $estadoPer = str_replace(array("\n", "\t", "Municipio"), '',trim($info[17]));
+            $municipioPer = str_replace(array("\n", "\t", "Parroquia"), '',trim($info[18]));
+            $parroquiaPer = str_replace(array("\n", "\t","Centro"), '',trim($info[19]));
+            $centroVotaPer = str_replace(array("\n", "\t","Dirección"), '',trim($info[20]));
+            
+            $persona = explode(" ", $result);
+            $rows = count($persona);
+            if ($rows <= 0) {
+                return response()->json(
+                [
+                    'mensaje' => "Cedula no registrada",
+                    'tipo' => "NO INSCRITO",
+                ],
+                422
+                );
+                $entro='1';
+            }
+            return response()->json(
+                [
+                'mensaje' => $persona,   
+                'tipo' => "INSCRITO", 
+                'estado' => $estadoPer,
+                'municipio' => $municipioPer,
+                'parroquia' => $parroquiaPer,
+                'centro' => $centroVotaPer,         
+                ],
+                200
+            );
+            $entro='1';
+            }
+            if($entro=='0')
+                        {
+                            return response()->json(
+                            [
+                            'mensaje' => "Esta cédula de identidad no se encuentra inscrito en el Registro Electoral",
+                            'tipo' => "NO INSCRITO",
+                            ],
+                            422                         
+                            );
+                            $entro='1';
+                        }
+        });
+
+       /* Route::get('personaconsul/{datosNac}/{datosCed}/datosCNE', function ($datosNac, $datosCed) {
+
+            $nac = $datosNac;
+            $ci = $datosCed;
+            $url = "http://www.cne.gov.ve/web/registro_electoral/ce.php?nacionalidad=$nac&cedula=$ci";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, FALSE);
+            curl_setopt($ch, CURLOPT_HEADER, FALSE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $xxx1 = curl_exec($ch);
+            curl_close($ch);
+            $page = strip_tags($xxx1);
+            $info = explode(":", $page);
+            //var_dump($info);
+            $sw = sizeof($info);
+            //echo 'aqui '.$sw;
             $entro='0';
             if($posicion_coincidencia = strpos($info[1], 'no se encuentra inscrita'))
                         {
@@ -354,7 +468,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                             );
                             $entro='1';
                         }
-        });
+        });*/
 
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     });

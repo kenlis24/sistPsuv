@@ -100,6 +100,14 @@ Coded by www.creative-tim.com
           </div> 
         </a>
       </div>
+      <?php
+        use App\Models\estructuras;
+        $exist = 0;
+        $var = auth()->user()->id;
+        $sql = "SELECT id FROM users_sectores
+        where usec_use_id = '$var'";
+        $exist = DB::select($sql);
+      ?>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="active ">
@@ -110,7 +118,7 @@ Coded by www.creative-tim.com
           </li>    
           @if (auth()->user()->username=='administrador')      
           <li id="opcion1">
-            <a href="#opcion1">
+            <a href="#opcion1">;
               <i class="nc-icon nc-settings-gear-65"></i>
               <p>Administración</p>
             </a>
@@ -133,6 +141,7 @@ Coded by www.creative-tim.com
             </ul>
           </li>
           @endif
+          @if ($exist==0)  
           <li id="opcion2">
             <a href="#opcion2">
             <i class="nc-icon nc-paper"></i>
@@ -166,6 +175,8 @@ Coded by www.creative-tim.com
             </li>            
           </ul>
 		  </li>
+      @endif
+      @if ($exist==0)  
           <li id="opcion3">
             <a href="#opcion3">
             <i class="nc-icon nc-paper"></i>
@@ -199,6 +210,8 @@ Coded by www.creative-tim.com
               </li>
 			  </ul>
             </li>  
+            @endif
+            @if ($exist==0)  
             <li id="opcion4">
               <a href="#opcion4">
               <i class="nc-icon nc-paper"></i>
@@ -227,6 +240,7 @@ Coded by www.creative-tim.com
                 </li>       
               </ul>
             </li> 
+            @endif
           @if (auth()->user()->username=='administrador') 
              <li id="opcion5">
               <a href="#opcion5">
@@ -252,9 +266,9 @@ Coded by www.creative-tim.com
               </ul>
              </li>  
              @endif
-          @if (auth()->user()->username=='administrador') 
-            <li id="opcion5">
-              <a href="#opcion5">
+          @if (auth()->user()->username=='administrador' || $exist!=0 ) 
+            <li id="opcion6">
+              <a href="#opcion6">
               <i class="nc-icon nc-paper"></i>
               <p>Sectores</p>
               </a>
@@ -268,8 +282,8 @@ Coded by www.creative-tim.com
              </li>  
              @endif
              @if (auth()->user()->username=='administrador') 
-            <li id="opcion6">
-              <a href="#opcion6">
+            <li id="opcion7">
+              <a href="#opcion7">
               <i class="nc-icon nc-paper"></i>
               <p>Población</p>
               </a>

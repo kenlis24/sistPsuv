@@ -31,6 +31,7 @@
               <div class="form-group">
                 <label>Sector</label>
                 <select class="form-control" name="secp_sec_id" id="secp_sec_id" required>
+                  <option>Seleccione el sector</option>
                   @foreach ($sector as $item)
                     <option value="{{ $item->id }}">{{ $item->sec_nombre }}</option>
                   @endforeach
@@ -42,13 +43,13 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label>Cargo</label>             
-                <select class="form-control" name="secp_municipio_carga" id="secp_municipio_carga" required>
-                  <option value="">Selecciona el Cargo</option>                  
-                  <option value="">Equipo Coordinador</option>   
-                  <option value="">Integrante</option>              
-                </select>
-                
+                <label>Cargos del Sector</label>
+                <select class="form-control" name="secp_cargos_id" id="secp_cargos_id" required>
+                  <option>Seleccione el cargo</option>
+                  @foreach ($sector_cargos as $item)
+                    <option value="{{ $item->id }}">{{ $item->secar_cargo }}</option>
+                  @endforeach
+                </select>               
               </div>
             </div>           
           </div> 
@@ -156,7 +157,7 @@
                                 </td>
                                 <td> {{ $item->secp_telefono }}
                                 </td>
-                                <td> {{ $item->sec_nombre }}
+                                <td> {{ $item->secar_cargo }}
                                 </td>   
                                 <td> {{ $item->mun_nombre }}
                                 </td> 

@@ -139,6 +139,7 @@ class Jpsuv_estructuraController extends Controller
             ->select('id')
             ->where('estj_nac', '=', $request->estj_nac)
             ->where('estj_cedula', '=', $request->estj_cedula)
+            ->where('estj_car_id', '=', $request->estj_car_id)
             ->get();  
 
         if (count($existenciaCargo) >= 1) 

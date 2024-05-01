@@ -13,8 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('estructuras', function (Blueprint $table) {
-            $table->string('est_tipo_reg', 200)->after('est_municipio_usu');
+        Schema::create('sector_cargos', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('secar_cargo', 250);
+            $table->string('secar_cantidad', 10);
+            $table->string('secar_estado', 1);
+
+            $table->timestamps();
         });
     }
 
@@ -25,8 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('estructuras', function (Blueprint $table) {
-            $table->dropColumn('est_tipo_reg');
-        });
+        Schema::dropIfExists('sector_cargos');
     }
 };
