@@ -107,6 +107,7 @@ Coded by www.creative-tim.com
         $sql = "SELECT id FROM users_sectores
         where usec_use_id = '$var'";
         $exist = DB::select($sql);
+        $exist = count($exist);
       ?>
       <div class="sidebar-wrapper">
         <ul class="nav">
@@ -141,7 +142,7 @@ Coded by www.creative-tim.com
             </ul>
           </li>
           @endif
-          @if ($exist==0)  
+          @if ($exist==0 )  
           <li id="opcion2">
             <a href="#opcion2">
             <i class="nc-icon nc-paper"></i>
@@ -176,7 +177,7 @@ Coded by www.creative-tim.com
           </ul>
 		  </li>
       @endif
-      @if ($exist==0 || auth()->user()->username=='administrador')  
+      @if ($exist==0 )  
           <li id="opcion3">
             <a href="#opcion3">
             <i class="nc-icon nc-paper"></i>
@@ -211,7 +212,7 @@ Coded by www.creative-tim.com
 			  </ul>
             </li>  
             @endif
-            @if ($exist==0 || auth()->user()->username=='administrador')  
+            @if ($exist==0  )  
             <li id="opcion4">
               <a href="#opcion4">
               <i class="nc-icon nc-paper"></i>
