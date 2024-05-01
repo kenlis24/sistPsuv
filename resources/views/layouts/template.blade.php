@@ -176,7 +176,7 @@ Coded by www.creative-tim.com
           </ul>
 		  </li>
       @endif
-      @if ($exist==0)  
+      @if ($exist==0 || auth()->user()->username=='administrador')  
           <li id="opcion3">
             <a href="#opcion3">
             <i class="nc-icon nc-paper"></i>
@@ -211,7 +211,7 @@ Coded by www.creative-tim.com
 			  </ul>
             </li>  
             @endif
-            @if ($exist==0)  
+            @if ($exist==0 || auth()->user()->username=='administrador')  
             <li id="opcion4">
               <a href="#opcion4">
               <i class="nc-icon nc-paper"></i>
