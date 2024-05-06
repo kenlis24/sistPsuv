@@ -50,8 +50,7 @@ class Sectores_personasController extends Controller
 
         return view('sectores.cargasectores')
         ->with('municipios',$municipios)
-        ->with('sector',$sector)
-        ->with('sectoresPersonas',$sectoresPersonas)
+        ->with('sector',$sector)        
         ->with('sector_cargos',$sector_cargos);
     }
 
