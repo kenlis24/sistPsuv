@@ -120,6 +120,7 @@
                   </div>
                 </div>
             @endif
+            
           <div class="row">
             <div class="col-md-12">
             <div class="card">
@@ -167,7 +168,7 @@
                   </table>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
           </div>
         </form>
