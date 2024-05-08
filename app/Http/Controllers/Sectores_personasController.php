@@ -48,8 +48,7 @@ class Sectores_personasController extends Controller
         ->orderBy("municipios.mun_nombre")
         ->get();
 
-        return view('sectores.cargasectores',compact('municipios','sectoresPersonas'))
-        ->with('sector_cargos',$sector_cargos);
+        return view('sectores.cargasectores',compact('municipios'),compact('sector_cargos'))->with('sectoresPersonas',$sectoresPersonas);
     }
 
     public function index2()
