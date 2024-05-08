@@ -38,7 +38,7 @@ class Sectores_personasController extends Controller
         ->orderBy("sector_cargos.secar_cargo")
         ->get();
 
-        $sectoresPersonas = sectores_personas::Join("sectores", "sectores.id", "=", "sectores_personas.secp_sec_id")
+       /* $sectoresPersonas = sectores_personas::Join("sectores", "sectores.id", "=", "sectores_personas.secp_sec_id")
         ->Join("municipios", "municipios.id", "=", "sectores_personas.secp_municipio_carga")
         ->Join("users_sectores", "users_sectores.id", "=", "sectores_personas.secp_sec_id")
         ->Join("sector_cargos", "sector_cargos.id", "=", "sectores_personas.secp_cargos_id")
@@ -46,9 +46,10 @@ class Sectores_personasController extends Controller
         "municipios.mun_nombre", "sectores.sec_nombre","sector_cargos.secar_cargo") 
         ->where("users_sectores.usec_use_id",$userlogueado) 
         ->orderBy("municipios.mun_nombre")
-        ->get();
+        ->get();*/
 
-        return view('sectores.cargasectores',compact('municipios'),compact('sector_cargos'))->with('sectoresPersonas',$sectoresPersonas);
+        return view('sectores.cargasectores',compact('municipios'),compact('sector_cargos'));
+        
     }
 
     public function index2()

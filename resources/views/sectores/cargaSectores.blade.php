@@ -145,22 +145,7 @@
                       </th>
                     </thead>
                     <tbody>
-                      @foreach ($sectoresPersonas as $item)  
-                            <tr>
-                                <td> {{ $item->secp_nac }}
-                                </td>
-                                <td> {{ $item->secp_cedula }}
-                                </td>
-                                <td> {{ $item->secp_nombres }}
-                                </td>
-                                <td> {{ $item->secp_telefono }}
-                                </td>
-                                <td> {{ $item->secar_cargo }}
-                                </td>   
-                                <td> {{ $item->mun_nombre }}
-                                </td> 
-                            </tr>
-                            @endforeach
+                      
                     </tbody>
                   </table>
                 </div>
