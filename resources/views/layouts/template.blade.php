@@ -275,7 +275,7 @@ Coded by www.creative-tim.com
               </a>
               <ul>
                 <li>
-                  <a href="{{ route('sectores.cargasectores') }}">                  
+                  <a href="{{ route('sectores.cargaSectores') }}">                  
                     <p>Carga de sectores</p>
                   </a>
                 </li>

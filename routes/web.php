@@ -82,7 +82,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/asociarsector', 'Users_sectoresController@index')->name('sectores.index');
         Route::get('/createasociarsector', 'Users_sectoresController@create')->name('sectores.create');
         Route::post('/asociacionstore', 'Users_sectoresController@store')->name('sectores.store');
-        Route::get('/sectorespersonas', 'Sectores_personasController@index')->name('sectores.cargasectores');
+        Route::get('/sectorespersonas', 'Sectores_personasController@index')->name('sectores.cargaSectores');
         Route::get('/poblacionpersonas', 'Sectores_personasController@index2')->name('poblacion.cargaPoblacion');
         Route::post('/cargasectorespersonas', 'Sectores_personasController@store')->name('sectores.storeCarga');
         Route::get('/reporte', 'EstructuraController@reporte')->name('reportes.listadoCarga');
