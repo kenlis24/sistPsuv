@@ -27,10 +27,9 @@ class Sectores_personasController extends Controller
 
         $userlogueado = auth()->user()->id;
         
-        $sector = sectores::Join("users_sectores", "users_sectores.id", "=", "sectores.id")
+        $sector = sectores::Join("users_sectores", "users_sectores.usec_sec_id", "=", "sectores.id")
         ->select("sectores.id","sectores.sec_nombre") 
         ->where("users_sectores.usec_use_id",$userlogueado) 
-        ->where("users_sectores.usec_sec_id","sectores.id") 
         ->orderBy("sec_nombre")
         ->get();
 
