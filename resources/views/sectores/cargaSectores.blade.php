@@ -32,9 +32,6 @@
                 <label>Sector</label>
                 <select class="form-control" name="secp_sec_id" id="secp_sec_id" required>
                   <option>Seleccione el sector</option>
-                  @foreach ($sector as $item)
-                    <option value="{{ $item->id }}">{{ $item->sec_nombre }}</option>
-                  @endforeach
                 </select>
                 
               </div>
@@ -181,6 +178,28 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
 
 <script> 
+
+window.onload = function() {
+  fetch(`/sectores`)
+      .then( function (response) { 
+        return response.json();
+      })
+      .then(function(jsonDataSector){
+        buildDataSector(jsonDataSector);
+      })
+};
+
+function buildDataSector(jsonDataSector)
+    {
+      let parroquiasSector = document.getElementById('secp_sec_id');      
+      
+      jsonDataSector.forEach(function (sector) {
+        let optionTag = document.createElement('option');
+        optionTag.value = sector.id;
+        optionTag.innerHTML = sector.sec_nombre;
+        parroquiasSector.append(optionTag);
+      });
+    }
 
   function consultarced()
   {

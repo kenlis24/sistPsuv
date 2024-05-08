@@ -7,6 +7,7 @@ use App\Models\militancias;
 use App\Models\comunidades;
 use App\Models\calles;
 use App\Models\estructuras;
+use App\Models\sectores;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -214,6 +215,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             return parroquias::where('par_mun_id',$municipios->id)
             ->orderBy("par_nombre")
             ->get();
+        });
+
+        Route::get('/sectores', function () {
+
+            $userlogueado = auth()->user()->id;
+        
+            return $sector = sectores::Join("users_sectores", "users_sectores.id", "=", "sectores.id")
+            ->select("sectores.id","sectores.sec_nombre") 
+            ->where("users_sectores.usec_use_id",$userlogueado) 
+            ->orderBy("sec_nombre")
+            ->get();
+
         });
 
         Route::get('/parroquias/{id}/agrupaciones', function ($id) {
