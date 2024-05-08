@@ -32,6 +32,9 @@
                 <label>Sector</label>
                 <select class="form-control" name="secp_sec_id" id="secp_sec_id" required>
                   <option>Seleccione el sector</option>
+                  @foreach ($sector as $item)
+                    <option value="{{ $item->id }}">{{ $item->sec_nombre }}</option>
+                  @endforeach
                 </select>
                 
               </div>
@@ -179,7 +182,7 @@
 
 <script> 
 
-window.onload = function() {
+/*window.onload = function() {
   fetch(`/sectores`)
       .then( function (response) { 
         return response.json();
@@ -187,7 +190,7 @@ window.onload = function() {
       .then(function(jsonDataSector){
         buildDataSector(jsonDataSector);
       })
-};
+};*/
 
 function buildDataSector(jsonDataSector)
     {
