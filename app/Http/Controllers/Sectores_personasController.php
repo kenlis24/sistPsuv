@@ -26,6 +26,7 @@ class Sectores_personasController extends Controller
         ->get();
 
         $userlogueado = auth()->user()->id;
+        $userlogueadoName = auth()->user()->username;
         
         $sector = sectores::Join("users_sectores", "users_sectores.usec_sec_id", "=", "sectores.id")
         ->select("sectores.id","sectores.sec_nombre") 
@@ -44,7 +45,7 @@ class Sectores_personasController extends Controller
         ->Join("sector_cargos", "sector_cargos.id", "=", "sectores_personas.secp_cargos_id")
         ->select("sectores_personas.id","sectores_personas.secp_nac","sectores_personas.secp_cedula","sectores_personas.secp_nombres","sectores_personas.secp_telefono", 
         "municipios.mun_nombre", "sectores.sec_nombre","sector_cargos.secar_cargo") 
-        ->where("users_sectores.usec_use_id",$userlogueado) 
+        ->where("sectores_personas.secp_usuario_creo",$userlogueadoName) 
         ->orderBy("municipios.mun_nombre")
         ->get();
 
