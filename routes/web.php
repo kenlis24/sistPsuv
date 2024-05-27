@@ -8,6 +8,7 @@ use App\Models\comunidades;
 use App\Models\calles;
 use App\Models\estructuras;
 use App\Models\sectores;
+use App\Models\jefe_familias;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -82,8 +83,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/asociarsector', 'Users_sectoresController@index')->name('sectores.index');
         Route::get('/createasociarsector', 'Users_sectoresController@create')->name('sectores.create');
         Route::post('/asociacionstore', 'Users_sectoresController@store')->name('sectores.store');
-        Route::get('/sectorespersonas', 'Sectores_personasController@index')->name('sectores.cargaSectores');
-        Route::get('/poblacionpersonas', 'Sectores_personasController@index2')->name('poblacion.cargaPoblacion');
+        Route::get('/sectorespersonas', 'Sectores_personasController@index')->name('sectores.cargaSectores');        
         Route::post('/cargasectorespersonas', 'Sectores_personasController@store')->name('sectores.storeCarga');
         Route::get('/reporte', 'EstructuraController@reporte')->name('reportes.listadoCarga');
         Route::get('/reporteCalle', 'EstructuraController@reporteCalle')->name('reportes.listadoCargaCalle');
@@ -93,6 +93,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/jpsuvEstructuraUBCH', 'Jpsuv_estructuraController@index3')->name('jpsuvEstructura.jpsuvEstructuraUBCH');
         Route::get('/jpsuvEstructuraComunidades', 'Jpsuv_estructuraController@index4')->name('jpsuvEstructura.jpsuvEstructuraComunidades');
         Route::get('/jpsuvEstructuraParroquia', 'Jpsuv_estructuraController@index2')->name('jpsuvEstructura.jpsuvEstructuraParroquias');
+        Route::get('/jefefamilia', 'Jefe_familiasController@index')->name('poblacion.jefeFamilia');
+        Route::get('/crearjefefamilia', 'Jefe_familiasController@create')->name('poblacion.createJefeFamilias');
+        Route::post('/guardarjefefamilia', 'Jefe_familiasController@store')->name('poblacion.store');
+        Route::get('/poblacionpersonas', 'Poblacion_familiasController@index')->name('poblacion.cargaPoblacion');
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
 
@@ -253,6 +257,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             $comuni = comunidades::find($id);
             return calles::where('cal_com_id',$comuni->id)
             ->orderBy("cal_nombre")
+            ->get();
+        });
+
+        Route::get('/calles/{id}/jefes', function ($id) {
+
+            $id=$id;
+            return jefe_familias::where('jfal_calle_id',$id)
+            ->orderBy("jfal_nombres")
             ->get();
         });
 

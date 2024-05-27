@@ -144,7 +144,7 @@
                         Cargo
                       </th>
                       <th>
-                        Parroquia
+                        Municipio
                       </th>
                     </thead>
                     <tbody>

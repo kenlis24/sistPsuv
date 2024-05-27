@@ -53,16 +53,7 @@ class Sectores_personasController extends Controller
         ->with('sector',$sector)
         ->with('sectoresPersonas',$sectoresPersonas);
         
-    }
-
-    public function index2()
-    {       
-        $calles = calles::select("calles.id","calles.cal_nombre" ) 
-        ->orderBy("calles.cal_nombre")
-        ->get();       
-
-        return view('poblacion.cargaPoblacion',compact('calles'));
-    }
+    }   
 
      /**
      * Store a newly created resource in storage.

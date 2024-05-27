@@ -16,7 +16,7 @@
               <div class="form-group">
                 <label>Usuarios</label>
                 <select name="usec_use_id" class="form-control">
-                  <option value="">Selecciona el usarios</option>
+                  <option value="">Selecciona el usuarios</option>
                   @foreach ($users as $item)
                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                   @endforeach

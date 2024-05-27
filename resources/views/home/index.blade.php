@@ -57,7 +57,7 @@
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6">
-      <a href="{{ route('militancia.militantesUBH') }}">
+      <a>
       <div class="card card-stats">
         <div class="card-body ">
           <div class="row">

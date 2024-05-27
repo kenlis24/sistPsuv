@@ -290,8 +290,13 @@ Coded by www.creative-tim.com
               </a>
               <ul>
                 <li>
+                  <a href="{{ route('poblacion.jefeFamilia') }}">                  
+                    <p>Jefes de Familia</p>
+                  </a>
+                </li>
+                <li>
                   <a href="{{ route('poblacion.cargaPoblacion') }}">                  
-                    <p>Carga de población</p>
+                    <p>Carga de Integrantes</p>
                   </a>
                 </li>
               </ul>
