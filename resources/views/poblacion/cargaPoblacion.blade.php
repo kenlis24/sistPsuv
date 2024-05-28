@@ -9,7 +9,7 @@
         <h5 class="card-title">Cargar Población</h5>
       </div>
       <div class="card-body">
-        <form method="post" action="{{ route('militancia.store') }}">
+        <form method="post" action="{{ route('poblacion.storePoblacion') }}">
             {!! csrf_field() !!}
             @php
               $usu = auth()->user()->username;
@@ -94,6 +94,9 @@
                       Telefono
                     </th>
                     <th>
+                      Fecha Nac.
+                    </th>
+                    <th>
                       Acciones
                     </th>
                   </thead>
@@ -116,13 +119,15 @@
                         <input type="hidden" name="pofa_estado[0]" id="pofa_estado[0]"/> 
                         <input type="hidden" name="pofa_municipio[0]" id="pofa_municipio[0]"/>    
                         <input type="hidden" name="pofa_parroquia[0]" id="pofa_parroquia[0]"/>     
-                        <input type="hidden" name="mil_centro_usua[0]" id="mil_centro_usua[0]"/> 
-                        <input type="hidden" name="mil_tipo_reg[0]" id="mil_tipo_reg[0]"/>  
-                        <input type="hidden" name="mil_usua_crea[0]" id="mil_usua_crea[0]" value="{{ $usu }}"/> 
-                        <input type="hidden" name="inputsApellido[0]" id="inputsApellido[0]" value=""/>         
+                        <input type="hidden" name="pofa_centro[0]" id="pofa_centro[0]"/> 
+                        <input type="hidden" name="pofa_tipo_reg[0]" id="pofa_tipo_reg[0]"/>  
+                        <input type="hidden" name="pofa_usuario_creo[0]" id="pofa_usuario_creo[0]" value="{{ $usu }}"/>     
                       </td>                      
                       <td>
                         <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[0]" required>
+                      </td> 
+                      <td>
+                        <input type="date" class="form-control" placeholder="Fecha Nac" name="inputsFechaNac[0]" required>
                       </td> 
                       <td>
                         <button type="button" class="nc-icon nc-simple-add" style="border: none; background: none;" name="add" id="add"></button>
@@ -155,26 +160,27 @@
                         Nombres y Apellidos
                       </th>
                       <th>
-                        Telefono
+                        Jefe de Familia 
                       </th>
                     </thead>
-                    <tbody id="tableLista">
+                    <tbody>
+                      @foreach ($poblacion_familias as $item)  
                             <tr>
-                                <td>
+                                <td> {{ $item->pofa_nac }}
                                 </td>
-                                <td>
+                                <td> {{ $item->pofa_cedula }}
                                 </td>
-                                <td>
+                                <td> {{ $item->pofa_nombres }}
                                 </td>
-                                <td>
-                                </td>   
+                                <td> {{ $item->jfal_nombres }}
+                                </td>
                             </tr>
-                        
+                            @endforeach
                     </tbody>
                   </table>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
           </div>
         </form>
@@ -208,40 +214,17 @@
       })
   }
 
-
-  function buildDataLista(jsonDataLista)
-    { 
-      console.log(jsonDataLista);
-      jsonDataLista.forEach(function (lista) {  
-        if(lista.mil_apellidos==null) 
-        {
-          nombre = lista.mil_nombres;
-        }
-        else
-        {
-          nombre = lista.mil_nombres+` `+lista.mil_apellidos;
-        }
-        $('#tableLista').append(
-        `<tr> 
-          <td> `+lista.mil_nac+` </td>  
-          <td> `+lista.mil_cedula+` </td>  
-          <td> `+nombre+` </td>     
-          <td> `+lista.mil_telefono+` </td>      
-         </tr>`);
-      });
-    }
-
   function buildDataCNE(jsonDataCNE,i)
     {    
       if(jsonDataCNE.tipo=='OBJETADO')
       {
         alert("\nDebe Cargar los datos de la persona");
-        document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
+        document.getElementById("pofa_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
       } 
       if(jsonDataCNE.tipo=='NO INSCRITO')
       {
         alert("\nDebe Cargar los datos de la persona");
-        document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
+        document.getElementById("pofa_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
       } 
       if(jsonDataCNE.tipo=='INSCRITO')
       {
@@ -251,16 +234,16 @@
               document.getElementById("inputsNombre["+i+"]").value = jsonDataCNE.mensaje[0]+ " " +jsonDataCNE.mensaje[1]+ " " +jsonDataCNE.mensaje[2];
               document.getElementById("pofa_estado["+i+"]").value = jsonDataCNE.estado;
               document.getElementById("pofa_municipio["+i+"]").value = jsonDataCNE.municipio;
-              document.getElementById("mil_parr_usua["+i+"]").value = jsonDataCNE.parroquia;
-              document.getElementById("mil_centro_usua["+i+"]").value = jsonDataCNE.centro;
-              document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
+              document.getElementById("pofa_parroquia["+i+"]").value = jsonDataCNE.parroquia;
+              document.getElementById("pofa_centro["+i+"]").value = jsonDataCNE.centro;
+              document.getElementById("pofa_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
             } else {
               document.getElementById("inputsNombre["+i+"]").value = jsonDataCNE.mensaje[0]+ " " +jsonDataCNE.mensaje[1]+ " " +jsonDataCNE.mensaje[2]+ " " +jsonDataCNE.mensaje[3];
               document.getElementById("pofa_estado["+i+"]").value = jsonDataCNE.estado;
               document.getElementById("pofa_municipio["+i+"]").value = jsonDataCNE.municipio;
-              document.getElementById("mil_parr_usua["+i+"]").value = jsonDataCNE.parroquia;
-              document.getElementById("mil_centro_usua["+i+"]").value = jsonDataCNE.centro;
-              document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
+              document.getElementById("pofa_parroquia["+i+"]").value = jsonDataCNE.parroquia;
+              document.getElementById("pofa_centro["+i+"]").value = jsonDataCNE.centro;
+              document.getElementById("pofa_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
             }   
             console.log(jsonDataCNE);
       }  
@@ -449,14 +432,16 @@
                         <input type="text" class="form-control" placeholder="Nombres" name="inputsNombre[`+i+`]" id="inputsNombre[`+i+`]" required>
                         <input type="hidden" name="pofa_estado[`+i+`]" id="pofa_estado[`+i+`]"/>  
                         <input type="hidden" name="pofa_municipio[`+i+`]" id="pofa_municipio[`+i+`]"/>    
-                        <input type="hidden" name="mil_parr_usua[`+i+`]" id="mil_parr_usua[`+i+`]"/>     
-                        <input type="hidden" name="mil_centro_usua[`+i+`]" id="mil_centro_usua[`+i+`]"/> 
-                        <input type="hidden" name="mil_tipo_reg[`+i+`]" id="mil_tipo_reg[`+i+`]"/>  
-                        <input type="hidden" name="mil_usua_crea[`+i+`]" id="mil_usua_crea[`+i+`]" value="{{ $usu }}"/>   
-                        <input type="hidden" name="inputsApellido[`+i+`]" id="inputsApellido[`+i+`]" value=""/>        
+                        <input type="hidden" name="pofa_parroquia[`+i+`]" id="pofa_parroquia[`+i+`]"/>     
+                        <input type="hidden" name="pofa_centro[`+i+`]" id="pofa_centro[`+i+`]"/> 
+                        <input type="hidden" name="pofa_tipo_reg[`+i+`]" id="pofa_tipo_reg[`+i+`]"/>  
+                        <input type="hidden" name="pofa_usuario_creo[`+i+`]" id="pofa_usuario_creo[`+i+`]" value="{{ $usu }}"/>          
                       </td>
                       <td>
                         <input type="text" class="form-control" placeholder="Telefono" name="inputsTelefono[`+i+`]" required>
+                      </td>
+                      <td>
+                        <input type="date" class="form-control" placeholder="Fecha" name="inputsFechaNac[`+i+`]" required>
                       </td>
                       <td>
                         <button type="button" class="nc-icon nc-simple-remove remove-table-row" style="border: none; background: none;" name="add" id="add"></button>

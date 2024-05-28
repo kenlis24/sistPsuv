@@ -30,7 +30,6 @@ return new class extends Migration
             $table->unsignedBigInteger('pofa_calle_id');
             $table->unsignedBigInteger('pofa_jefe_id');
             $table->string('pofa_usuario_creo', 100);
-            $table->string('pofa_municipio_usu', 200);
 
             $table->timestamps();
         });

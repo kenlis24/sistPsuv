@@ -95,8 +95,8 @@ Coded by www.creative-tim.com
       <div class="logo">        
         <a href="" class="simple-text logo-normal"> 
            <div class="logo-image-big">
-            <strong>Sistema</strong>
-            <img src="../assets/img/logopsuv2.jpg" alt="" width="120" height="80">
+            <strong>Táchira</strong>
+            <img src="../assets/img/logoInicio3.jpeg" alt="" width="100" height="80">
           </div> 
         </a>
       </div>

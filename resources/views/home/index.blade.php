@@ -69,7 +69,7 @@
             <div class="col-7 col-md-8">
               
                 <div class="numbers" >
-                  <p class="card-category">Cargar Asisencia UBCH</p>
+                  <p class="card-category">UBCH</p>
                   <p class="card-title"><p>
                 </div>
              
@@ -80,7 +80,7 @@
           <hr>
           <div class="stats">
             <i class="fa fa-refresh"></i>
-            Asistentes UBCH.
+           
           </div>
         </div>
       </div>

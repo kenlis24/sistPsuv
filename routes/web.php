@@ -97,6 +97,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/crearjefefamilia', 'Jefe_familiasController@create')->name('poblacion.createJefeFamilias');
         Route::post('/guardarjefefamilia', 'Jefe_familiasController@store')->name('poblacion.store');
         Route::get('/poblacionpersonas', 'Poblacion_familiasController@index')->name('poblacion.cargaPoblacion');
+        Route::post('/guardarpoblacionfamilia', 'Poblacion_familiasController@store')->name('poblacion.storePoblacion');
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
 
