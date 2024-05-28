@@ -282,7 +282,7 @@ Coded by www.creative-tim.com
               </ul>
              </li>  
              @endif
-             @if (auth()->user()->username=='administrador') 
+             @if ($exist==0) 
             <li id="opcion7">
               <a href="#opcion7">
               <i class="nc-icon nc-paper"></i>
