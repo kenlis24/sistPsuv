@@ -8,7 +8,7 @@
 <html lang="en">
     <body>
       <div>
-      <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logoInicio3.jpeg'))) }}" alt="" width="60" height="60">
+      <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('assets/img/banner2.jpeg'))) }}" alt="" width="700" height="100">
         <h2 style="text-align: center;"> Comando @foreach ($sector as $item)
           {{ Str::title($item->sec_nombre) }}
         @endforeach</h2>
