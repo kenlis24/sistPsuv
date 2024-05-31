@@ -42,7 +42,7 @@ class Sectores_personasController extends Controller
 
         $sectoresPersonas = sectores_personas::Join("sectores", "sectores.id", "=", "sectores_personas.secp_sec_id")
         ->Join("municipios", "municipios.id", "=", "sectores_personas.secp_municipio_carga")
-        ->Join("users_sectores", "users_sectores.id", "=", "sectores_personas.secp_sec_id")
+        ->Join("users_sectores", "users_sectores.usec_sec_id", "=", "sectores_personas.secp_sec_id")
         ->Join("sector_cargos", "sector_cargos.id", "=", "sectores_personas.secp_cargos_id")
         ->select("sectores_personas.id","sectores_personas.secp_nac","sectores_personas.secp_cedula","sectores_personas.secp_nombres","sectores_personas.secp_telefono", 
         "municipios.mun_nombre", "sectores.sec_nombre","sector_cargos.secar_cargo") 
