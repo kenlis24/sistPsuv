@@ -130,6 +130,6 @@ class Sectores_personasController extends Controller
         ->get();
 
         $pdf = Pdf::loadView('sectores.sectoresPdf',compact('sectoresPersonas'),compact('sector'));
-        return $pdf->stream();
+        return $pdf->setPaper('a4', 'landscape')->stream();
     }
 }

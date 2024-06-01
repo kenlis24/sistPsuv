@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <style>
-  .cabecera {
+  @page
+  {
+    margin: 5cm 0.5cm 1cm 0.5cm;
+  }
+  .tabla {
     background-color: black;
     color: white;
+  }
+  #header {
+    position: fixed;
+    top: -4cm;
+    left: 0cm;
+  }
+  #imgHeader {
+    float: left;
+    width: 3cm;
   }
 </style> 
 <html lang="en">
     <body>
-      <div>
-      <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('assets/img/banner2.jpeg'))) }}" alt="" width="700" height="100">
+      <div id="header">
+      <img class="imgHeader" src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('assets/img/banner2.jpeg'))) }}" alt="" width="1080" height="100">
         <h2 style="text-align: center;"> Comando @foreach ($sector as $item)
           {{ Str::title($item->sec_nombre) }}
         @endforeach</h2>
-        </div>
+      </div>
+    <div class="container">
         <table class="table table-striped table-bordered nowrap" style="width:100%">
-            <thead class="cabecera">
+            <thead class="tabla">
               <th>
                 Nac
               </th>
@@ -40,14 +54,16 @@
               ?>
               @foreach ($sectoresPersonas as $item)  
               <?php
-              $resul=$i%2;
-                if($resul == 0);
-                  $fondo='#FFFFFF';
+              $i = $i + 1;
+              $fondo='#ffffff';
+              $resul=$i % 2;
+                if($i % 2 == 0);
+                  $fondo='#ffffff';
               ?>
-                    <tr style="background-color: #FFFFFF;">
-                        <td> {{ $item->secp_nac }}
+                    <tr style="background-color: {{ $fondo }}">
+                        <td> {{ $i }}
                         </td>
-                        <td> {{ $item->secp_cedula }}
+                        <td> {{ $item->secp_nac }}{{ $item->secp_cedula }}
                         </td>
                         <td> {{ Str::title($item->secp_nombres) }}
                         </td>
@@ -61,5 +77,6 @@
                     @endforeach
             </tbody>
           </table>
+        </div>
     </body>   
 </html>
