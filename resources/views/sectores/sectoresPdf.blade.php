@@ -21,7 +21,7 @@
 <html lang="en">
     <body>
       <div id="header">
-      <img class="imgHeader" src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('assets/img/banner2.jpeg'))) }}" alt="" width="1080" height="100">
+      <img class="imgHeader" src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('assets/img/banner2.jpeg'))) }}" alt="" width="750" height="100">
         <h2 style="text-align: center;"> Comando @foreach ($sector as $item)
           {{ Str::title($item->sec_nombre) }}
         @endforeach</h2>
@@ -30,7 +30,7 @@
         <table class="table table-striped table-bordered nowrap" style="width:100%">
             <thead class="tabla">
               <th>
-                Nac
+                Nro.
               </th>
               <th>
                 Cedula
@@ -63,7 +63,7 @@
                     <tr style="background-color: {{ $fondo }}">
                         <td> {{ $i }}
                         </td>
-                        <td> {{ $item->secp_nac }}{{ $item->secp_cedula }}
+                        <td> {{ $item->secp_cedula }}
                         </td>
                         <td> {{ Str::title($item->secp_nombres) }}
                         </td>
