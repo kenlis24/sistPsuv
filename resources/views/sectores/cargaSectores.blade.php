@@ -33,7 +33,7 @@
                 <select class="form-control" name="secp_sec_id" id="secp_sec_id" required>
                   <option>Seleccione el sector</option>
                   @foreach ($sector as $item)
-                    <option value="{{ $item->id }}">{{ $item->sec_nombre }}</option>
+                    <option value="{{ $item->id }}" selected>{{ $item->sec_nombre }}</option>
                   @endforeach
                 </select>
                 
