@@ -74,10 +74,10 @@ class Users_sectoresController extends Controller
             $mensaje = "Ya el usuario tiene un sector";
         }
 
-        if (count($existenciaSector) >= 1) 
+       /* if (count($existenciaSector) >= 1) 
         {
             $mensaje = "Ya el sector esta cargado para otro usuario";
-        }
+        }*/
 
         if($mensaje=="Guardar") 
         {
