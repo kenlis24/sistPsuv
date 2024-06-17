@@ -74,12 +74,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/militantCalle', 'MilitanciaController@index5')->name('militancia.militantesCalles');
         Route::get('/consultaMilit', 'MilitanciaController@create')->name('reportes.consultaMilitantes');
         Route::get('/estructuraMunicipio', 'EstructuraController@index')->name('estructura.estructuraMunicipios');
+        Route::get('/estructuraMunicipioPDF', 'EstructuraController@pdfMunicipios')->name('estructura.estructuraMunicipioPdf'); 
         Route::post('/storeEstru', 'EstructuraController@store')->name('estructura.store');
         Route::get('/destroyEstru/{id}/{pag}', 'EstructuraController@destroy')->name('estructura.destroy');
         Route::get('/estructuraParroquia', 'EstructuraController@index2')->name('estructura.estructuraParroquias');
+        Route::get('/estructuraParroquiaPDF', 'EstructuraController@pdfParroquias')->name('estructura.estructuraParroquiasPdf'); 
         Route::get('/estructuraUBCH', 'EstructuraController@index3')->name('estructura.estructuraUBCH');
+        Route::get('/estructuraUBCHPDF', 'EstructuraController@pdfUBCH')->name('estructura.estructuraUBCHPdf');
         Route::get('/estructuraComunidades', 'EstructuraController@index4')->name('estructura.estructuraComunidades');
+        Route::get('/estructuraComunidadPDF', 'EstructuraController@pdfComunidades')->name('estructura.estructuraComunidadesPdf'); 
         Route::get('/estructuraCalles', 'EstructuraController@index5')->name('estructura.estructuraCalles');
+        Route::get('/estructuraCallePDF', 'EstructuraController@pdfCalles')->name('estructura.estructuraCallesPdf'); 
         Route::get('/asociarsector', 'Users_sectoresController@index')->name('sectores.index');
         Route::get('/createasociarsector', 'Users_sectoresController@create')->name('sectores.create');
         Route::post('/asociacionstore', 'Users_sectoresController@store')->name('sectores.store');

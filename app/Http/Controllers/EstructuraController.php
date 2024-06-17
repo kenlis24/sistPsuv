@@ -10,6 +10,7 @@ use App\Models\estructuras;
 use App\Models\cargos;
 use App\Models\militancias;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EstructuraController extends Controller
 {
@@ -368,5 +369,105 @@ class EstructuraController extends Controller
         {
             return redirect('/estructuraUBCH')->with('eliminar','ok');
         } 
+    }
+
+    public function pdfMunicipios()
+    { 
+        $usu = auth()->user()->usu_mun_id;
+        $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
+        ->join("municipios", "municipios.id", "=", "estructuras.est_nivel_id")
+        ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "municipios.mun_nombre")         
+        ->where("estructuras.est_nivel","municipios") 
+        ->where("estructuras.est_municipio_usu",$usu) 
+        ->orderBy("cargos.car_cargo")
+        ->get();
+
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->where("municipios.id",$usu)
+        ->orderBy("mun_nombre")
+        ->get();
+
+        $pdf = Pdf::loadView('estructura.estructuraMunicipioPdf',compact('estructuras'),compact('municipios'));
+        return $pdf->stream();
+    }
+
+    public function pdfCalles()
+    { 
+        $usu = auth()->user()->usu_mun_id;
+        $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
+            ->join("calles", "calles.id", "=", "estructuras.est_nivel_id")
+            ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "calles.cal_nombre")         
+            ->where("estructuras.est_nivel","calles") 
+            ->where("estructuras.est_municipio_usu",$usu) 
+            ->orderBy("cargos.car_cargo")
+            ->get();
+
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->where("municipios.id",$usu)
+        ->orderBy("mun_nombre")
+        ->get();
+
+        $pdf = Pdf::loadView('estructura.estructuraCallesPdf',compact('estructuras'),compact('municipios'));
+        return $pdf->stream();
+    }
+
+    public function pdfComunidades()
+    { 
+        $usu = auth()->user()->usu_mun_id;
+        $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
+            ->join("comunidades", "comunidades.id", "=", "estructuras.est_nivel_id")
+            ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "comunidades.com_nombre")         
+            ->where("estructuras.est_nivel","comunidades") 
+            ->where("estructuras.est_municipio_usu",$usu) 
+            ->orderBy("cargos.car_cargo")
+            ->get();
+
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->where("municipios.id",$usu)
+        ->orderBy("mun_nombre")
+        ->get();
+
+        $pdf = Pdf::loadView('estructura.estructuraComunidadesPdf',compact('estructuras'),compact('municipios'));
+        return $pdf->stream();
+    }
+
+    public function pdfParroquias()
+    { 
+        $usu = auth()->user()->usu_mun_id;
+        $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
+        ->join("parroquias", "parroquias.id", "=", "estructuras.est_nivel_id")
+        ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "parroquias.par_nombre")         
+        ->where("estructuras.est_nivel","parroquias") 
+        ->where("estructuras.est_municipio_usu",$usu) 
+        ->orderBy("cargos.car_cargo")
+        ->get();
+
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->where("municipios.id",$usu)
+        ->orderBy("mun_nombre")
+        ->get();
+
+        $pdf = Pdf::loadView('estructura.estructuraParroquiasPdf',compact('estructuras'),compact('municipios'));
+        return $pdf->stream();
+    }
+
+    public function pdfUBCH()
+    { 
+        $usu = auth()->user()->usu_mun_id;
+        $estructuras = estructuras::join("cargos", "cargos.id", "=", "estructuras.est_car_id")
+            ->join("agrupaciones", "agrupaciones.id", "=", "estructuras.est_nivel_id")
+            ->select("estructuras.id","estructuras.est_nac","estructuras.est_cedula","estructuras.est_nombres","estructuras.est_telefono","cargos.car_cargo", "agrupaciones.agr_nombre")         
+            ->where("estructuras.est_nivel","ubch") 
+            ->where("estructuras.est_municipio_usu",$usu) 
+            ->orderBy("cargos.car_cargo")
+            ->get();
+
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->where("municipios.id",$usu)
+        ->orderBy("mun_nombre")
+        ->get();
+
+        $pdf = Pdf::loadView('estructura.estructuraUBCHPdf',compact('estructuras'),compact('municipios'));
+        return $pdf->stream();
     }
 }

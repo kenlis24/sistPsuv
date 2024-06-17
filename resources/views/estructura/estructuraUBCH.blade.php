@@ -137,6 +137,9 @@
           </form>
           <div class="row">
             <div class="col-md-12">
+              <a href="{{ route('estructura.estructuraUBCHPdf') }}" class="btn btn-primary btn-round" target="_blank">Generar PDF</a>  
+            <div class="card">
+            <div class="col-md-12">
             <div class="card">
               <div class="card-body">
                 <div class="">
