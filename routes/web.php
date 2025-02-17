@@ -59,6 +59,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/', 'HomeController@index')->name('home.index');      
         Route::get('/militancia', 'HomeController@militan')->name('home.militancia');    
         Route::get('/user', 'UserController@index')->name('users.index');
+        Route::get('/confCalles', 'CallesController@index')->name('calles.confiCalles');
+        Route::get('/Calles/{id}', 'CallesController@edit')->name('calles.edit');
+        Route::put('/updatecalles/{id}', 'CallesController@update')->name('calles.update');
         Route::get('/create', 'UserController@create')->name('users.create');
         Route::post('/store', 'UserController@store')->name('users.store');
         Route::get('/edituser/{id}', 'UserController@edit')->name('users.edit');
@@ -104,6 +107,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/guardarjefefamilia', 'Jefe_familiasController@store')->name('poblacion.store');
         Route::get('/poblacionpersonas', 'Poblacion_familiasController@index')->name('poblacion.cargaPoblacion');
         Route::post('/guardarpoblacionfamilia', 'Poblacion_familiasController@store')->name('poblacion.storePoblacion');
+        Route::get('/destroyCalle/{id}', 'CallesController@destroy')->name('calles.destroy');
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
 

@@ -22,7 +22,7 @@
     <body>
       <div id="header">
       <img class="imgHeader" src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('assets/img/banner2.jpeg'))) }}" alt="" width="750" height="100">
-        <h2 style="text-align: center;"> Estructura del municipio 
+        <h2 style="text-align: center;"> Militancia del municipio 
           @foreach ($municipios as $item)
           {{ Str::title($item->mun_nombre) }}
         @endforeach

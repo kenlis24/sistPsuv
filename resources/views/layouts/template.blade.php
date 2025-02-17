@@ -119,7 +119,7 @@ Coded by www.creative-tim.com
           </li>    
           @if (auth()->user()->username=='administrador')      
           <li id="opcion1">
-            <a href="#opcion1">;
+            <a href="#opcion1">
               <i class="nc-icon nc-settings-gear-65"></i>
               <p>Administración</p>
             </a>
@@ -302,6 +302,21 @@ Coded by www.creative-tim.com
               </ul>
              </li>  
              @endif
+             @if ($exist==0) 
+             <li id="opcion8">
+               <a href="#opcion8">
+               <i class="nc-icon nc-paper"></i>
+               <p>Configuración</p>
+               </a>
+               <ul>
+                 <li>
+                   <a href="{{ route('calles.confiCalles') }}">                  
+                     <p>Calles</p>
+                   </a>
+                 </li>
+               </ul>
+              </li>  
+              @endif
       </div>
     </div>
     <div class="main-panel">

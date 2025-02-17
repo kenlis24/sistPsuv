@@ -51,12 +51,13 @@ class MilitanciaController extends Controller
         ->orderBy("mun_nombre")
         ->get();
 
-        $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
-        ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
-        ->where("reuniones.reu_tipo","1")           
-        ->where("eventos.eve_estado","A")
-        ->where("reuniones.reu_estado","A")
-        ->get();     
+        $militancias = Militancias::join("eventos", "eventos.id", "=", "militancias.mil_eve_id")
+                ->join("municipios", "municipios.id", "=", "militancias.mil_id")
+                ->select("militancias.id","militancias.mil_nac","militancias.mil_cedula","militancias.mil_nombres","militancias.mil_apellidos","militancias.mil_telefono","municipios.mun_nombre","eventos.eve_nombre")
+                ->where('militancias.mil_tipo_nivel', '=', 'municipios')
+                ->orderBy('eventos.eve_nombre', 'desc')
+                ->get();  
+
         return view('militancia.militantesMunicipios', compact('municipios'), compact('reuniones'));
     }
 
@@ -222,8 +223,29 @@ class MilitanciaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         //
+    }
+
+    public function pdfMunicipios()
+    { 
+        $usu = auth()->user()->usu_mun_id;        
+
+        $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
+        ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
+        ->where("reuniones.reu_tipo","1")           
+        ->where("eventos.eve_estado","A")
+        ->where("reuniones.reu_estado","A")
+        ->get();  
+
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->where("municipios.id",$usu)
+        ->orderBy("mun_nombre")
+        ->get();
+
+        $pdf = Pdf::loadView('estructura.estructuraUBCHPdf',compact('reuniones'),compact('municipios'));
+        return $pdf->stream();
     }
 }

@@ -9,6 +9,8 @@ class calles extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['cal_codigo','cal_nombre', 'cal_estado'];
+
     public function comunidades()
     {
         return $this->belongsTo(comunidades::class, 'cal_com_id');
