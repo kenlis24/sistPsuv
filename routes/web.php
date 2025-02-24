@@ -108,6 +108,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/poblacionpersonas', 'Poblacion_familiasController@index')->name('poblacion.cargaPoblacion');
         Route::post('/guardarpoblacionfamilia', 'Poblacion_familiasController@store')->name('poblacion.storePoblacion');
         Route::get('/destroyCalle/{id}', 'CallesController@destroy')->name('calles.destroy');
+        Route::get('/createcalle', 'CallesController@create')->name('calles.create');
+        Route::post('/storeCalles', 'CallesController@store')->name('calles.store');
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
 

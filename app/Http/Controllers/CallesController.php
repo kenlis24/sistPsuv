@@ -44,6 +44,48 @@ class CallesController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->orderBy("mun_nombre")
+        ->get();
+
+        return view('calles.create', compact('municipios'));
+    }
+
+    public function store(Request $request)
+    {       
+        $mensaje = "Guardar";
+        $existenciaCodigo = DB::table('calles')
+            ->select('id')
+            ->where('cal_codigo', '=', $request->cal_codigo)
+            ->get();                  
+
+        if (count($existenciaCodigo) >= 1) 
+            {
+                $mensaje = "Este código de calle ya existe";
+            }   
+    
+        $input = $request->all();
+        $input['cal_com_id'] = $request->cal_com_id;
+        if($mensaje=="Guardar") 
+        {
+            calles::create($input);
+            return redirect('confCalles');
+        }
+        else
+        {
+            return redirect('createcalle')
+            ->with("mensaje", $mensaje);  
+        }
+    }
+
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

@@ -10,7 +10,8 @@
     <div class="content">
 
             <div class="card">
-              <div class="card-header">               
+              <div class="card-header">  
+                <a href="{{ route('calles.create') }}" class="btn btn-primary btn-round">Nueva Calle</a>              
                 <h4 class="card-title">Lista de Calles</h4>
               </div>
               <div class="card-body">

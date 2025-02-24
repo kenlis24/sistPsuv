@@ -9,7 +9,7 @@ class calles extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cal_codigo','cal_nombre', 'cal_estado'];
+    protected $fillable = ['cal_codigo','cal_nombre', 'cal_estado', 'cal_com_id'];
 
     public function comunidades()
     {
