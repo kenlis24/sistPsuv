@@ -9,6 +9,8 @@ use App\Models\calles;
 use App\Models\estructuras;
 use App\Models\sectores;
 use App\Models\jefe_familias;
+use App\Models\agrupaciones_elecs;
+use App\Models\comunidades_elecs;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -47,6 +49,33 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
+        Route::get('/centros', 'CallesController@index2')->name('poblacion.centrosVotacion');
+        Route::get('/municipios2/{id}/parroquias2', function ($id) {
+
+            $municipios = municipios::find($id);
+            return parroquias::where('par_mun_id',$municipios->id)
+            ->orderBy("par_nombre")
+            ->get();
+        });
+        Route::get('/parroquias2/{id}/agrupaciones2', function ($id) {
+
+                      return $variable = agrupaciones_elecs::join("comunidades_elecs", "comunidades_elecs.com_agr_id", "=", "agrupaciones_elecs.id")
+        ->select("comunidades_elecs.id","comunidades_elecs.com_nombre") 
+        ->where("agrupaciones_elecs.agr_par_id",$id)  
+        ->orderBy("comunidades_elecs.com_nombre","asc")   
+        ->get(); 
+
+        });
+
+        Route::get('/comunidades2/{id}/agrupaciones2', function ($id) {
+
+            return $variable = agrupaciones_elecs::join("comunidades_elecs", "comunidades_elecs.com_agr_id", "=", "agrupaciones_elecs.id")
+            ->select("agrupaciones_elecs.id","agrupaciones_elecs.agr_nombre") 
+            ->where("comunidades_elecs.id",$id)    
+            ->orderBy("agrupaciones_elecs.agr_nombre","asc")   
+            ->get(); 
+
+            });
         /*Route::get('/create', 'UserController@create')->name('users.create');
         Route::post('/store', 'UserController@store')->name('users.store');*/
 
@@ -110,6 +139,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/destroyCalle/{id}', 'CallesController@destroy')->name('calles.destroy');
         Route::get('/createcalle', 'CallesController@create')->name('calles.create');
         Route::post('/storeCalles', 'CallesController@store')->name('calles.store');
+        
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
 
@@ -233,6 +263,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             ->orderBy("par_nombre")
             ->get();
         });
+
 
         Route::get('/sectores', function () {
 

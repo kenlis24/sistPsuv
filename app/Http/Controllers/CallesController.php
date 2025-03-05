@@ -43,6 +43,14 @@ class CallesController extends Controller
         return view('calles.confiCalles',compact('lista'));
     }
 
+    public function index2()
+    {       
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->orderBy("mun_nombre")
+        ->get();
+        return view('poblacion.centrosVotacion',compact('municipios'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
