@@ -8,7 +8,7 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         {!! csrf_field() !!}
         <br>
-        <h1 class="navbar-brand">Centros de Votación</h1>
+        <h1 class="navbar-brand">Lugar Asamblea de Postulación</h1>
 
         @include('layouts.partials.messages')
         <div class="row">
@@ -55,14 +55,14 @@
           </div>
           <div class="ol-md-4 px-1">
             <div class="form-group">
-              <label>Centros de Votación del estado Táchira</label>
+              <label>Lugar Asamblea de Postulación</label>
               <select class="form-control" id="comunSelect"> 
                 <option value="">Selecciona Centros de Votación</option>       
               </select>
+             
             </div>
           </div>            
-        </div>
-        <a href="{{ route('login.perform') }}" class="btn btn-primary btn-round">Regresar</a> 
+        </div>        
         @include('auth.partials.copy')
     </form>
 
