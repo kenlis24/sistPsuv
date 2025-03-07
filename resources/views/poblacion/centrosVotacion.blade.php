@@ -7,8 +7,10 @@
            
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         {!! csrf_field() !!}
+        <img class="mb-4" src="{!! url('assets/img/banner2.jpeg') !!}" alt="" width="800" height="150">
         <br>
-        <h1 class="navbar-brand">Lugar Asamblea de Postulación</h1>
+        <h1 class="navbar-brand">Lugar de la Asamblea de Postulación <br>  
+          Sábado 15 de Marzo. 2025 / 2:00pm</h1>
 
         @include('layouts.partials.messages')
         <div class="row">
@@ -18,7 +20,7 @@
             <div class="form-group">
               <label>Municipios del estado Táchira</label>
               <select class="form-control" name="municipios_id" id="_municipios" onchange="loadParroquias(this)">
-                <option value="">Selecciona el municipio</option>
+                <option value="">Seleccione el Municipio Dónde Vive</option>
                 @foreach ($municipios as $item)
                   <option value="{{ $item->id }}">{{ $item->mun_nombre }}</option>
                 @endforeach
@@ -33,7 +35,7 @@
             <div class="form-group">
               <label>Parroquias del estado Táchira</label>
               <select class="form-control" name="parroquias_id" id="parSelect" onchange="loadUBCH(this)">  
-                <option value="">Selecciona la parroquia</option>       
+                <option value="">Seleccione la Parroquia Donde Vive</option>       
               </select>
             </div>
           </div>            
@@ -45,7 +47,7 @@
             <div class="form-group">
               <label>Comunidades del estado Táchira</label>
               <select class="form-control" id="ubchSelect" onchange="loadComunidades(this)"> 
-                <option value="">Selecciona comunidades</option>       
+                <option value="">Seleccione la Comunidad Donde Vive</option>       
               </select>
             </div>
           </div>            
@@ -56,10 +58,8 @@
           <div class="ol-md-4 px-1">
             <div class="form-group">
               <label>Lugar Asamblea de Postulación</label>
-              <select class="form-control" id="comunSelect"> 
-                <option value="">Selecciona Centros de Votación</option>       
+              <select class="form-control" id="comunSelect">       
               </select>
-             
             </div>
           </div>            
         </div>        
