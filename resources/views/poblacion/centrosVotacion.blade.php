@@ -7,7 +7,7 @@
            
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         {!! csrf_field() !!}
-        <img class="mb-4" src="{!! url('assets/img/banner2.jpeg') !!}" alt="" width="800" height="150">
+        <img class="mb-4" src="{!! url('assets/img/banner2.jpeg') !!}" alt="" width="650" height="120">
         <br>
         <h1 class="navbar-brand">Lugar de la Asamblea de Postulación <br>  
           Sábado 15 de Marzo. 2025 / 2:00pm</h1>
@@ -58,11 +58,12 @@
           <div class="ol-md-4 px-1">
             <div class="form-group">
               <label>Lugar Asamblea de Postulación</label>
-              <select class="form-control" id="comunSelect">       
+              <select class="form-control" id="comunSelect">   
               </select>
             </div>
           </div>            
-        </div>        
+        </div>      
+        <a href="{{ route('poblacion.centrosVotacion') }}" class="btn btn-primary btn-round">Nueva Consulta</a>   
         @include('auth.partials.copy')
     </form>
 
@@ -93,7 +94,7 @@
 
     function clearSelectComunindades(select)
     {
-      while(select.options.length > 1){
+      while(select.options.length > 1){        
         select.remove(1);
       }
     } 
@@ -120,34 +121,35 @@
         }
 
         function loadUBCH(selectParroquias)
-  {
-    let parroquiaId = selectParroquias.value;
-    fetch(`parroquias2/${parroquiaId}/agrupaciones2`)
-      .then( function (response) { 
-        return response.json();
-      })
+        {
+          let parroquiaId = selectParroquias.value;
+          fetch(`parroquias2/${parroquiaId}/agrupaciones2`)
+            .then( function (response) { 
+              return response.json();
+            })
 
-      .then(function(jsonData){
-        buildUBCHSelect(jsonData);
-      })
-    }
+            .then(function(jsonData){
+              buildUBCHSelect(jsonData);
+            })
+          }
 
     function loadComunidades(selectUBCH)
-  {
-    let ubchaId = selectUBCH.value;
-    fetch(`comunidades2/${ubchaId}/agrupaciones2`)
-      .then( function (response) { 
-        return response.json();
-      })
+    {
+      let ubchaId = selectUBCH.value;
+      fetch(`comunidades2/${ubchaId}/agrupaciones2`)
+        .then( function (response) { 
+          return response.json();
+        })
 
-      .then(function(jsonData){
-        buildComunidadesSelect(jsonData);
-      })
-    }
+        .then(function(jsonData){
+          buildComunidadesSelect(jsonData);
+        })
+      }
 
     function buildComunidadesSelect(jsonComun)
     {
-      let ComunSelect = document.getElementById('comunSelect');
+      let ComunSelect = document.getElementById('comunSelect');      
+      clearSelectComunindades(comunSelect);
       jsonComun.forEach(function (agrupaciones) {
         let optionTag = document.createElement('option');
         optionTag.value = agrupaciones.id;
@@ -158,8 +160,7 @@
 
     function buildUBCHSelect(jsonUBCH)
     {
-      let UBCHSelect = document.getElementById('ubchSelect');
-
+      let UBCHSelect = document.getElementById('ubchSelect');         
       jsonUBCH.forEach(function (comunidades) {
         let optionTag = document.createElement('option');
         optionTag.value = comunidades.id;
