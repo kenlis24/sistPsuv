@@ -9,6 +9,8 @@ class comunidades extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['com_codigo','com_nombre', 'com_estado', 'com_agr_id'];
+
     public function agrupaciones()
     {
         return $this->belongsTo(agrupaciones::class, 'com_agr_id');

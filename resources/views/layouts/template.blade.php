@@ -314,6 +314,11 @@ Coded by www.creative-tim.com
                      <p>Calles</p>
                    </a>
                  </li>
+                 <li>
+                  <a href="{{ route('comunidades.confiComunidades') }}">                  
+                    <p>Comunidades</p>
+                  </a>
+                </li>
                </ul>
               </li>  
               @endif

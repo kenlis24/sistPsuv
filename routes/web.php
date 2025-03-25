@@ -139,6 +139,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/destroyCalle/{id}', 'CallesController@destroy')->name('calles.destroy');
         Route::get('/createcalle', 'CallesController@create')->name('calles.create');
         Route::post('/storeCalles', 'CallesController@store')->name('calles.store');
+        Route::get('/confComunidades', 'ComunidadesController@index')->name('comunidades.confiComunidades');
+        Route::get('/Comunidades/{id}', 'ComunidadesController@edit')->name('comunidades.edit');
+        Route::put('/updatecomunidades/{id}', 'ComunidadesController@update')->name('comunidades.update');
         
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
