@@ -15,6 +15,15 @@
               </div>
               <div class="card-body">
                 <div class="container">
+                  @if(session("mensaje"))
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <h5 class="card-title">{{session('mensaje')}}</h5>
+                      </div>
+                    </div>
+                  </div>
+              @endif
                   <div class="row">
                     <div class="col-12">
                 <div class="data_table">
@@ -48,6 +57,13 @@
                                 </td>                                            
                                 <td class="text-right">
                                     <a href="{{ route('comunidades.edit',$item->id) }}" class="btn btn-primary btn-round btn-xs" >Editar</a>                                                                
+                                    <form class="miFormulario" action="{{ route('comunidades.destroy',['id' => $item->id]) }}">
+                                      @method("DELETE")
+                                        @csrf
+                                      <!-- Otros campos del formulario anidado -->
+                                      
+                                      <button type="submit" id="botonmiFormulario" class="btn btn-danger btn-round btn-xs">Eliminar</button>
+                                  </form>  
                                 </td>
                             </tr>
                         @endforeach

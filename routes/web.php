@@ -142,6 +142,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/confComunidades', 'ComunidadesController@index')->name('comunidades.confiComunidades');
         Route::get('/Comunidades/{id}', 'ComunidadesController@edit')->name('comunidades.edit');
         Route::put('/updatecomunidades/{id}', 'ComunidadesController@update')->name('comunidades.update');
+        Route::get('/destroyComunidad/{id}', 'ComunidadesController@destroy')->name('comunidades.destroy');
         
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {

@@ -14,6 +14,8 @@ use App\Models\poblacion_familias;
 use App\Models\jpsuv_estructuras;
 use App\Models\jefe_familias;
 
+use Illuminate\Support\Facades\DB;
+
 class ComunidadesController extends Controller
 {
     /**
@@ -64,5 +66,44 @@ class ComunidadesController extends Controller
         $input = $request->all();
         $comunidades->update($input);
         return redirect('/confComunidades');  
+    }
+
+    public function destroy($id)
+    {
+        $mensaje = "Guardar";
+        $existenciaCalles = DB::table('Calles')
+            ->select('id')
+            ->where('cal_com_id', '=', $id)
+            ->where('cal_estado', '=', "A")
+            ->get(); 
+
+        if (count($existenciaCalles) >= 1) 
+        {
+            $mensaje = "NO SE PUEDE ELIMINAR COMUNIDAD YA QUE TIENE CALLES ACTIVAS";
+            return redirect('/confComunidades')->with("mensaje", $mensaje); 
+
+        }
+
+        if($mensaje=="Guardar") 
+        {
+            DB::table('estructuras')
+            ->where('est_nivel_id', '=', $id)
+            ->where('est_nivel', '=', 'comunidades')
+            ->delete(); 
+
+            DB::table('militancias')        
+            ->where('mil_id', '=', $id)
+            ->where('mil_tipo_nivel', '=', 'comunidades')
+            ->delete();                               
+
+            DB::table('jpsuv_estructuras')
+            ->where('estj_nivel_id', '=', $id)
+            ->where('estj_nivel', '=', 'comunidades')
+            ->delete();
+        
+            $var = Comunidades::find($id);
+            $var->delete();   
+            return redirect('/confComunidades'); 
+        }
     }
 }
