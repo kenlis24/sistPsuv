@@ -10,7 +10,8 @@
     <div class="content">
 
             <div class="card">
-              <div class="card-header">                              
+              <div class="card-header">            
+                <a href="{{ route('comunidades.create') }}" class="btn btn-primary btn-round">Nueva Comunidad</a>                  
                 <h4 class="card-title">Lista de Comunidades</h4>
               </div>
               <div class="card-body">

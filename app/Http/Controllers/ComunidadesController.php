@@ -42,6 +42,47 @@ class ComunidadesController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $municipios = municipios::select("municipios.id","municipios.mun_nombre" ) 
+        ->orderBy("mun_nombre")
+        ->get();
+
+        return view('comunidades.create', compact('municipios'));
+    }
+
+    public function store(Request $request)
+    {       
+        $mensaje = "Guardar";
+        $existenciaCodigo = DB::table('comunidades')
+            ->select('id')
+            ->where('com_codigo', '=', $request->com_codigo)
+            ->get();                  
+
+        if (count($existenciaCodigo) >= 1) 
+            {
+                $mensaje = "Este código de comunidad ya existe";
+            }   
+    
+        $input = $request->all();
+        $input['com_agr_id'] = $request->com_agr_id;
+        if($mensaje=="Guardar") 
+        {
+            comunidades::create($input);
+            return redirect('confComunidades');
+        }
+        else
+        {
+            return redirect('createcomunidad')
+            ->with("mensaje", $mensaje);  
+        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

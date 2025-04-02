@@ -143,6 +143,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/Comunidades/{id}', 'ComunidadesController@edit')->name('comunidades.edit');
         Route::put('/updatecomunidades/{id}', 'ComunidadesController@update')->name('comunidades.update');
         Route::get('/destroyComunidad/{id}', 'ComunidadesController@destroy')->name('comunidades.destroy');
+        Route::get('/createcomunidad', 'ComunidadesController@create')->name('comunidades.create');
+        Route::post('/storeCComunidades', 'ComunidadesController@store')->name('comunidades.store');
         
 
         Route::get('/reporteLista/{id}/datosCargados', function ($id) {
