@@ -112,7 +112,7 @@ class ComunidadesController extends Controller
     public function destroy($id)
     {
         $mensaje = "Guardar";
-        $existenciaCalles = DB::table('Calles')
+        $existenciaCalles = DB::table('calles')
             ->select('id')
             ->where('cal_com_id', '=', $id)
             ->where('cal_estado', '=', "A")

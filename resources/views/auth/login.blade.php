@@ -35,7 +35,7 @@
         </div>
         <button class="btn btn-primary btn-round" type="submit">Iniciar</button>
         <br> 
-        <a href="{{ route('poblacion.centrosVotacion') }}" class="btn btn-primary btn-round">Lugar Asamblea de Postulación</a> 
+        <!-- <a href="{{ route('poblacion.centrosVotacion') }}" class="btn btn-primary btn-round">Lugar Asamblea de Postulación</a> -->
         @include('auth.partials.copy')
     </form>
 @endsection
