@@ -154,6 +154,10 @@ class Jpsuv_estructuraController extends Controller
 
         $input = $request->all();
         $input['estj_tipo_reg'] = $request->estj_tipo_reg;
+        if($input['estj_tipo_reg']=='')
+        {
+                $input['estj_tipo_reg'] = 'Registro Manual';
+        }
         if($mensaje=="Guardar") 
         {
             jpsuv_estructuras::create($input);

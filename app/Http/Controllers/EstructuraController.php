@@ -194,6 +194,10 @@ class EstructuraController extends Controller
 
         $input = $request->all();
         $input['est_tipo_reg'] = $request->est_tipo_reg;
+        if($input['est_tipo_reg']=='')
+        {
+            $input['est_tipo_reg'] = 'Registro Manual';
+        }
         if($mensaje=="Guardar") 
         {
             Estructuras::create($input);
