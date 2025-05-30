@@ -58,6 +58,13 @@ class MilitanciaController extends Controller
                 ->orderBy('eventos.eve_nombre', 'desc')
                 ->get();  
 
+                $reuniones = Reuniones::join("eventos", "eventos.id", "=", "reuniones.reu_eve_id")
+                ->select("reuniones.id","reuniones.reu_tipo","reuniones.reu_estado","eventos.eve_nombre","eventos.id" ) 
+                ->where("reuniones.reu_tipo","1")   
+                ->where("eventos.eve_estado","A")
+                ->where("reuniones.reu_estado","A")
+                ->get(); 
+
         return view('militancia.militantesMunicipios', compact('municipios'), compact('reuniones'));
     }
 
