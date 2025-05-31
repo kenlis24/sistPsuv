@@ -11,6 +11,7 @@ use App\Models\sectores;
 use App\Models\jefe_familias;
 use App\Models\agrupaciones_elecs;
 use App\Models\comunidades_elecs;
+use App\Models\cne_datos;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -430,6 +431,29 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                             );
                             $entro='1';
                         }
+        });
+
+        Route::get('personaconsullocal/{datosNac}/{datosCed}/datosCNE', function ($datosNac, $datosCed) {
+
+            $nac = $datosNac;
+            $ci = $datosCed;
+
+            $datos = cne_datos::where('cne_cedula','=',$ci)
+            ->where('cne_nac', '=', $nac)
+            ->first();   
+
+            return response()->json(
+                [
+                    'mensaje' => $datos->cne_nombres,   
+                    'tipo' => "INSCRITO CNE", 
+                    'estado' => $datos->cne_estado,
+                    'municipio' => $datos->cne_municipio,
+                    'parroquia' => '',
+                    'centro' => $datos->cne_centro,        
+                ],
+                200
+            );
+            
         });
 
        /* Route::get('personaconsul/{datosNac}/{datosCed}/datosCNE', function ($datosNac, $datosCed) {

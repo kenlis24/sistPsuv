@@ -203,7 +203,7 @@
   {
     var datosNac = document.getElementById("inputsNac["+i+"]").value;
     var datosCed = document.getElementById("inputsCed["+i+"]").value;
-    fetch(`personaconsul/${datosNac}/${datosCed}/datosCNE`)
+    fetch(`personaconsullocal/${datosNac}/${datosCed}/datosCNE`)
       .then( function (response) { 
         return response.json();
       })
@@ -280,6 +280,17 @@
               document.getElementById("mil_centro_usua["+i+"]").value = jsonDataCNE.centro;
               document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;
             }   
+            console.log(jsonDataCNE);
+      }  
+      if(jsonDataCNE.tipo=='INSCRITO CNE')
+      {
+        let arrayNombres = jsonDataCNE.mensaje;
+              document.getElementById("inputsNombre["+i+"]").value = jsonDataCNE.mensaje;
+              document.getElementById("mil_estado_usua["+i+"]").value = jsonDataCNE.estado;
+              document.getElementById("mil_mun_usua["+i+"]").value = jsonDataCNE.municipio;
+              document.getElementById("mil_parr_usua["+i+"]").value = jsonDataCNE.parroquia;
+              document.getElementById("mil_centro_usua["+i+"]").value = jsonDataCNE.centro;
+              document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;              
             console.log(jsonDataCNE);
       }  
     }
