@@ -117,7 +117,7 @@
                         <button type="button" class="nc-icon nc-zoom-split" style="border: none; background: none;" onclick="consultarced(0)"></button>
                       </td>
                       <td>
-                        <input type="text" class="form-control" style="text-transform:uppercase;" placeholder="Nombres" name="inputsNombre[0]" id="inputsNombre[0]" required>   
+                        <input type="text" class="form-control" style="text-transform:uppercase;"  placeholder="Nombres" name="inputsNombre[0]" id="inputsNombre[0]" required>   
                         <input type="hidden" name="mil_estado_usua[0]" id="mil_estado_usua[0]"/> 
                         <input type="hidden" name="mil_mun_usua[0]" id="mil_mun_usua[0]"/>    
                         <input type="hidden" name="mil_parr_usua[0]" id="mil_parr_usua[0]"/>     
@@ -293,6 +293,16 @@
               document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;              
             console.log(jsonDataCNE);
       }  
+      if(jsonDataCNE.tipo=='NO ESTA')
+      {
+         alert("\nPersona no registrada en el CNE");
+         document.getElementById("inputsNombre["+i+"]").value = '';
+              document.getElementById("mil_estado_usua["+i+"]").value = '';
+              document.getElementById("mil_mun_usua["+i+"]").value = '';
+              document.getElementById("mil_parr_usua["+i+"]").value = '';
+              document.getElementById("mil_centro_usua["+i+"]").value = '';  
+              document.getElementById("mil_tipo_reg["+i+"]").value = jsonDataCNE.tipo;   
+      }
     }
 
   function loadParroquias(selectMunicipios)

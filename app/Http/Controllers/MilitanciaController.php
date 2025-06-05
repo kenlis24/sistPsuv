@@ -134,7 +134,7 @@ class MilitanciaController extends Controller
             $input['mil_municipio'] = $request->mil_mun_usua[$key];
             $input['mil_parroquia'] = $request->mil_parr_usua[$key];
             $input['mil_centro'] = $request->mil_centro_usua[$key];
-            if($request->mil_tipo_reg[$key]=='')
+            if($request->mil_tipo_reg[$key]=='' && $tipoPag!='ubch')
             {
                 $input['mil_tipo_reg'] = 'Registro Manual';
             }
@@ -163,7 +163,17 @@ class MilitanciaController extends Controller
             }
             else
             {
-                Militancias::create($input);
+                if($tipoPag=='ubch')
+                {
+                    if($request->mil_tipo_reg[$key]=='INSCRITO CNE')
+                    {
+                        Militancias::create($input);
+                    }
+                }
+                else
+                {
+                    Militancias::create($input);
+                }   
             }
             
         }

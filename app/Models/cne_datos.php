@@ -9,5 +9,5 @@ class cne_datos extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cne_estado','cne_municipio', 'cne_cod_centro', 'cne_centro', 'cne_nac','cne_cedula','cne_nombres', 'cne_sexo','cne_fecha_nac'];
+    protected $fillable = ['cne_estado','cne_municipio', 'cne_parroquia', 'cne_cod_centro', 'cne_centro', 'cne_nac','cne_cedula','cne_nombres', 'cne_sexo','cne_fecha_nac'];
 }

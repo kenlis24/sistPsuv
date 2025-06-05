@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('cne_datos', function (Blueprint $table) {
-            $table->string('cne_parroquia', 250)->after('cne_estado');
+            $table->string('cne_parroquia', 250)->after('cne_municipio');
         });
     }
 

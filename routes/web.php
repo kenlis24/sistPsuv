@@ -440,19 +440,22 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
             $datos = cne_datos::where('cne_cedula','=',$ci)
             ->where('cne_nac', '=', $nac)
-            ->first();   
+            ->first();  
+            
+            if ($datos) {
+                $tipo = 'INSCRITO CNE';
+            } else {
+                $tipo = 'NO ESTA';
+            }
 
-            return response()->json(
-                [
-                    'mensaje' => $datos->cne_nombres,   
-                    'tipo' => "INSCRITO CNE", 
-                    'estado' => $datos->cne_estado,
-                    'municipio' => $datos->cne_municipio,
-                    'parroquia' => '',
-                    'centro' => $datos->cne_centro,        
-                ],
-                200
-            );
+            return response()->json([
+                'mensaje' => $datos ? $datos->cne_nombres : '',
+                'tipo' => $tipo,
+                'estado' => $datos ? $datos->cne_estado : '',
+                'municipio' => $datos ? $datos->cne_municipio : '',
+                'parroquia' => $datos ? $datos->cne_parroquia : '',
+                'centro' => $datos ? $datos->cne_centro : '',
+            ], 200);
             
         });
 
