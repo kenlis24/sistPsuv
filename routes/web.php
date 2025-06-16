@@ -479,7 +479,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             $entro='0';
             if($posicion_coincidencia = strpos($info[1], 'no se encuentra inscrita'))
                         {
-                            return response()->json(
+                            return response(
+                            )->json(
                             [
                             'mensaje' => "Esta cédula de identidad no se encuentra inscrito en el Registro Electoral",
                             'tipo' => "NO INSCRITO",
